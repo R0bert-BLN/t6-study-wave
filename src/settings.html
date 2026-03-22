@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings | StudyWave</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #FAFAFA;
+            overflow: hidden;
+            font-size: 14px;
+            color: #18181b;
+        }
+
+        .input-fluid {
+            background: transparent;
+            border-bottom: 1px solid #e4e4e7;
+            border-radius: 0;
+            padding: 8px 0;
+            width: 100%;
+            transition: all 0.2s;
+            outline: none;
+        }
+
+        .input-fluid:focus {
+            border-bottom-color: #2563eb;
+        }
+    </style>
+</head>
+<body class="flex h-screen bg-[#FAFAFA]">
+
+<!-- SIDEBAR -->
+<aside class="w-64 bg-[#111] text-zinc-400 flex flex-col justify-between flex-shrink-0 z-20 py-6 pl-4 pr-2">
+    <div>
+        <div class="flex items-center gap-3 mb-10 text-white px-2">
+            <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center shadow-[0_0_15px_rgba(37,99,235,0.5)]">
+                <i class="ph-bold ph-waves text-white text-lg"></i></div>
+            <span class="text-lg font-bold tracking-tight">StudyWave</span>
+        </div>
+        <nav class="flex flex-col gap-1 pr-2">
+            <p class="text-[10px] font-bold text-zinc-600 uppercase tracking-widest mb-3 ml-3">Menu</p>
+            <a href="classes.html"
+               class="flex items-center w-full gap-3 px-3 py-2 rounded-lg hover:bg-zinc-900 hover:text-white font-medium text-[13px] transition-all"><i
+                    class="ph ph-books text-lg"></i> Classes</a>
+            <a href="schedule.html"
+               class="flex items-center w-full gap-3 px-3 py-2 rounded-lg hover:bg-zinc-900 hover:text-white font-medium text-[13px] transition-all"><i
+                    class="ph ph-calendar-blank text-lg"></i> Schedule</a>
+            <a href="evaluate.html"
+               class="flex justify-between items-center w-full px-3 py-2 rounded-lg hover:bg-zinc-900 hover:text-white font-medium text-[13px] transition-all">
+                <div class="flex items-center gap-3"><i class="ph ph-check-circle text-lg"></i> To Evaluate</div>
+            </a>
+            <a href="todo.html"
+               class="flex items-center w-full gap-3 px-3 py-2 rounded-lg hover:bg-zinc-900 hover:text-white font-medium text-[13px] transition-all">
+                <div class="flex items-center gap-3"><i class="ph ph-books text-lg"></i> To Do</div>
+            </a>
+            <a href="notes.html"
+               class="flex items-center w-full gap-3 px-3 py-2 rounded-lg hover:bg-zinc-900 hover:text-white font-medium text-[13px] transition-all"><i
+                    class="ph ph-notebook text-lg"></i> Notes</a>
+            <p class="text-[10px] font-bold text-zinc-600 uppercase tracking-widest mb-3 ml-3 mt-6">System</p>
+            <a href="archived.html"
+               class="flex items-center w-full gap-3 px-3 py-2 rounded-lg hover:bg-zinc-900 hover:text-white font-medium text-[13px] transition-all"><i
+                    class="ph ph-archive text-lg"></i> Archived</a>
+            <a href="settings.html"
+               class="flex items-center w-full gap-3 px-3 py-2 rounded-lg font-medium text-[13px] transition-all text-white bg-zinc-800/50"><i
+                    class="ph-fill ph-gear text-lg text-blue-500"></i> Settings</a>
+        </nav>
+    </div>
+    <div class="flex items-center gap-3 px-2">
+        <img src="https://ui-avatars.com/api/?name=Alex+P&background=333&color=fff" class="w-8 h-8 rounded-full">
+        <div class="flex-1 overflow-hidden"><p class="text-[13px] font-medium text-white">Alex Popescu</p>
+            <p class="text-[11px] text-zinc-600">Professor</p></div>
+    </div>
+</aside>
+
+<!-- MAIN CONTENT -->
+<main class="flex-1 overflow-y-auto relative p-8 lg:p-12">
+    <div class="max-w-2xl mx-auto">
+        <header class="mb-12 mt-2">
+            <h1 class="text-4xl font-bold text-zinc-900 tracking-tight">Settings</h1>
+            <p class="text-zinc-500 text-[14px] mt-2">Manage your settings and preferences.</p>
+        </header>
+
+        <div class="space-y-16">
+            <section>
+                <h3 class="text-[11px] font-bold uppercase tracking-widest text-zinc-400 mb-8 pb-2 border-b border-zinc-100">
+                    Public Profile</h3>
+
+                <div class="flex items-center gap-8 mb-10">
+                    <div class="relative group">
+                        <img src="https://ui-avatars.com/api/?name=Alex+P&background=000&color=fff"
+                             class="w-24 h-24 rounded-full shadow-lg border border-zinc-200">
+                        <button class="absolute inset-0 bg-black/40 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-[11px] font-bold uppercase">
+                            Change
+                        </button>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-lg text-zinc-900">Alex Popescu</h4>
+                        <p class="text-zinc-500 text-[13px]">Associate Professor • Computer Science</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 gap-8">
+                    <div>
+                        <label class="block text-[11px] font-bold uppercase tracking-widest text-zinc-400 mb-1">Full
+                            Name</label>
+                        <input type="text" value="Alex Popescu"
+                               class="input-fluid text-[15px] font-medium text-zinc-900">
+                    </div>
+                    <div>
+                        <label class="block text-[11px] font-bold uppercase tracking-widest text-zinc-400 mb-1">Academic
+                            Title</label>
+                        <input type="text" value="Associate Professor"
+                               class="input-fluid text-[15px] font-medium text-zinc-900">
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h3 class="text-[11px] font-bold uppercase tracking-widest text-zinc-400 mb-8 pb-2 border-b border-zinc-100">
+                    Security & Access</h3>
+
+                <div class="space-y-8">
+                    <div>
+                        <label class="block text-[11px] font-bold uppercase tracking-widest text-zinc-400 mb-1">Email
+                            Address</label>
+                        <div class="flex justify-between items-center gap-4">
+                            <input type="email" value="alex@studywave.edu" disabled
+                                   class="input-fluid text-[15px] text-zinc-400 cursor-not-allowed border-zinc-100">
+                            <span class="bg-emerald-50 text-emerald-600 text-[10px] font-bold px-2 py-1 rounded-full border border-emerald-100 uppercase tracking-tighter">Verified</span>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-[11px] font-bold uppercase tracking-widest text-zinc-400 mb-1">Password</label>
+                        <div class="flex justify-between items-center">
+                            <input type="password" value="********" disabled
+                                   class="input-fluid text-[15px] text-zinc-300 border-none w-auto">
+                            <button class="text-blue-600 text-[12px] font-bold hover:underline">Update Password</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h3 class="text-[11px] font-bold uppercase tracking-widest text-zinc-400 mb-6 pb-2 border-b border-zinc-100">
+                    Email Notifications</h3>
+                <div class="flex items-center justify-between py-2">
+                    <span class="text-[14px] text-zinc-700 font-medium">New student submissions</span>
+                    <input type="checkbox" checked class="w-4 h-4 accent-blue-600">
+                </div>
+                <div class="flex items-center justify-between py-2">
+                    <span class="text-[14px] text-zinc-700 font-medium">Messages from students</span>
+                    <input type="checkbox" checked class="w-4 h-4 accent-blue-600">
+                </div>
+            </section>
+
+            <footer class="pt-10 border-t border-zinc-100 flex justify-end gap-6 pb-20">
+                <button class="text-zinc-400 hover:text-zinc-900 font-bold text-[13px] transition-colors">Discard
+                </button>
+                <button class="bg-black text-white px-8 py-2 rounded-full text-[13px] font-bold shadow-lg hover:shadow-xl hover:opacity-80 transition-all">
+                    Save All Changes
+                </button>
+            </footer>
+        </div>
+    </div>
+</main>
+
+</body>
+</html>

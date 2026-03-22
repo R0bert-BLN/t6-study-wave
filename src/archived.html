@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Archived | StudyWave</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="flex h-screen bg-[#FAFAFA]">
+
+<!-- SIDEBAR -->
+<aside class="w-64 bg-[#111] text-zinc-400 flex flex-col justify-between flex-shrink-0 z-20 py-6 pl-4 pr-2">
+    <div>
+        <div class="flex items-center gap-3 mb-10 text-white px-2">
+            <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center shadow-[0_0_15px_rgba(37,99,235,0.5)]">
+                <i class="ph-bold ph-waves text-white text-lg"></i></div>
+            <span class="text-lg font-bold tracking-tight">StudyWave</span>
+        </div>
+        <nav class="flex flex-col gap-1 pr-2">
+            <p class="text-[10px] font-bold text-zinc-600 uppercase tracking-widest mb-3 ml-3">Menu</p>
+            <a href="classes.html"
+               class="flex items-center w-full gap-3 px-3 py-2 rounded-lg hover:bg-zinc-900 hover:text-white font-medium text-[13px] transition-all"><i
+                    class="ph ph-books text-lg"></i> Classes</a>
+            <a href="schedule.html"
+               class="flex items-center w-full gap-3 px-3 py-2 rounded-lg hover:bg-zinc-900 hover:text-white font-medium text-[13px] transition-all"><i
+                    class="ph ph-calendar-blank text-lg"></i> Schedule</a>
+            <a href="evaluate.html"
+               class="flex justify-between items-center w-full px-3 py-2 rounded-lg hover:bg-zinc-900 hover:text-white font-medium text-[13px] transition-all">
+                <div class="flex items-center gap-3"><i class="ph ph-check-circle text-lg"></i> To Evaluate</div>
+            </a>
+            <a href="todo.html"
+               class="flex items-center w-full gap-3 px-3 py-2 rounded-lg hover:bg-zinc-900 hover:text-white font-medium text-[13px] transition-all">
+                <div class="flex items-center gap-3"><i class="ph ph-books text-lg"></i> To Do</div>
+            </a>
+            <a href="notes.html"
+               class="flex items-center w-full gap-3 px-3 py-2 rounded-lg hover:bg-zinc-900 hover:text-white font-medium text-[13px] transition-all"><i
+                    class="ph ph-notebook text-lg"></i> Notes</a>
+            <p class="text-[10px] font-bold text-zinc-600 uppercase tracking-widest mb-3 ml-3 mt-6">System</p>
+            <a href="archived.html"
+               class="flex items-center w-full gap-3 px-3 py-2 rounded-lg font-medium text-[13px] transition-all text-white bg-zinc-800/50"><i
+                    class="ph-fill ph-archive text-lg text-blue-500"></i> Archived</a>
+            <a href="settings.html"
+               class="flex items-center w-full gap-3 px-3 py-2 rounded-lg hover:bg-zinc-900 hover:text-white font-medium text-[13px] transition-all"><i
+                    class="ph ph-gear text-lg"></i> Settings</a>
+        </nav>
+    </div>
+    <div class="flex items-center gap-3 px-2">
+        <img src="https://ui-avatars.com/api/?name=Alex+P&background=333&color=fff" class="w-8 h-8 rounded-full">
+        <div class="flex-1 overflow-hidden"><p class="text-[13px] font-medium text-white">Alex Popescu</p>
+            <p class="text-[11px] text-zinc-600">Professor</p></div>
+    </div>
+</aside>
+
+<!-- MAIN CONTENT -->
+<main class="flex-1 overflow-y-auto relative p-8 lg:p-12">
+    <div class="max-w-7xl mx-auto">
+        <header class="mb-10">
+            <h1 class="text-3xl font-bold text-zinc-900 tracking-tight">Archived Classes</h1>
+            <p class="text-zinc-500 text-[14px] mt-2">View archived and manage classes.</p>
+        </header>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 opacity-70 hover:opacity-100 transition-opacity">
+            <div class="h-48 rounded-2xl bg-zinc-200 p-6 flex flex-col justify-between grayscale">
+                <div class="flex justify-between items-start"><span
+                        class="bg-black/10 text-black text-[10px] font-bold px-2 py-1 rounded-full uppercase"><i
+                        class="ph-bold ph-lock-key"></i> Read Only</span></div>
+                <div><h3 class="text-xl font-bold text-zinc-800 mb-1">Intro to DB (2023)</h3>
+                    <p class="text-zinc-600 text-[12px]">Ended Jun 2023</p></div>
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+</html>

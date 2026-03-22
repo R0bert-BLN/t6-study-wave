@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Evaluate | StudyWave</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #FAFAFA;
+            overflow: hidden;
+            font-size: 14px;
+            color: #18181b;
+        }
+
+        .input-fluid {
+            background: transparent;
+            border-bottom: 1px solid #e4e4e7;
+            border-radius: 0;
+            padding: 8px 0;
+            width: 100%;
+            transition: all 0.2s;
+            outline: none;
+        }
+
+        .input-fluid:focus {
+            border-bottom-color: #2563eb;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fade 0.2s ease-out forwards;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .modal-backdrop {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            z-index: 50;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-backdrop.open {
+            display: flex;
+            animation: fade 0.2s;
+        }
+
+        @keyframes fade {
+            from {
+                opacity: 0;
+                transform: translateY(5px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body class="flex h-screen bg-[#FAFAFA]">
+
+<!-- SIDEBAR -->
+<aside class="w-64 bg-[#111] text-zinc-400 flex flex-col justify-between flex-shrink-0 z-20 py-6 pl-4 pr-2">
+    <div>
+        <div class="flex items-center gap-3 mb-10 text-white px-2">
+            <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center shadow-[0_0_15px_rgba(37,99,235,0.5)]">
+                <i class="ph-bold ph-waves text-white text-lg"></i></div>
+            <span class="text-lg font-bold tracking-tight">StudyWave</span>
+        </div>
+        <nav class="flex flex-col gap-1 pr-2">
+            <p class="text-[10px] font-bold text-zinc-600 uppercase tracking-widest mb-3 ml-3">Menu</p>
+            <a href="classes.html"
+               class="flex items-center w-full gap-3 px-3 py-2 rounded-lg hover:bg-zinc-900 hover:text-white font-medium text-[13px] transition-all"><i
+                    class="ph ph-books text-lg"></i> Classes</a>
+            <a href="schedule.html"
+               class="flex items-center w-full gap-3 px-3 py-2 rounded-lg hover:bg-zinc-900 hover:text-white font-medium text-[13px] transition-all"><i
+                    class="ph ph-calendar-blank text-lg"></i> Schedule</a>
+            <a href="evaluate.html"
+               class="flex items-center w-full gap-3 px-3 py-2 rounded-lg font-medium text-[13px] transition-all text-white bg-zinc-800/50">
+                <div class="flex items-center gap-3"><i class="ph ph-check-circle text-lg text-blue-500"></i> To
+                    Evaluate
+                </div>
+            </a>
+            <a href="todo.html"
+               class="flex items-center w-full gap-3 px-3 py-2 rounded-lg hover:bg-zinc-900 hover:text-white font-medium text-[13px] transition-all">
+                <div class="flex items-center gap-3"><i class="ph ph-books text-lg"></i> To Do</div>
+            </a>
+            <a href="notes.html"
+               class="flex items-center w-full gap-3 px-3 py-2 rounded-lg hover:bg-zinc-900 hover:text-white font-medium text-[13px] transition-all"><i
+                    class="ph ph-notebook text-lg"></i> Notes</a>
+            <p class="text-[10px] font-bold text-zinc-600 uppercase tracking-widest mb-3 ml-3 mt-6">System</p>
+            <a href="archived.html"
+               class="flex items-center w-full gap-3 px-3 py-2 rounded-lg hover:bg-zinc-900 hover:text-white font-medium text-[13px] transition-all"><i
+                    class="ph ph-archive text-lg"></i> Archived</a>
+            <a href="settings.html"
+               class="flex items-center w-full gap-3 px-3 py-2 rounded-lg hover:bg-zinc-900 hover:text-white font-medium text-[13px] transition-all"><i
+                    class="ph ph-gear text-lg"></i> Settings</a>
+        </nav>
+    </div>
+    <div class="flex items-center gap-3 px-2">
+        <img src="https://ui-avatars.com/api/?name=Alex+P&background=333&color=fff" class="w-8 h-8 rounded-full">
+        <div class="flex-1 overflow-hidden"><p class="text-[13px] font-medium text-white">Alex Popescu</p>
+            <p class="text-[11px] text-zinc-600">Professor</p></div>
+    </div>
+</aside>
+
+<!-- MAIN CONTENT -->
+<main class="flex-1 overflow-y-auto relative p-8 lg:p-12">
+    <div class="max-w-7xl mx-auto">
+        <header class="mb-10 flex justify-between items-end">
+            <div>
+                <h1 class="text-3xl font-bold text-zinc-900 tracking-tight">To Evaluate</h1>
+                <p class="text-zinc-500 text-[14px] mt-2">View and grade assignments.</p>
+            </div>
+        </header>
+
+        <div class="flex gap-8 border-b border-zinc-100 mb-10">
+            <button onclick="openTab('to-eval')" id="btn-to-eval"
+                    class="tab-btn pb-4 border-b-2 border-black text-black font-bold text-[14px] px-2">Needs Grading
+            </button>
+            <button onclick="openTab('evaluated')" id="btn-evaluated"
+                    class="tab-btn pb-4 border-b-2 border-transparent text-zinc-400 hover:text-zinc-900 font-medium text-[14px] px-2 transition-colors">
+                Evaluated
+            </button>
+        </div>
+
+        <div class="flex flex-wrap gap-8 items-end mb-10">
+            <div class="flex-1 min-w-[300px] relative">
+                <i class="ph ph-magnifying-glass absolute left-0 top-1/2 -translate-y-1/2 text-zinc-400 text-lg"></i>
+                <input type="text" placeholder="Search student or assignment..." class="input-fluid pl-8 text-[14px]">
+            </div>
+            <div class="w-64">
+                <select class="input-fluid text-[13px] text-zinc-600 pb-2 cursor-pointer">
+                    <option>All Classes</option>
+                    <option>Frontend Advanced</option>
+                    <option>Cloud Computing</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- TAB CONTENT: NEEDS GRADING -->
+        <!-- ========================================== -->
+        <div id="tab-to-eval" class="tab-content active">
+            <div class="flex flex-col md:flex-row gap-8 min-h-[500px]">
+
+                <div class="w-full md:w-64 flex flex-col gap-2 shrink-0">
+                    <h4 class="text-[11px] font-bold text-zinc-400 uppercase tracking-widest mb-2 border-b border-zinc-100 pb-2">
+                        Pending Assignments</h4>
+                    <button class="text-left p-3 rounded-lg bg-zinc-100 border border-zinc-200">
+                        <p class="font-bold text-[13px] text-zinc-900 mb-1">React Router Setup</p>
+                        <p class="text-[11px] text-zinc-500">8 to grade • Frontend Adv.</p>
+                    </button>
+                    <button class="text-left p-3 rounded-lg border border-transparent hover:bg-zinc-50 transition-colors">
+                        <p class="font-bold text-[13px] text-zinc-600 mb-1">Docker Compose Lab</p>
+                        <p class="text-[11px] text-zinc-400">4 to grade • Cloud Comp.</p>
+                    </button>
+                </div>
+
+                <div class="flex-1 flex flex-col">
+                    <div class="flex justify-between items-center mb-4 pb-2 border-b border-zinc-100">
+                        <h4 class="font-bold text-[15px] text-zinc-900">Grading: React Router Setup</h4>
+                        <span class="text-[11px] text-zinc-400">8 / 85 Nevaluate</span>
+                    </div>
+
+                    <div class="w-full">
+                        <div class="grid grid-cols-12 gap-4 pb-2 border-b border-zinc-200 text-[11px] uppercase font-bold text-zinc-400 tracking-wider">
+                            <div class="col-span-4">Student</div>
+                            <div class="col-span-3">Status</div>
+                            <div class="col-span-3">Grade (50 max)</div>
+                            <div class="col-span-2 text-right"></div>
+                        </div>
+
+                        <div onclick="toggleModal('modal-submission')"
+                             class="grid grid-cols-12 gap-4 py-4 border-b border-zinc-50 items-center transition-colors group cursor-pointer hover:bg-blue-50/50 rounded-lg px-2 -mx-2 mt-2">
+                            <div class="col-span-4 flex items-center gap-3">
+                                <div class="w-8 h-8 rounded-full bg-zinc-200 text-zinc-600 font-bold text-[10px] flex items-center justify-center">
+                                    EV
+                                </div>
+                                <span class="font-semibold text-[14px]">Elena Vasile</span>
+                            </div>
+                            <div class="col-span-3"><span
+                                    class="text-emerald-600 font-bold text-[12px]">Turned In</span></div>
+                            <div class="col-span-3 flex gap-2 items-center">
+                                <input type="number" placeholder="--"
+                                       class="w-16 bg-white border border-zinc-200 rounded px-2 py-1 text-[13px] text-center outline-none focus:border-blue-500"
+                                       onclick="event.stopPropagation()">
+                                <span class="text-zinc-400 text-[12px]">/ 50</span>
+                            </div>
+                            <div class="col-span-2 text-right"><span
+                                    class="text-blue-600 font-bold text-[12px] opacity-0 group-hover:opacity-100 transition-opacity">View <i
+                                    class="ph-bold ph-arrow-right"></i></span></div>
+                        </div>
+
+                        <div class="py-6 flex items-center gap-4 text-zinc-400 font-bold text-[11px] uppercase tracking-widest">
+                            <span>Already Graded & Returned</span>
+                            <div class="h-px flex-1 bg-zinc-100"></div>
+                        </div>
+
+                        <div class="grid grid-cols-12 gap-4 py-4 border-b border-zinc-50 items-center opacity-60">
+                            <div class="col-span-4 flex items-center gap-3">
+                                <div class="w-8 h-8 rounded-full bg-zinc-100 text-zinc-400 font-bold text-[10px] flex items-center justify-center">
+                                    MI
+                                </div>
+                                <span class="font-semibold text-[14px]">Mihai Ionescu</span>
+                            </div>
+                            <div class="col-span-3"><span class="text-zinc-400 font-bold text-[12px]">Returned</span>
+                            </div>
+                            <div class="col-span-3 font-bold text-zinc-900">45 / 50</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- TAB CONTENT: EVALUATED -->
+        <!-- ========================================== -->
+        <div id="tab-evaluated" class="tab-content">
+            <div class="flex flex-col md:flex-row gap-8">
+                <div class="w-full md:w-64 flex flex-col gap-2 shrink-0">
+                    <h4 class="text-[11px] font-bold text-zinc-400 uppercase tracking-widest mb-2 border-b border-zinc-100 pb-2">
+                        Evaluated Assignments</h4>
+                    <button class="text-left p-3 rounded-lg bg-zinc-100 border border-zinc-200">
+                        <p class="font-bold text-[13px] text-zinc-900">Lab 1 (Intro)</p>
+                        <p class="text-[11px] text-zinc-500">85/85 Graded</p>
+                    </button>
+                </div>
+                <div class="flex-1 text-center py-10 text-zinc-400">Assignment fully graded. Select an assignment from
+                    the left to view history.
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- ================= MODALS ================= -->
+
+<!-- Modal Submission Preview -->
+<div id="modal-submission" class="modal-backdrop" onclick="if(event.target === this) toggleModal('modal-submission')">
+    <div class="bg-white w-full max-w-4xl h-[80vh] shadow-2xl rounded-2xl flex flex-col overflow-hidden"
+         onclick="event.stopPropagation()">
+        <div class="p-6 border-b border-zinc-100 flex justify-between items-center bg-zinc-50">
+            <div>
+                <h2 class="text-xl font-bold">Elena Vasile's Submission</h2>
+                <p class="text-[12px] text-zinc-500">React Router Setup • Turned in Today, 10:42 AM</p>
+            </div>
+            <div class="flex items-center gap-4">
+                <div class="flex items-center gap-2">
+                    <input type="number" placeholder="--"
+                           class="w-16 border border-zinc-200 rounded px-2 py-1.5 text-center font-bold focus:border-blue-500 outline-none">
+                    <span class="text-zinc-500 text-[13px] font-bold">/ 50</span>
+                </div>
+                <button onclick="toggleModal('modal-submission')"
+                        class="bg-black text-white px-6 py-2 text-[13px] font-bold rounded-full hover:opacity-80">Return
+                    Grade
+                </button>
+                <button onclick="toggleModal('modal-submission')" class="text-zinc-400 hover:text-black ml-2"><i
+                        class="ph-bold ph-x text-xl"></i></button>
+            </div>
+        </div>
+
+        <div class="flex-1 flex overflow-hidden">
+            <div class="flex-1 bg-[#FAFAFA] p-8 border-r border-zinc-100 overflow-y-auto">
+                <h3 class="font-bold text-[14px] text-zinc-900 mb-6">Attachments (3 files)</h3>
+
+                <div class="space-y-3">
+                    <div class="flex p-4 items-center justify-between group transition-colors">
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 bg-amber-50 text-amber-500 rounded-lg flex items-center justify-center shrink-0">
+                                <i class="ph-fill ph-file-zip text-2xl"></i>
+                            </div>
+                            <div class="min-w-0">
+                                <p class="font-bold text-[13px] text-zinc-900 truncate">react-router-elena.zip</p>
+                                <p class="text-[11px] text-zinc-500 mt-0.5">14.2 MB • Source Code</p>
+                            </div>
+                        </div>
+                        <button class="w-8 h-8 rounded-full bg-zinc-50 text-zinc-600 hover:bg-zinc-200 flex items-center justify-center transition-colors shrink-0">
+                            <i class="ph-bold ph-download-simple"></i>
+                        </button>
+                    </div>
+
+                    <div class="flex p-4 items-center justify-between group transition-colors">
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 bg-rose-50 text-rose-500 rounded-lg flex items-center justify-center shrink-0">
+                                <i class="ph-fill ph-file-pdf text-2xl"></i>
+                            </div>
+                            <div class="min-w-0">
+                                <p class="font-bold text-[13px] text-zinc-900 truncate">ReadMe_Documentation.pdf</p>
+                                <p class="text-[11px] text-zinc-500 mt-0.5">1.1 MB • Instructions</p>
+                            </div>
+                        </div>
+                        <button class="w-8 h-8 rounded-full bg-zinc-50 text-zinc-600 hover:bg-zinc-200 flex items-center justify-center transition-colors shrink-0">
+                            <i class="ph-bold ph-download-simple"></i>
+                        </button>
+                    </div>
+
+                    <div class="flex p-4 items-center justify-between group transition-colors">
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 bg-emerald-50 text-emerald-500 rounded-lg flex items-center justify-center shrink-0">
+                                <i class="ph-fill ph-image text-2xl"></i>
+                            </div>
+                            <div class="min-w-0">
+                                <p class="font-bold text-[13px] text-zinc-900 truncate">app_screenshot.png</p>
+                                <p class="text-[11px] text-zinc-500 mt-0.5">4.5 MB • Evidence</p>
+                            </div>
+                        </div>
+                        <button class="w-8 h-8 rounded-full bg-zinc-50 text-zinc-600 hover:bg-zinc-200 flex items-center justify-center transition-colors shrink-0">
+                            <i class="ph-bold ph-download-simple"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <button class="mt-6 text-blue-600 font-bold text-[13px] hover:underline flex items-center gap-1">
+                    <i class="ph-bold ph-download-simple"></i> Download all files (ZIP)
+                </button>
+            </div>
+
+            <div class="w-80 bg-white flex flex-col">
+                <div class="p-4 border-b border-zinc-100"><h3 class="font-bold text-[13px]">Private Comments</h3></div>
+                <div class="flex-1 p-4 overflow-y-auto flex flex-col gap-4">
+                    <div class="text-[12px]">
+                        <p class="font-bold mb-1 flex justify-between items-baseline">Elena Vasile <span
+                                class="text-zinc-400 font-normal text-[10px]">10:42 AM</span></p>
+                        <p class="text-zinc-600 bg-zinc-50 p-3 rounded-xl rounded-tr-sm">Professor, I struggled a bit
+                            with the nested routes, but I commented the code where I got stuck. I've attached the readme
+                            file explaining my setup process.</p>
+                    </div>
+                </div>
+                <div class="p-4 border-t border-zinc-100 flex gap-2">
+                    <input type="text" placeholder="Add private comment..."
+                           class="input-fluid text-[12px] pb-2 border-none bg-zinc-50 rounded-full px-3 py-1.5 focus:bg-white focus:ring-1 focus:ring-zinc-200 h-auto">
+                    <button class="bg-black text-white w-8 h-8 rounded-full flex items-center justify-center shrink-0 hover:bg-zinc-800 transition-colors">
+                        <i class="ph-fill ph-paper-plane-right"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function toggleModal(id) {
+        document.getElementById(id).classList.toggle('open');
+    }
+
+    function openTab(tabId) {
+        document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+        document.getElementById('tab-' + tabId).classList.add('active');
+        document.querySelectorAll('.tab-btn').forEach(btn => btn.className = 'tab-btn pb-4 border-b-2 border-transparent text-zinc-400 hover:text-zinc-900 font-medium text-[14px] px-2 transition-colors');
+        document.getElementById('btn-' + tabId).className = 'tab-btn pb-4 border-b-2 border-black text-black font-bold text-[14px] px-2';
+    }
+</script>
+</body>
+</html>

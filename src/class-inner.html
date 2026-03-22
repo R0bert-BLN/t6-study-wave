@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frontend Advanced | StudyWave</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #FAFAFA;
+            overflow: hidden;
+            font-size: 14px;
+            color: #18181b;
+        }
+
+        ::-webkit-scrollbar {
+            width: 4px;
+            height: 4px;
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #e4e4e7;
+            border-radius: 10px;
+        }
+
+        .input-fluid {
+            background: transparent;
+            border-bottom: 1px solid #e4e4e7;
+            border-radius: 0;
+            padding: 8px 0;
+            width: 100%;
+            transition: all 0.2s;
+            outline: none;
+        }
+
+        .input-fluid:focus {
+            border-bottom-color: #2563eb;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fade 0.2s ease-out forwards;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .modal-backdrop {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(4px);
+            z-index: 50;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-backdrop.open {
+            display: flex;
+            animation: fade 0.2s;
+        }
+
+        details > summary {
+            list-style: none;
+            cursor: pointer;
+        }
+
+        details > summary::-webkit-details-marker {
+            display: none;
+        }
+
+        details[open] .arrow-icon {
+            transform: rotate(180deg);
+        }
+
+        @keyframes fade {
+            from {
+                opacity: 0;
+                transform: translateY(5px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body class="flex h-screen bg-[#FAFAFA]">
+
+<!-- SIDEBAR -->
+<aside class="w-64 bg-[#111] text-zinc-400 flex flex-col justify-between flex-shrink-0 z-20 py-6 pl-4 pr-2">
+    <div>
+        <div class="flex items-center gap-3 mb-10 text-white px-2">
+            <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center shadow-[0_0_15px_rgba(37,99,235,0.5)]">
+                <i class="ph-bold ph-waves text-white text-lg"></i></div>
+            <span class="text-lg font-bold tracking-tight">StudyWave</span>
+        </div>
+        <nav class="flex flex-col gap-1 pr-2">
+            <p class="text-[10px] font-bold text-zinc-600 uppercase tracking-widest mb-3 ml-3">Menu</p>
+            <a href="classes.html"
+               class="flex items-center w-full gap-3 px-3 py-2 rounded-lg font-medium text-[13px] transition-all text-white bg-zinc-800/50"><i
+                    class="ph-fill ph-books text-lg text-blue-500"></i> Classes</a>
+            <a href="schedule.html"
+               class="flex items-center w-full gap-3 px-3 py-2 rounded-lg hover:bg-zinc-900 hover:text-white font-medium text-[13px] transition-all"><i
+                    class="ph ph-calendar-blank text-lg"></i> Schedule</a>
+            <a href="evaluate.html"
+               class="flex justify-between items-center w-full px-3 py-2 rounded-lg hover:bg-zinc-900 hover:text-white font-medium text-[13px] transition-all">
+                <div class="flex items-center gap-3"><i class="ph ph-check-circle text-lg"></i> To Evaluate</div>
+            </a>
+            <a href="todo.html"
+               class="flex items-center w-full gap-3 px-3 py-2 rounded-lg hover:bg-zinc-900 hover:text-white font-medium text-[13px] transition-all">
+                <div class="flex items-center gap-3"><i class="ph ph-books text-lg"></i> To Do</div>
+            </a>
+            <a href="notes.html"
+               class="flex items-center w-full gap-3 px-3 py-2 rounded-lg hover:bg-zinc-900 hover:text-white font-medium text-[13px] transition-all"><i
+                    class="ph ph-notebook text-lg"></i> Notes</a>
+
+            <p class="text-[10px] font-bold text-zinc-600 uppercase tracking-widest mb-3 ml-3 mt-6">System</p>
+            <a href="archived.html"
+               class="flex items-center w-full gap-3 px-3 py-2 rounded-lg hover:bg-zinc-900 hover:text-white font-medium text-[13px] transition-all"><i
+                    class="ph ph-archive text-lg"></i> Archived</a>
+            <a href="settings.html"
+               class="flex items-center w-full gap-3 px-3 py-2 rounded-lg hover:bg-zinc-900 hover:text-white font-medium text-[13px] transition-all"><i
+                    class="ph ph-gear text-lg"></i> Settings</a>
+        </nav>
+    </div>
+    <div class="flex items-center gap-3 px-2">
+        <img src="https://ui-avatars.com/api/?name=Alex+P&background=333&color=fff" class="w-8 h-8 rounded-full">
+        <div class="flex-1 overflow-hidden"><p class="text-[13px] font-medium text-white">Alex Popescu</p>
+            <p class="text-[11px] text-zinc-600">Professor</p></div>
+    </div>
+</aside>
+
+<!-- MAIN CONTENT -->
+<main class="flex-1 overflow-y-auto relative p-8 lg:p-12">
+    <div class="max-w-6xl mx-auto">
+        <a href="classes.html"
+           class="inline-flex items-center gap-2 text-zinc-400 hover:text-zinc-900 font-medium text-[13px] mb-6 transition-colors"><i
+                class="ph ph-arrow-left"></i> Back</a>
+
+        <!-- HEADER -->
+        <div class="flex justify-between items-end mb-8 border-b border-zinc-100 pb-8 w-full">
+            <div class="w-full">
+                <h1 class="text-4xl font-bold text-zinc-900 tracking-tight mb-2">Frontend Advanced</h1>
+                <div class="flex justify-between items-start">
+                    <div>
+                        <p class="text-[14px] text-zinc-500">This is the course class for Web Development Module</p>
+                        <p class="text-[14px] text-zinc-500 mb-2">All materials will be here</p>
+                    </div>
+                    <div class="flex flex-col text-zinc-500 text-[13px]">
+                        <span class="flex items-center gap-1"><i class="ph-fill ph-users"></i> 85 Students</span>
+                        <span class="flex items-center gap-1"><i class="ph-fill ph-hash"></i> Code: X7V9K2</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TABS NAV -->
+        <div class="flex gap-8 border-b border-zinc-100 mb-10 justify-center">
+            <button onclick="openTab('flux')" id="btn-flux"
+                    class="tab-btn pb-4 border-b-2 border-black text-black font-semibold text-[13px]">Flux
+            </button>
+            <button onclick="openTab('materials')" id="btn-materials"
+                    class="tab-btn pb-4 border-b-2 border-transparent text-zinc-400 hover:text-zinc-900 font-medium text-[13px]">
+                Materials
+            </button>
+            <button onclick="openTab('participants')" id="btn-participants"
+                    class="tab-btn pb-4 border-b-2 border-transparent text-zinc-400 hover:text-zinc-900 font-medium text-[13px]">
+                Participants
+            </button>
+            <button onclick="openTab('grades')" id="btn-grades"
+                    class="tab-btn pb-4 border-b-2 border-transparent text-zinc-400 hover:text-zinc-900 font-medium text-[13px]">
+                Grades
+            </button>
+            <button onclick="openTab('settings')" id="btn-settings"
+                    class="tab-btn pb-4 border-b-2 border-transparent text-zinc-400 hover:text-zinc-900 font-medium text-[13px]">
+                Settings
+            </button>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- TAB: FLUX -->
+        <!-- ========================================== -->
+        <div id="tab-flux" class="tab-content active max-w-3xl mx-auto">
+            <div class="flex gap-4 mb-12 items-center">
+                <img src="https://ui-avatars.com/api/?name=Alex+P&background=000&color=fff"
+                     class="w-8 h-8 rounded-full">
+                <input type="text" placeholder="Post an update, assignment or material..."
+                       class="input-fluid text-[14px]">
+            </div>
+
+            <div class="space-y-10">
+                <div class="group transition-transform hover:-translate-y-0.5 hover:opacity-80 cursor-pointer">
+                    <div class="flex justify-between items-start">
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center">
+                                <i class="ph-fill ph-notebook"></i></div>
+                            <span class="font-bold text-[14px] text-zinc-900">Assignment: React Router Setup</span>
+                        </div>
+                        <span class="text-[12px] text-zinc-400">Oct 24 • Due tomorrow</span>
+                    </div>
+                    <div class="pl-11">
+                        <p class="text-zinc-600 text-[14px] leading-relaxed">Please upload your compressed project
+                            folders here. Exclude node_modules.</p>
+                    </div>
+                </div>
+
+                <div class="group transition-transform hover:-translate-y-0.5 hover:opacity-80 cursor-pointer">
+                    <div class="flex justify-between items-start mb-2">
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-full bg-zinc-100 text-zinc-600 flex items-center justify-center">
+                                <i class="ph-fill ph-folder-notch text-lg"></i></div>
+                            <span class="font-bold text-[14px] text-zinc-900">Material: Redux to Zustand Guide</span>
+                        </div>
+                        <span class="text-[12px] text-zinc-400">Oct 20</span>
+                    </div>
+                </div>
+
+                <div class="group transition-transform hover:-translate-y-0.5 hover:opacity-80 cursor-pointer">
+                    <div class="flex justify-between items-start mb-2">
+                        <div class="flex items-center gap-3">
+                            <img src="https://ui-avatars.com/api/?name=Alex+P&background=000&color=fff"
+                                 class="w-7 h-7 rounded-full">
+                            <span class="font-bold text-[14px] text-zinc-900">Prof. Alex Popescu</span>
+                        </div>
+                        <span class="text-[12px] text-zinc-400">Oct 18</span>
+                    </div>
+                    <div class="pl-11">
+                        <p class="text-zinc-600 text-[14px] leading-relaxed">Welcome to Frontend Advanced! Please ensure
+                            you have Node.js installed...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- TAB: MATERIALS -->
+        <!-- ========================================== -->
+        <div id="tab-materials" class="tab-content max-w-3xl mx-auto">
+            <div class="flex justify-between items-center mb-8 border-b border-zinc-200 pb-4">
+                <h2 class="text-xl font-bold text-zinc-900 tracking-tight">Classwork</h2>
+                <button onclick="toggleModal('modal-upload')"
+                        class="bg-black text-white px-4 py-2 rounded-full text-[13px] font-medium shadow-lg hover:opacity-80 transition-all">
+                    <i class="ph-bold ph-plus mr-1"></i> Create
+                </button>
+            </div>
+
+            <details class="group mb-8" open>
+                <summary
+                        class="flex items-center gap-3 text-[18px] font-bold text-zinc-800 mb-3 select-none outline-none hover:text-black cursor-pointer border-b border-zinc-100 pb-2">
+                    <i class="ph-bold ph-caret-down arrow-icon text-zinc-400 transition-transform duration-200"></i>
+                    Laboratoare
+                </summary>
+                <div class="mt-2 space-y-2 pl-8">
+
+                    <a href="assignment-detail.html"
+                       class="flex items-center gap-4 py-3 px-2 rounded-xl transition-all cursor-pointer group/item hover:opacity-80 hover:-translate-y-0.5">
+                        <div class="w-10 h-10 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
+                            <i class="ph-fill ph-clipboard-text text-[20px]"></i>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <p class="font-bold text-[14px] text-zinc-900 transition-colors truncate">Assignment: React
+                                Router Setup</p>
+                            <p class="text-[13px] text-zinc-500 mt-0.5 truncate">Please upload your compressed project
+                                folders here. Exclude node_modules.</p>
+                        </div>
+                        <i class="ph-bold ph-dots-three-vertical text-zinc-400 hover:text-zinc-800 opacity-0 group-hover/item:opacity-100 transition-opacity text-lg p-1"></i>
+                    </a>
+
+                </div>
+            </details>
+
+            <details class="group mb-8" open>
+                <summary
+                        class="flex items-center gap-3 text-[18px] font-bold text-zinc-800 mb-3 select-none outline-none hover:text-black cursor-pointer border-b border-zinc-100 pb-2">
+                    <i class="ph-bold ph-caret-down arrow-icon text-zinc-400 transition-transform duration-200"></i>
+                    Cursuri
+                </summary>
+                <div class="mt-2 space-y-2 pl-8">
+
+                    <a href="material-detail.html"
+                       class="flex items-center gap-4 py-3 px-2 rounded-xl transition-all cursor-pointer group/item hover:opacity-80 hover:-translate-y-0.5">
+                        <div class="w-10 h-10 rounded-full bg-zinc-100 text-zinc-600 flex items-center justify-center shrink-0">
+                            <i class="ph-fill ph-folder-notch text-[20px]"></i>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <p class="font-bold text-[14px] text-zinc-900 group-hover/item:text-zinc-700 transition-colors truncate">
+                                Material: Redux to Zustand Guide</p>
+                            <p class="text-[13px] text-zinc-500 mt-0.5 truncate">Official documentation and PDF guides
+                                for state management.</p>
+                        </div>
+                        <i class="ph-bold ph-dots-three-vertical text-zinc-400 hover:text-zinc-800 opacity-0 group-hover/item:opacity-100 transition-opacity text-lg p-1"></i>
+                    </a>
+
+                    <a href="material-detail.html"
+                       class="flex items-center gap-4 py-3 px-2 rounded-xl transition-all cursor-pointer group/item hover:opacity-80 hover:-translate-y-0.5">
+                        <div class="w-10 h-10 rounded-full bg-zinc-100 text-zinc-600 flex items-center justify-center shrink-0">
+                            <i class="ph-fill ph-book-bookmark text-[20px]"></i>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <p class="font-bold text-[14px] text-zinc-900 group-hover/item:text-zinc-700 transition-colors truncate">
+                                01_Introducere_React.pdf</p>
+                            <p class="text-[13px] text-zinc-500 mt-0.5 truncate">Syllabus-ul oficial și introducerea în
+                                ecosistemul React.</p>
+                        </div>
+                        <i class="ph-bold ph-dots-three-vertical text-zinc-400 hover:text-zinc-800 opacity-0 group-hover/item:opacity-100 transition-opacity text-lg p-1"></i>
+                    </a>
+
+                </div>
+            </details>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- TAB: PARTICIPANTS -->
+        <!-- ========================================== -->
+        <div id="tab-participants" class="tab-content max-w-3xl mx-auto">
+            <div class="mb-12">
+                <div class="flex justify-between items-center border-b border-zinc-100 mb-2 pb-2">
+                    <h3 class="text-[11px] font-bold text-blue-500 uppercase tracking-widest border-zinc-100">Teachers
+                        (1)</h3>
+                    <button onclick="toggleModal('modal-invite')"
+                            class="text-blue-600 text-[12px] font-bold hover:underline"><i
+                            class="ph-bold ph-user-plus mr-1"></i> Invite
+                    </button>
+                </div>
+
+                <div class="flex items-center gap-4 py-2">
+                    <img src="https://ui-avatars.com/api/?name=Alex+P&background=000&color=fff"
+                         class="w-10 h-10 rounded-full">
+                    <span class="font-bold text-[14px]">Alex Popescu</span>
+                </div>
+            </div>
+
+            <div>
+                <div class="flex justify-between items-center border-b border-zinc-100 mb-2 pb-2">
+                    <h3 class="text-[11px] font-bold text-blue-500 uppercase tracking-widest border-zinc-100">Students
+                        (2)</h3>
+                    <button onclick="toggleModal('modal-invite')"
+                            class="text-blue-600 text-[12px] font-bold hover:underline"><i
+                            class="ph-bold ph-user-plus mr-1"></i> Invite
+                    </button>
+                </div>
+
+                <div class="space-y-1">
+                    <div class="flex items-center justify-between group py-3 border-b border-zinc-50 cursor-default">
+                        <div class="flex items-center gap-4">
+                            <img src="https://ui-avatars.com/api/?name=Elena+Vasile&background=f4f4f5&color=18181b"
+                                 class="w-10 h-10 rounded-full">
+                            <div><p class="font-bold text-[14px]">Elena Vasile</p>
+                                <p class="text-[12px] text-zinc-500">elena.vasile@student.edu</p></div>
+                        </div>
+                        <a href="#"
+                           class="opacity-0 group-hover:opacity-100 text-blue-600 text-[12px] font-bold flex items-center gap-1 transition-opacity"><i
+                                class="ph-fill ph-chat-teardrop-text"></i> Email</a>
+                    </div>
+                    <div class="flex items-center justify-between group py-3 border-b border-zinc-50 cursor-default">
+                        <div class="flex items-center gap-4">
+                            <img src="https://ui-avatars.com/api/?name=Mihai+I&background=f4f4f5&color=18181b"
+                                 class="w-10 h-10 rounded-full">
+                            <div><p class="font-bold text-[14px]">Mihai Ionescu</p>
+                                <p class="text-[12px] text-zinc-500">mihai.i@student.edu</p></div>
+                        </div>
+                        <a href="#"
+                           class="opacity-0 group-hover:opacity-100 text-blue-600 text-[12px] font-bold flex items-center gap-1 transition-opacity"><i
+                                class="ph-fill ph-chat-teardrop-text"></i> Email</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- TAB: GRADES -->
+        <!-- ========================================== -->
+        <div id="tab-grades" class="tab-content max-w-full">
+            <div class="flex justify-between items-center mb-8">
+                <div>
+                    <h3 class="font-bold text-xl tracking-tight">Gradebook</h3>
+                </div>
+                <button onclick="toggleModal('modal-report')"
+                        class="bg-black text-white px-4 py-2 rounded-full text-[13px] font-medium shadow-lg hover:opacity-80 transition-all">
+                    <i class="ph-bold ph-download-simple mr-1"></i> Export PDF
+                </button>
+            </div>
+
+            <div class="flex flex-col md:flex-row gap-8 min-h-[500px]">
+
+                <div class="w-full md:w-64 flex flex-col gap-2">
+                    <h4 class="text-[11px] font-bold text-zinc-400 uppercase tracking-widest mb-2 border-b border-zinc-100 pb-2">
+                        Assignments</h4>
+                    <button class="text-left p-3 rounded-lg bg-zinc-100 border border-zinc-200">
+                        <p class="font-bold text-[13px] text-zinc-900 mb-1">React Router Setup</p>
+                        <p class="text-[11px] text-zinc-500">Out of 50 • Due Tomorrow</p>
+                    </button>
+                    <button class="text-left p-3 rounded-lg border border-transparent hover:bg-zinc-50 transition-colors">
+                        <p class="font-bold text-[13px] text-zinc-600 mb-1">Lab 2 (State)</p>
+                        <p class="text-[11px] text-zinc-400">Out of 10 • Evaluated</p>
+                    </button>
+                    <button class="text-left p-3 rounded-lg border border-transparent hover:bg-zinc-50 transition-colors">
+                        <p class="font-bold text-[13px] text-zinc-600 mb-1">Lab 1 (Intro)</p>
+                        <p class="text-[11px] text-zinc-400">Out of 10 • Evaluated</p>
+                    </button>
+                </div>
+
+                <div class="flex-1 flex flex-col">
+                    <div class="flex justify-between items-center mb-4 pb-2 border-b border-zinc-100">
+                        <h4 class="font-bold text-[15px] text-zinc-900">Grading: React Router Setup</h4>
+                        <span class="text-[11px] text-zinc-400">12 / 85 Turned in</span>
+                    </div>
+
+                    <div class="w-full">
+                        <div class="grid grid-cols-12 gap-4 pb-2 border-b border-zinc-200 text-[11px] uppercase font-bold text-zinc-400 tracking-wider">
+                            <div class="col-span-4">Student</div>
+                            <div class="col-span-3">Status</div>
+                            <div class="col-span-3">Grade (50 max)</div>
+                            <div class="col-span-2 text-right"></div>
+                        </div>
+
+                        <div onclick="toggleModal('modal-submission')"
+                             class="grid grid-cols-12 gap-4 py-4 border-b border-zinc-50 items-center transition-colors group cursor-pointer hover:bg-blue-50/50 rounded-lg px-2 -mx-2">
+                            <div class="col-span-4 flex items-center gap-3">
+                                <div class="w-8 h-8 rounded-full bg-zinc-100 text-zinc-600 font-bold text-[10px] flex items-center justify-center">
+                                    EV
+                                </div>
+                                <span class="font-semibold text-[14px]">Elena Vasile</span>
+                            </div>
+                            <div class="col-span-3"><span
+                                    class="text-emerald-600 font-bold text-[12px]">Turned In</span></div>
+                            <div class="col-span-3 flex gap-2 items-center">
+                                <input type="number" placeholder="--"
+                                       class="w-16 bg-white border border-zinc-200 rounded px-2 py-1 text-[13px] text-center focus:border-blue-500 outline-none"
+                                       onclick="event.stopPropagation()">
+                                <span class="text-zinc-400 text-[12px]">/ 50</span>
+                            </div>
+                            <div class="col-span-2 text-right"><span
+                                    class="text-blue-600 font-bold text-[12px] opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-end gap-1">View <i
+                                    class="ph-bold ph-arrow-right"></i></span></div>
+                        </div>
+
+                        <div class="grid grid-cols-12 gap-4 py-4 border-b border-zinc-50 items-center transition-colors group cursor-pointer hover:bg-zinc-50 rounded-lg px-2 -mx-2">
+                            <div class="col-span-4 flex items-center gap-3">
+                                <div class="w-8 h-8 rounded-full bg-zinc-100 text-zinc-600 font-bold text-[10px] flex items-center justify-center">
+                                    MI
+                                </div>
+                                <span class="font-semibold text-[14px] text-zinc-600">Mihai Ionescu</span>
+                            </div>
+                            <div class="col-span-3"><span class="text-rose-500 font-bold text-[12px]">Missing</span>
+                            </div>
+                            <div class="col-span-3 flex gap-2 items-center">
+                                <input type="number" value="0" disabled
+                                       class="w-16 bg-zinc-50 border border-zinc-100 rounded px-2 py-1 text-[13px] text-center text-zinc-400">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- TAB: SETTINGS -->
+        <!-- ========================================== -->
+        <div id="tab-settings" class="tab-content max-w-2xl mx-auto">
+            <div class="space-y-8">
+                <div>
+                    <label class="block text-[11px] font-bold uppercase tracking-wider text-zinc-400 mb-2">Class
+                        Name</label>
+                    <input type="text" value="Frontend Advanced"
+                           class="input-fluid text-[16px] font-bold text-zinc-900">
+                </div>
+                <div>
+                    <label class="block text-[11px] font-bold uppercase tracking-wider text-zinc-400 mb-2">Description</label>
+                    <textarea class="input-fluid text-[14px] text-zinc-600 h-10 resize-none pt-2">Advanced concepts of React and Next.js</textarea>
+                </div>
+                <div>
+                    <label class="block text-[11px] font-bold uppercase tracking-wider text-zinc-400 mb-2">Invite
+                        Code</label>
+                    <div class="flex items-center gap-4">
+                        <span class="font-mono text-xl tracking-widest font-bold">X7V9K2</span>
+                        <button class="text-blue-600 text-[12px] font-bold hover:underline">Regenerate</button>
+                    </div>
+                </div>
+                <div class="pt-6 border-t border-zinc-100 flex justify-end">
+                    <button class="bg-black text-white px-4 py-2 rounded-full text-[13px] font-medium shadow-lg hover:opacity-80 transition-all">
+                        Save Changes
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</main>
+
+<!-- ================= MODALS ================= -->
+
+<!-- Modal Submission Preview -->
+<div id="modal-submission" class="modal-backdrop" onclick="if(event.target === this) toggleModal('modal-submission')">
+    <div class="bg-white w-full max-w-4xl h-[80vh] shadow-2xl rounded-2xl flex flex-col overflow-hidden"
+         onclick="event.stopPropagation()">
+        <div class="p-6 border-b border-zinc-100 flex justify-between items-center bg-zinc-50">
+            <div>
+                <h2 class="text-xl font-bold">Elena Vasile's Submission</h2>
+                <p class="text-[12px] text-zinc-500">React Router Setup • Turned in Today, 10:42 AM</p>
+            </div>
+            <div class="flex items-center gap-4">
+                <div class="flex items-center gap-2">
+                    <input type="number" placeholder="--"
+                           class="w-16 border border-zinc-200 rounded px-2 py-1.5 text-center font-bold focus:border-blue-500 outline-none">
+                    <span class="text-zinc-500 text-[13px] font-bold">/ 50</span>
+                </div>
+                <button onclick="toggleModal('modal-submission')"
+                        class="bg-black text-white px-6 py-2 text-[13px] font-bold rounded-full hover:opacity-80">Return
+                    Grade
+                </button>
+                <button onclick="toggleModal('modal-submission')" class="text-zinc-400 hover:text-black ml-2"><i
+                        class="ph-bold ph-x text-xl"></i></button>
+            </div>
+        </div>
+
+        <div class="flex-1 flex overflow-hidden">
+            <div class="flex-1 bg-[#FAFAFA] p-8 border-r border-zinc-100 overflow-y-auto">
+                <h3 class="font-bold text-[14px] text-zinc-900 mb-6">Attachments (3 files)</h3>
+
+                <div class="space-y-3">
+                    <div class="flex p-4 items-center justify-between group transition-colors">
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 bg-amber-50 text-amber-500 rounded-lg flex items-center justify-center shrink-0">
+                                <i class="ph-fill ph-file-zip text-2xl"></i>
+                            </div>
+                            <div class="min-w-0">
+                                <p class="font-bold text-[13px] text-zinc-900 truncate">react-router-elena.zip</p>
+                                <p class="text-[11px] text-zinc-500 mt-0.5">14.2 MB • Source Code</p>
+                            </div>
+                        </div>
+                        <button class="w-8 h-8 rounded-full bg-zinc-50 text-zinc-600 hover:bg-zinc-200 flex items-center justify-center transition-colors shrink-0">
+                            <i class="ph-bold ph-download-simple"></i>
+                        </button>
+                    </div>
+
+                    <div class="flex p-4 items-center justify-between group transition-colors">
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 bg-rose-50 text-rose-500 rounded-lg flex items-center justify-center shrink-0">
+                                <i class="ph-fill ph-file-pdf text-2xl"></i>
+                            </div>
+                            <div class="min-w-0">
+                                <p class="font-bold text-[13px] text-zinc-900 truncate">ReadMe_Documentation.pdf</p>
+                                <p class="text-[11px] text-zinc-500 mt-0.5">1.1 MB • Instructions</p>
+                            </div>
+                        </div>
+                        <button class="w-8 h-8 rounded-full bg-zinc-50 text-zinc-600 hover:bg-zinc-200 flex items-center justify-center transition-colors shrink-0">
+                            <i class="ph-bold ph-download-simple"></i>
+                        </button>
+                    </div>
+
+                    <div class="flex p-4 items-center justify-between group transition-colors">
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 bg-emerald-50 text-emerald-500 rounded-lg flex items-center justify-center shrink-0">
+                                <i class="ph-fill ph-image text-2xl"></i>
+                            </div>
+                            <div class="min-w-0">
+                                <p class="font-bold text-[13px] text-zinc-900 truncate">app_screenshot.png</p>
+                                <p class="text-[11px] text-zinc-500 mt-0.5">4.5 MB • Evidence</p>
+                            </div>
+                        </div>
+                        <button class="w-8 h-8 rounded-full bg-zinc-50 text-zinc-600 hover:bg-zinc-200 flex items-center justify-center transition-colors shrink-0">
+                            <i class="ph-bold ph-download-simple"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <button class="mt-6 text-blue-600 font-bold text-[13px] hover:underline flex items-center gap-1">
+                    <i class="ph-bold ph-download-simple"></i> Download all files (ZIP)
+                </button>
+            </div>
+
+            <div class="w-80 bg-white flex flex-col">
+                <div class="p-4 border-b border-zinc-100"><h3 class="font-bold text-[13px]">Private Comments</h3></div>
+                <div class="flex-1 p-4 overflow-y-auto flex flex-col gap-4">
+                    <div class="text-[12px]">
+                        <p class="font-bold mb-1 flex justify-between items-baseline">Elena Vasile <span
+                                class="text-zinc-400 font-normal text-[10px]">10:42 AM</span></p>
+                        <p class="text-zinc-600 bg-zinc-50 p-3 rounded-xl rounded-tr-sm">Professor, I struggled a bit
+                            with the nested routes, but I commented the code where I got stuck. I've attached the readme
+                            file explaining my setup process.</p>
+                    </div>
+                </div>
+                <div class="p-4 border-t border-zinc-100 flex gap-2">
+                    <input type="text" placeholder="Add private comment..."
+                           class="input-fluid text-[12px] pb-2 border-none bg-zinc-50 rounded-full px-3 py-1.5 focus:bg-white focus:ring-1 focus:ring-zinc-200 h-auto">
+                    <button class="bg-black text-white w-8 h-8 rounded-full flex items-center justify-center shrink-0 hover:bg-zinc-800 transition-colors">
+                        <i class="ph-fill ph-paper-plane-right"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Export Report PDF -->
+<div id="modal-report" class="modal-backdrop" onclick="if(event.target === this) toggleModal('modal-report')">
+    <div class="bg-white p-8 w-full max-w-lg shadow-2xl rounded-3xl text-center">
+        <h2 class="text-2xl font-bold mb-2">Export Grade Report</h2>
+        <p class="text-zinc-500 text-[13px] mb-8">Generate a PDF report with class averages, turn-in rates, and
+            individual student grades for Frontend Advanced.</p>
+        <div class="flex justify-center gap-4">
+            <button onclick="toggleModal('modal-report')"
+                    class="text-zinc-500 font-bold text-[13px] hover:text-black transition-colors px-4">Cancel
+            </button>
+            <button onclick="toggleModal('modal-report')"
+                    class="bg-black text-white px-6 py-2 text-[13px] font-bold rounded-full hover:opacity-80"><i
+                    class="ph-bold ph-download-simple mr-1"></i> Download PDF
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Invite -->
+<div id="modal-invite" class="modal-backdrop" onclick="if(event.target === this) toggleModal('modal-invite')">
+    <div class="bg-white p-8 w-full max-w-md shadow-2xl rounded-3xl">
+        <h2 class="text-2xl font-bold mb-2">Invite Member</h2>
+        <p class="text-[13px] text-zinc-500 mb-6">Share the class code <span
+                class="font-mono bg-zinc-100 text-black px-2 py-0.5 rounded font-bold">X7V9K2</span> or invite via
+            email.</p>
+        <input type="email" placeholder="student@university.edu" class="input-fluid text-[15px] mb-8 pb-3">
+        <div class="flex justify-end gap-4">
+            <button onclick="toggleModal('modal-invite')" class="text-zinc-500 font-bold text-[13px]">Cancel</button>
+            <button onclick="toggleModal('modal-invite')"
+                    class="bg-black text-white px-6 py-2 text-[13px] font-bold rounded-full hover:opacity-80">Send
+                Invite
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Upload -->
+<div id="modal-upload" class="modal-backdrop" onclick="if(event.target === this) toggleModal('modal-upload')">
+    <div class="bg-white p-8 w-full max-w-md shadow-2xl rounded-3xl">
+        <h2 class="text-2xl font-bold mb-6">Upload Material</h2>
+        <select class="input-fluid mb-6 text-[14px] text-zinc-700 pb-2 outline-none">
+            <option>Category: Cursuri (Lectures)</option>
+            <option>Laboratoare (Labs)</option>
+        </select>
+        <div class="border-2 border-dashed border-zinc-200 rounded-2xl p-10 text-center text-zinc-400 mb-6 hover:bg-zinc-50 cursor-pointer transition-colors">
+            <i class="ph-bold ph-upload-simple text-4xl mb-3 text-zinc-300"></i>
+            <p class="text-[14px] font-bold text-zinc-900">Click to upload file</p>
+            <p class="text-[11px] mt-1">PDF, ZIP, DOCX (Max 50MB)</p>
+        </div>
+        <div class="flex justify-end gap-4">
+            <button onclick="toggleModal('modal-upload')" class="text-zinc-500 font-bold text-[13px]">Cancel</button>
+            <button onclick="toggleModal('modal-upload')"
+                    class="bg-black text-white px-6 py-2 text-[13px] font-bold rounded-full hover:opacity-80">Upload
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+    function toggleModal(id) {
+        document.getElementById(id).classList.toggle('open');
+    }
+
+    function openTab(tabId) {
+        document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+        document.getElementById('tab-' + tabId).classList.add('active');
+        document.querySelectorAll('.tab-btn').forEach(btn => btn.className = 'tab-btn pb-4 border-b-2 border-transparent text-zinc-400 hover:text-zinc-900 font-medium text-[13px] px-2 transition-colors');
+        document.getElementById('btn-' + tabId).className = 'tab-btn pb-4 border-b-2 border-black text-black font-semibold text-[13px] px-2';
+    }
+</script>
+</body>
+</html>

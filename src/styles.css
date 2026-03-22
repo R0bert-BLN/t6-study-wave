@@ -1,0 +1,75 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #FAFAFA;
+    color: #18181b;
+}
+
+::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+}
+
+.input-fluid {
+    background: transparent;
+    border-bottom: 1px solid #e4e4e7;
+    border-radius: 0;
+    padding: 8px 0;
+    width: 100%;
+    transition: all 0.2s;
+    outline: none;
+}
+
+.input-fluid:focus {
+    border-bottom-color: #2563eb;
+}
+
+.modal-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(4px);
+    z-index: 50;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-backdrop.open {
+    display: flex;
+    animation: fade 0.2s;
+}
+
+.tab-content {
+    display: none;
+    animation: fade 0.2s ease-out forwards;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+details > summary {
+    list-style: none;
+    cursor: pointer;
+}
+
+details > summary::-webkit-details-marker {
+    display: none;
+}
+
+details[open] .arrow-icon {
+    transform: rotate(180deg);
+}
+
+@keyframes fade {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

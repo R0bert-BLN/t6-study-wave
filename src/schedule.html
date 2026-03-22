@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schedule | StudyWave</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="flex h-screen bg-[#FAFAFA]">
+
+<!-- SIDEBAR -->
+<aside class="w-64 bg-[#111] text-zinc-400 flex flex-col justify-between flex-shrink-0 z-20 py-6 pl-4 pr-2">
+    <div>
+        <div class="flex items-center gap-3 mb-10 text-white px-2">
+            <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center shadow-[0_0_15px_rgba(37,99,235,0.5)]">
+                <i class="ph-bold ph-waves text-white text-lg"></i></div>
+            <span class="text-lg font-bold tracking-tight">StudyWave</span>
+        </div>
+        <nav class="flex flex-col gap-1 pr-2">
+            <p class="text-[10px] font-bold text-zinc-600 uppercase tracking-widest mb-3 ml-3">Menu</p>
+            <a href="classes.html"
+               class="flex items-center w-full gap-3 px-3 py-2 rounded-lg hover:bg-zinc-900 hover:text-white font-medium text-[13px] transition-all"><i
+                    class="ph ph-books text-lg"></i> Classes</a>
+            <a href="schedule.html"
+               class="flex items-center w-full gap-3 px-3 py-2 rounded-lg font-medium text-[13px] transition-all text-white bg-zinc-800/50"><i
+                    class="ph-fill ph-calendar-blank text-lg text-blue-500"></i> Schedule</a>
+            <a href="evaluate.html"
+               class="flex justify-between items-center w-full px-3 py-2 rounded-lg hover:bg-zinc-900 hover:text-white font-medium text-[13px] transition-all">
+                <div class="flex items-center gap-3"><i class="ph ph-check-circle text-lg"></i> To Evaluate</div>
+            </a>
+            <a href="todo.html"
+               class="flex items-center w-full gap-3 px-3 py-2 rounded-lg hover:bg-zinc-900 hover:text-white font-medium text-[13px] transition-all">
+                <div class="flex items-center gap-3"><i class="ph ph-books text-lg"></i> To Do</div>
+            </a>
+            <a href="notes.html"
+               class="flex items-center w-full gap-3 px-3 py-2 rounded-lg hover:bg-zinc-900 hover:text-white font-medium text-[13px] transition-all"><i
+                    class="ph ph-notebook text-lg"></i> Notes</a>
+            <p class="text-[10px] font-bold text-zinc-600 uppercase tracking-widest mb-3 ml-3 mt-6">System</p>
+            <a href="archived.html"
+               class="flex items-center w-full gap-3 px-3 py-2 rounded-lg hover:bg-zinc-900 hover:text-white font-medium text-[13px] transition-all"><i
+                    class="ph ph-archive text-lg"></i> Archived</a>
+            <a href="settings.html"
+               class="flex items-center w-full gap-3 px-3 py-2 rounded-lg hover:bg-zinc-900 hover:text-white font-medium text-[13px] transition-all"><i
+                    class="ph ph-gear text-lg"></i> Settings</a>
+        </nav>
+    </div>
+    <div class="flex items-center gap-3 px-2">
+        <img src="https://ui-avatars.com/api/?name=Alex+P&background=333&color=fff" class="w-8 h-8 rounded-full">
+        <div class="flex-1 overflow-hidden"><p class="text-[13px] font-medium text-white">Alex Popescu</p>
+            <p class="text-[11px] text-zinc-600">Professor</p></div>
+    </div>
+</aside>
+
+<!-- MAIN CONTENT -->
+<main class="flex-1 overflow-y-auto relative p-8 lg:p-12">
+    <div class="max-w-6xl mx-auto">
+        <header class="flex justify-between items-end mb-10">
+            <div>
+                <h1 class="text-3xl font-bold text-zinc-900 tracking-tight">Schedule</h1>
+                <p class="text-zinc-500 text-[14px] mt-2">View and manage your schedule.</p>
+            </div>
+            <button onclick="toggleModal('modal-reminder')"
+                    class="bg-black text-white px-5 py-2.5 rounded-full text-[13px] font-medium shadow-lg hover:-translate-y-0.5 transition-all flex items-center gap-2">
+                <i class="ph ph-plus"></i> Add Reminder
+            </button>
+        </header>
+
+        <div class="flex flex-col md:flex-row gap-12">
+            <div class="flex-1">
+                <h3 class="text-[11px] font-bold text-zinc-400 uppercase tracking-widest mb-6 border-b border-zinc-100 pb-2">
+                    Today</h3>
+                <div class="space-y-6">
+                    <div class="flex gap-4 group cursor-pointer">
+                        <div class="text-right w-16 pt-1"><p class="font-bold text-zinc-900 text-[14px]">10:00</p>
+                            <p class="text-[11px] text-zinc-400">AM</p></div>
+                        <div class="w-1 bg-blue-500 rounded-full h-auto"></div>
+                        <div class="pb-6 border-b border-zinc-50 w-full group-hover:pl-2 transition-all">
+                            <h4 class="font-bold text-[15px] text-zinc-900 mb-1">React Router Setup</h4>
+                            <p class="text-zinc-500 text-[13px]">Frontend Advanced • Assignment Due</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4 group cursor-pointer">
+                        <div class="text-right w-16 pt-1"><p class="font-bold text-zinc-900 text-[14px]">02:00</p>
+                            <p class="text-[11px] text-zinc-400">PM</p></div>
+                        <div class="w-1 bg-blue-500 rounded-full h-auto"></div>
+                        <div class="pb-6 border-b border-zinc-50 w-full group-hover:pl-2 transition-all">
+                            <h4 class="font-bold text-[15px] text-zinc-900 mb-1">Department Meeting</h4>
+                            <p class="text-zinc-500 text-[13px]">Room 302</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="w-80 hidden md:block">
+                <h3 class="text-[11px] font-bold text-zinc-400 uppercase tracking-widest mb-6 border-b border-zinc-100 pb-2">
+                    October 2024</h3>
+                <div class="grid grid-cols-7 gap-4 text-center text-[13px] text-zinc-400 mb-4">
+                    <span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span>
+                </div>
+                <div class="grid grid-cols-7 gap-4 text-center text-[13px] text-zinc-400">
+                    <span></span><span></span><span class="text-zinc-900 font-bold">1</span><span>2</span><span>3</span><span>4</span><span>5</span>
+                    <span>6</span><span>7</span><span>8</span><span>9</span><span
+                        class="bg-blue-600 text-white rounded-full w-7 h-7 flex items-center justify-center mx-auto shadow-md">10</span><span>11</span><span>12</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- Modal Add Reminder -->
+<div id="modal-reminder" class="modal-backdrop" onclick="if(event.target === this) toggleModal('modal-reminder')">
+    <div class="bg-white p-8 w-full max-w-sm shadow-2xl rounded-2xl">
+        <h2 class="text-2xl font-bold mb-6">New Reminder</h2>
+        <input type="text" placeholder="Event Title" class="input-fluid text-[14px] mb-4">
+        <div class="flex gap-4 mb-8">
+            <input type="date" class="input-fluid text-[14px] text-zinc-500 w-1/2">
+            <input type="time" class="input-fluid text-[14px] text-zinc-500 w-1/2">
+        </div>
+        <div class="flex justify-end gap-4">
+            <button onclick="toggleModal('modal-reminder')" class="text-zinc-500 font-medium text-[13px]">Cancel
+            </button>
+            <button onclick="toggleModal('modal-reminder')"
+                    class="bg-black text-white px-6 py-2 text-[13px] font-bold rounded-full">Save
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>function toggleModal(id) {
+    document.getElementById(id).classList.toggle('open');
+}</script>
+</body>
+</html>
