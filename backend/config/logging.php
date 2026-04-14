@@ -1,5 +1,7 @@
 <?php
 
+use Monolog\Formatter\JsonFormatter;
+use Monolog\Handler\Handler;
 use Monolog\Handler\NullHandler;
 use Monolog\Handler\StreamHandler;
 use Monolog\Handler\SyslogUdpHandler;
@@ -127,6 +129,17 @@ return [
             'path' => storage_path('logs/laravel.log'),
         ],
 
+        'openobserve' =>[
+            'driver' => 'monolog',
+            'handler' => Handler::class,
+            'with' =>[
+                'url' => env('OPENOBSERVE_URL') . '/api/default/default/_json',
+                'curlOptions' =>[
+                    CURLOPT_USERPWD => env('OPENOBSERVE_USER') . ':' . env('OPENOBSERVE_PASS'),
+                ],
+            ],
+            'formatter' => JsonFormatter::class,
+        ],
     ],
 
 ];
