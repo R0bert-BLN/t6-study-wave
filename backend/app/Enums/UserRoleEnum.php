@@ -2,12 +2,12 @@
 
 namespace App\Enums;
 
-use App\Traits\HasBaseEnum;
+use App\Traits\BaseEnum;
 
 enum UserRoleEnum: int
 {
-    use HasBaseEnum;
+    use BaseEnum;
 
     case STUDENT = 1;
-    case TEACHER = 2;
+    case PROFESSOR = 2;
 }
