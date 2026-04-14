@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Services\Auth;
 
 use App\Data\Auth\LoginData;
@@ -53,6 +55,6 @@ final class AuthService
 
     public function logout(User $user): void
     {
-        $user->currentAccessToken()->delete();
+        $user->currentAccessToken()?->delete();
     }
 }

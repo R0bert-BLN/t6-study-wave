@@ -5,7 +5,7 @@ namespace App\Traits;
 /**
  * @method static cases()
  */
-trait HasBaseEnum
+trait BaseEnum
 {
     public static function values(): array
     {

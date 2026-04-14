@@ -5,6 +5,7 @@ namespace App\Data\Auth;
 use App\Enums\UserRoleEnum;
 use Spatie\LaravelData\Attributes\MapName;
 use Spatie\LaravelData\Attributes\Validation\Confirmed;
+use Spatie\LaravelData\Attributes\Validation\Email;
 use Spatie\LaravelData\Attributes\Validation\Unique;
 use Spatie\LaravelData\Data;
 use Spatie\LaravelData\Mappers\SnakeCaseMapper;
@@ -18,6 +19,7 @@ class RegisterData extends Data
         public readonly string $lastName,
 
         #[Unique('users', 'email')]
+        #[Email]
         public readonly string $email,
 
         #[Confirmed]
