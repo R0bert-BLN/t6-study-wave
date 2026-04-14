@@ -8,15 +8,12 @@ use App\Data\Auth\LoginData;
 use App\Data\Auth\RegisterData;
 use App\Data\UserData;
 use App\Models\User;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 
 final class AuthService
 {
-    /**
-     * @return array{user: UserData, token: string}
-     */
-    public function register(RegisterData $data): array
+    public function register(RegisterData $data): UserData
     {
         $user = User::create([
             'first_name' => $data->firstName,
@@ -26,35 +23,29 @@ final class AuthService
             'role' => $data->role,
         ]);
 
-        return [
-            'user' => UserData::from($user),
-            'token' => $user->createToken('auth_token')->plainTextToken,
-        ];
+        Auth::login($user);
+
+        return UserData::from($user);
     }
 
-    /**
-     * @return array{user: UserData, token: string}
-     */
-    public function login(LoginData $data): array
+    public function login(LoginData $data): UserData
     {
-        $user = User::where('email', $data->email)->first();
-
-        if (!$user || !Hash::check($data->password, $user->password)) {
+        if (! Auth::attempt(['email' => $data->email, 'password' => $data->password])) {
             throw ValidationException::withMessages([
-                'email' => ['Incorrect credentials']
+                'email' => ['Incorrect credentials'],
             ]);
         }
 
-        $user->tokens()->delete();
+        session()->regenerate();
 
-        return [
-            'user' => UserData::from($user),
-            'token' => $user->createToken('auth_token')->plainTextToken,
-        ];
+        return UserData::from(Auth::user());
     }
 
-    public function logout(User $user): void
+    public function logout(): void
     {
-        $user->currentAccessToken()?->delete();
+        Auth::guard('web')->logout();
+
+        session()->invalidate();
+        session()->regenerateToken();
     }
 }
