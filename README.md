@@ -87,6 +87,6 @@ docker compose exec frontend bun run lint
 ```
 
 ### 5. Team Members
-Robert Balan 
-Mara Blejan 
-Andreea Anghel
+* Robert Balan 
+* Mara Blejan 
+* Andreea Anghel
