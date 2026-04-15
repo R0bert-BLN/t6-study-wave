@@ -9,7 +9,8 @@ use App\Data\Auth\RegisterData;
 use App\Data\UserData;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\ValidationException;
+use Illuminate\Validation\UnauthorizedException;
+use Symfony\Component\HttpFoundation\Response;
 
 final class AuthService
 {
@@ -30,10 +31,8 @@ final class AuthService
 
     public function login(LoginData $data): UserData
     {
-        if (! Auth::attempt(['email' => $data->email, 'password' => $data->password])) {
-            throw ValidationException::withMessages([
-                'email' => ['Incorrect credentials'],
-            ]);
+        if (!Auth::attempt(['email' => $data->email, 'password' => $data->password])) {
+            throw new UnauthorizedException('Incorrect credentials', Response::HTTP_UNAUTHORIZED);
         }
 
         session()->regenerate();
