@@ -35,13 +35,13 @@ class OpenObserveHandler extends AbstractProcessingHandler
             'extra' => json_encode($record->extra),
             'environment' => app()->environment(),
             'service' => 'backend-laravel',
-        ]
+        ],
         ];
 
         try {
             Http::timeout(3)->withBasicAuth((string) $user, (string) $pass)->post((string) $url, $payload);
         } catch (ConnectionException $e) {
-            error_log('OpenObserve Log Failed: ' . $e->getMessage());
+            error_log('OpenObserve Log Failed: '.$e->getMessage());
         }
     }
 }

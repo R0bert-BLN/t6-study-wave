@@ -31,7 +31,7 @@ final class AuthService
 
     public function login(LoginData $data): UserData
     {
-        if (!Auth::attempt(['email' => $data->email, 'password' => $data->password])) {
+        if (! Auth::attempt(['email' => $data->email, 'password' => $data->password])) {
             throw new UnauthorizedException('Incorrect credentials', Response::HTTP_UNAUTHORIZED);
         }
 

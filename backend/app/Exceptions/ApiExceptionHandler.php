@@ -22,16 +22,16 @@ class ApiExceptionHandler
 
     public function render(Throwable $e, Request $request): ?JsonResponse
     {
-        if (!$this->shouldHandleAsApi($request)) {
+        if (! $this->shouldHandleAsApi($request)) {
             return null;
         }
 
         $this->logException($e, $request);
 
         $statusCode = $this->getStatusCode($e);
-        $response =[
+        $response = [
             'success' => false,
-            'error' =>[
+            'error' => [
                 'code' => $statusCode,
                 'message' => $this->getMessage($e, $statusCode),
             ],
@@ -57,8 +57,8 @@ class ApiExceptionHandler
             }
         }
 
-        if (!$e instanceof HttpExceptionInterface || $e->getStatusCode() >= 500) {
-            Log::channel('openobserve')->error($e->getMessage(),[
+        if (! $e instanceof HttpExceptionInterface || $e->getStatusCode() >= 500) {
+            Log::channel('openobserve')->error($e->getMessage(), [
                 'exception' => get_class($e),
                 'url' => $request->fullUrl(),
                 'method' => $request->method(),
@@ -87,11 +87,11 @@ class ApiExceptionHandler
 
     protected function getMessage(Throwable $e, int $statusCode): string
     {
-        if (!config('app.debug') && $statusCode >= 500) {
+        if (! config('app.debug') && $statusCode >= 500) {
             return 'Internal Server Error';
         }
 
-        if (!empty($e->getMessage())) {
+        if (! empty($e->getMessage())) {
             return $e->getMessage();
         }
 

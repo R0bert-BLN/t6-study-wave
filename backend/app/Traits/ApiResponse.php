@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Traits;
 
 use Illuminate\Http\JsonResponse;
 
 trait ApiResponse
 {
-    protected function success(mixed $data = null, string $message = null, int $statusCode = 200): JsonResponse
+    protected function success(mixed $data = null, ?string $message = null, int $statusCode = 200): JsonResponse
     {
         $response = [
             'success' => true,
@@ -23,7 +25,7 @@ trait ApiResponse
         return response()->json($response, $statusCode);
     }
 
-    protected function error(string $message = null, int $code = null, int $statusCode = 500): JsonResponse
+    protected function error(?string $message = null, ?int $code = null, int $statusCode = 500): JsonResponse
     {
         $response = [
             'success' => false,

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use App\Enums\UserRoleEnum;
@@ -13,11 +15,12 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
+    use HasApiTokens;
+
     /** @use HasFactory<UserFactory> */
     use HasFactory;
-    use Notifiable;
-    use HasApiTokens;
     use HasUuids;
+    use Notifiable;
 
     protected $fillable = [
         'first_name',

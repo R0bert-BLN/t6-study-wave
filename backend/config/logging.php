@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Logging\OpenObserveHandler;
 use Monolog\Handler\NullHandler;
 use Monolog\Handler\StreamHandler;
@@ -135,7 +137,7 @@ return [
             'username' => env('OPENOBSERVE_USER'),
             'password' => env('OPENOBSERVE_PASS'),
             'url' => env('OPENOBSERVE_URL'),
-        ]
+        ],
     ],
 
 ];
