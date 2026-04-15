@@ -86,7 +86,7 @@ docker compose exec frontend bun add -D <package-name>
 docker compose exec frontend bun run lint
 ```
 
-### 5. Troubleshooting & Teardown
-Robert Balan
-Mara Blejan
+### 5. Team Members
+Robert Balan 
+Mara Blejan 
 Andreea Anghel
