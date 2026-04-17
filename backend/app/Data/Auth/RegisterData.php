@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Data\Auth;
 
-use App\Enums\UserRoleEnum;
+use App\Enums\UserRole;
 use Spatie\LaravelData\Attributes\MapName;
 use Spatie\LaravelData\Attributes\Validation\Confirmed;
 use Spatie\LaravelData\Attributes\Validation\Email;
@@ -18,15 +18,15 @@ class RegisterData extends Data
     public function __construct(
         public readonly string $firstName,
 
-        public readonly string $lastName,
+        public readonly string   $lastName,
 
         #[Unique('users', 'email')]
         #[Email]
-        public readonly string $email,
+        public readonly string   $email,
 
         #[Confirmed]
-        public readonly string $password,
+        public readonly string   $password,
 
-        public readonly UserRoleEnum $role,
+        public readonly UserRole $role,
     ) {}
 }
