@@ -73,7 +73,7 @@
         ],
         "lint": "pint",
         "stan": "phpstan analyse --memory-limit=2G",
-        "test": "pest",
+        "test": "DB_CONNECTION=sqlite DB_DATABASE=:memory: pest",
         "check": [
             "@lint",
             "@stan",

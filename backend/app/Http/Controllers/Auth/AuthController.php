@@ -6,17 +6,15 @@ namespace App\Http\Controllers\Auth;
 
 use App\Data\Auth\LoginData;
 use App\Data\Auth\RegisterData;
-use App\Data\UserData;
+use App\Data\User\UserData;
+use App\Http\Controllers\BaseController;
 use App\Services\Auth\AuthService;
-use App\Traits\ApiResponse;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-readonly class AuthController
+final readonly class AuthController extends BaseController
 {
-    use ApiResponse;
-
     public function __construct(
         private AuthService $authService
     ) {}

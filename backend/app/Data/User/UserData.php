@@ -2,31 +2,25 @@
 
 declare(strict_types=1);
 
-namespace App\Data\Auth;
+namespace App\Data\User;
 
 use App\Enums\UserRole;
+use Carbon\Carbon;
 use Spatie\LaravelData\Attributes\MapName;
-use Spatie\LaravelData\Attributes\Validation\Confirmed;
-use Spatie\LaravelData\Attributes\Validation\Email;
-use Spatie\LaravelData\Attributes\Validation\Unique;
 use Spatie\LaravelData\Data;
 use Spatie\LaravelData\Mappers\SnakeCaseMapper;
 
-#[MapName(SnakeCaseMapper::class)]
-class RegisterData extends Data
+#[MapName(SnakeCaseMapper::class, SnakeCaseMapper::class)]
+class UserData extends Data
 {
     public function __construct(
+        public readonly string $id,
         public readonly string $firstName,
-
         public readonly string $lastName,
-
-        #[Unique('users', 'email')]
-        #[Email]
         public readonly string $email,
-
-        #[Confirmed]
-        public readonly string $password,
-
         public readonly UserRole $role,
+        public readonly ?string $avatarUrl,
+        public readonly Carbon $createdAt,
+        public readonly Carbon $updatedAt,
     ) {}
 }
