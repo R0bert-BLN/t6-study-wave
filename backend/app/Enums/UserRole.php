@@ -6,7 +6,7 @@ namespace App\Enums;
 
 use App\Traits\BaseEnum;
 
-enum UserRoleEnum: int
+enum UserRole: int
 {
     use BaseEnum;
 

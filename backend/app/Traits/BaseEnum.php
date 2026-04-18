@@ -14,7 +14,7 @@ trait BaseEnum
         /** @var array<int, static> $cases */
         $cases = static::cases();
 
-        return array_map(fn($c) => $c->value, $cases);
+        return array_map(fn ($c) => $c->value, $cases);
     }
 
     public static function names(): array
@@ -22,6 +22,6 @@ trait BaseEnum
         /** @var array<int, static> $cases */
         $cases = static::cases();
 
-        return array_map(fn($c) => $c->name, $cases);
+        return array_map(fn ($c) => $c->name, $cases);
     }
 }

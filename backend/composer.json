@@ -11,7 +11,8 @@
         "laravel/framework": "^13.0",
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^3.0",
-        "spatie/laravel-data": "^4.21"
+        "spatie/laravel-data": "^4.21",
+        "spatie/laravel-query-builder": "^7.2"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
@@ -72,7 +73,7 @@
         ],
         "lint": "pint",
         "stan": "phpstan analyse --memory-limit=2G",
-        "test": "pest",
+        "test": "DB_CONNECTION=sqlite DB_DATABASE=:memory: pest",
         "check": [
             "@lint",
             "@stan",

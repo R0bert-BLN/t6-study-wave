@@ -6,7 +6,7 @@ namespace App\Services\Auth;
 
 use App\Data\Auth\LoginData;
 use App\Data\Auth\RegisterData;
-use App\Data\UserData;
+use App\Data\User\UserData;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\UnauthorizedException;
@@ -16,7 +16,7 @@ final class AuthService
 {
     public function register(RegisterData $data): UserData
     {
-        $user = User::create([
+        $user = User::query()->create([
             'first_name' => $data->firstName,
             'last_name' => $data->lastName,
             'email' => $data->email,
