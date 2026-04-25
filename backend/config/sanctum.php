@@ -81,4 +81,6 @@ return [
         'validate_csrf_token' => ValidateCsrfToken::class,
     ],
 
+    'prefix' => 'api/sanctum',
+
 ];
