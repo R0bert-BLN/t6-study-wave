@@ -4,51 +4,53 @@ declare(strict_types=1);
 
 namespace App\Services;
 
-use App\Data\ReminderData;
+use App\Data\Reminder\ReminderCreateData;
+use App\Data\Reminder\ReminderData;
+use App\Data\Reminder\ReminderUpdateData;
 use App\Models\Reminder;
-use Spatie\LaravelData\DataCollection;
+use App\Repositories\ReminderRepository;
+use Illuminate\Pagination\LengthAwarePaginator;
 
-class ReminderService
+final readonly class ReminderService
 {
-    public function getAllReminders(): DataCollection
+    public function __construct(private ReminderRepository $reminderRepository) {}
+
+    public function getAllReminders(int $perPage): LengthAwarePaginator
     {
-        return ReminderData::collect(Reminder::with('assignment', 'createdBy')->get());
+        return $this->reminderRepository->getAllPaginated($perPage);
     }
 
-    public function getReminder(string $id): ReminderData
+    public function getReminderById(string $id): ReminderData
     {
-        return ReminderData::from(Reminder::with('assignment', 'createdBy')->findOrFail($id));
+        /** @var Reminder|null $reminder */
+        $reminder = $this->reminderRepository->getById($id);
+
+        return ReminderData::from($reminder);
     }
 
-    public function createReminder(ReminderData $data): ReminderData
+    public function createReminder(ReminderCreateData $data): ReminderData
     {
-        $reminder = Reminder::create([
+        $reminder = Reminder::query()->create([
             'title' => $data->title,
             'description' => $data->description,
             'scheduled_at' => $data->scheduledAt,
-            'assignment_id' => $data->assignment->id,
-            'created_by' => $data->createdBy->id,
+            'created_by' => $data->createdBy,
         ]);
 
-        return ReminderData::from($reminder->load(['assignment', 'createdBy']));
+        return ReminderData::from($reminder);
     }
 
-    public function updateReminder(string $id, ReminderData $data): ReminderData
+    public function updateReminder(string $id, ReminderUpdateData $data): ReminderData
     {
-        $reminder = Reminder::findOrFail($id);
-        $reminder->update([
-            'title' => $data->title,
-            'description' => $data->description,
-            'scheduled_at' => $data->scheduledAt,
-            'assignment_id' => $data->assignment->id,
-            'created_by' => $data->createdBy->id,
-        ]);
+        $reminder = Reminder::query()->findOrFail($id);
+        $reminder->update($data->toArray());
 
-        return ReminderData::from($reminder->load(['assignment', 'createdBy']));
+        return ReminderData::from($reminder);
     }
 
     public function deleteReminder(string $id): void
     {
-        Reminder::findOrFail($id)->delete();
+        $reminder = Reminder::query()->findOrFail($id);
+        $reminder->delete();
     }
 }

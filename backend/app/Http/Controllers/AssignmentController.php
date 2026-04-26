@@ -4,48 +4,48 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Data\AssignmentData;
-use App\Models\Assignment;
-use App\Services\AssignmentsService;
+use App\Data\Assignment\AssignmentCreateData;
+use App\Data\Assignment\AssignmentUpdateData;
+use App\Services\AssignmentService;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Routing\Controller;
+use Symfony\Component\HttpFoundation\Response;
 
-class AssignmentController extends Controller
+final readonly class AssignmentController extends BaseController
 {
-    public function __construct(private AssignmentsService $assignmentsService) {}
+    public function __construct(private AssignmentService $assignmentService) {}
 
     public function index(): JsonResponse
     {
-        $data = $this->assignmentsService->getAllAssignments();
+        $assignment = $this->assignmentService->getAllAssignments($this->getPerPage());
 
-        return response()->success(data: $data);
+        return $this->success($assignment);
     }
 
-    public function show(Assignment $assignment): JsonResponse
+    public function show(string $id): JsonResponse
     {
-        $data = $this->assignmentsService->getAssignment($assignment->id);
+        $assignment = $this->assignmentService->getAssignmentById($id);
 
-        return response()->success(data: $data);
+        return $this->success($assignment);
     }
 
-    public function store(AssignmentData $assignmentData): JsonResponse
+    public function store(AssignmentCreateData $data): JsonResponse
     {
-        $data = $this->assignmentsService->createAssignment($assignmentData);
+        $assignment = $this->assignmentService->createAssignment($data);
 
-        return response()->success(data: $data);
+        return $this->success(data: $assignment, statusCode: Response::HTTP_CREATED);
     }
 
-    public function update(Assignment $assignment, AssignmentData $assignmentData): JsonResponse
+    public function update(string $id, AssignmentUpdateData $data): JsonResponse
     {
-        $data = $this->assignmentsService->updateAssignment($assignment->id, $assignmentData);
+        $assignment = $this->assignmentService->updateAssignment($id, $data);
 
-        return response()->success(data: $data);
+        return $this->success($assignment);
     }
 
-    public function destroy(Assignment $assignment): JsonResponse
+    public function destroy(string $id): JsonResponse
     {
-        $this->assignmentsService->deleteAssignment($assignment->id);
+        $this->assignmentService->deleteAssignment($id);
 
-        return response()->success(message: 'Assignment deleted successfully');
+        return $this->success(statusCode: Response::HTTP_NO_CONTENT);
     }
 }

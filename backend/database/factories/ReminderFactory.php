@@ -24,8 +24,7 @@ class ReminderFactory extends Factory
             'title' => $this->faker->word(),
             'description' => $this->faker->sentence(),
             'scheduled_at' => $this->faker->dateTimeBetween('-1 week', '+1 week'),
-            'created_by' => User::factory(),
-            'assignment_id' => Assignment::factory(),
+            'created_by' => User::factory()->create()->id,
         ];
     }
 }

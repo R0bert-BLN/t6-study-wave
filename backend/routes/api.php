@@ -2,7 +2,10 @@
 
 declare(strict_types=1);
 
+use App\Http\Controllers\AssignmentController;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\CourseController;
+use App\Http\Controllers\ReminderController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -14,4 +17,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/me', [AuthController::class, 'me']);
 
     Route::resource('/users', UserController::class)->only(['index', 'show', 'update', 'destroy']);
+    Route::resource('/courses', CourseController::class);
+    Route::resource('reminders', ReminderController::class);
+    Route::resource('/assignments', AssignmentController::class);
 });

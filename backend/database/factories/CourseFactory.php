@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
-use App\Models\ClassCourse;
+use App\Models\Course;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
 /**
- * @extends Factory<ClassCourse>
+ * @extends Factory<Course>
  *
  * @return array<string, mixed>
  */
-class ClassCourseFactory extends Factory
+class CourseFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -28,7 +28,7 @@ class ClassCourseFactory extends Factory
             'code' => Str::random(6),
             'description' => $this->faker->sentence(),
             'is_archived' => false,
-            'created_by' => User::factory(),
+            'created_by' => User::factory()->create()->id,
         ];
     }
 

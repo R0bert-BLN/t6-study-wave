@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Database\Factories;
 
 use App\Models\Assignment;
+use App\Models\Course;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -23,8 +25,8 @@ class AssignmentFactory extends Factory
             'title' => $this->faker->sentence(3),
             'description' => $this->faker->sentence(10),
             'due_date' => $this->faker->dateTimeBetween('-1 week', '+1 week'),
-            'class_id' => $this->faker->uuid(),
-            'created_by' => $this->faker->uuid(),
+            'course_id' => Course::factory()->create()->id,
+            'created_by' => User::factory()->create()->id,
         ];
     }
 }

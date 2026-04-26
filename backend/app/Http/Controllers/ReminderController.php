@@ -4,48 +4,48 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Data\ReminderData;
-use App\Models\Reminder;
+use App\Data\Reminder\ReminderCreateData;
+use App\Data\Reminder\ReminderUpdateData;
 use App\Services\ReminderService;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Routing\Controller;
+use Symfony\Component\HttpFoundation\Response;
 
-class ReminderController extends Controller
+final readonly class ReminderController extends BaseController
 {
     public function __construct(private ReminderService $reminderService) {}
 
     public function index(): JsonResponse
     {
-        $data = $this->reminderService->getAllReminders();
+        $reminders = $this->reminderService->getAllReminders($this->getPerPage());
 
-        return response()->success(data: $data);
+        return $this->success($reminders);
     }
 
-    public function show(Reminder $reminder): JsonResponse
+    public function show(string $id): JsonResponse
     {
-        $data = $this->reminderService->getReminder($reminder->id);
+        $reminders = $this->reminderService->getReminderById($id);
 
-        return response()->success(data: $data);
+        return $this->success($reminders);
     }
 
-    public function store(ReminderData $reminderData): JsonResponse
+    public function store(ReminderCreateData $data): JsonResponse
     {
-        $data = $this->reminderService->createReminder($reminderData);
+        $reminder = $this->reminderService->createReminder($data);
 
-        return response()->success(data: $data);
+        return $this->success(data: $reminder, statusCode: Response::HTTP_CREATED);
     }
 
-    public function update(Reminder $reminder, ReminderData $reminderData): JsonResponse
+    public function update(string $id, ReminderUpdateData $data): JsonResponse
     {
-        $data = $this->reminderService->updateReminder($reminder->id, $reminderData);
+        $reminder = $this->reminderService->updateReminder($id, $data);
 
-        return response()->success(data: $data);
+        return $this->success($reminder);
     }
 
-    public function destroy(Reminder $reminder): JsonResponse
+    public function destroy(string $id): JsonResponse
     {
-        $this->reminderService->deleteReminder($reminder->id);
+        $this->reminderService->deleteReminder($id);
 
-        return response()->success(message: 'Reminder deleted successfully');
+        return $this->success(statusCode: Response::HTTP_NO_CONTENT);
     }
 }

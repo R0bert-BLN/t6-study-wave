@@ -19,7 +19,6 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->dateTime('scheduled_at');
             $table->foreignUuid('created_by')->constrained('users');
-            $table->foreignUuid('assignment_id')->constrained('assignments');
             $table->timestamps();
         });
     }

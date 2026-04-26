@@ -22,16 +22,10 @@ class Reminder extends Model
         'description',
         'scheduled_at',
         'created_by',
-        'assignment_id',
-
     ];
 
     public function createdBy(): BelongsTo
     {
         return $this->belongsTo(User::class, 'created_by');
     }
-    //    public function assignment(): BelongsTo
-    //    {
-    //        return $this->belongsTo(Assignment::class, 'assignment_id');
-    //    }
 }
