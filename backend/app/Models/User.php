@@ -9,6 +9,7 @@ use Database\Factories\UserFactory;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -24,6 +25,7 @@ class User extends Authenticatable implements MustVerifyEmail
     use Notifiable;
 
     protected $fillable = [
+        'id',
         'first_name',
         'last_name',
         'email',
@@ -44,5 +46,20 @@ class User extends Authenticatable implements MustVerifyEmail
             'password' => 'hashed',
             'role' => UserRole::class,
         ];
+    }
+
+    public function createdCourses(): HasMany
+    {
+        return $this->hasMany(Course::class, 'created_by');
+    }
+
+    public function createdAssignments(): HasMany
+    {
+        return $this->hasMany(Assignment::class, 'created_by');
+    }
+
+    public function createdReminders(): HasMany
+    {
+        return $this->hasMany(Reminder::class, 'created_by');
     }
 }

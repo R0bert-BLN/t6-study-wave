@@ -23,4 +23,9 @@ final readonly class UserRepository extends BaseRepository
             AllowedFilter::exact('role'),
         ];
     }
+
+    protected function allowedIncludes(): array
+    {
+        return ['createdCourses', 'createdReminders'];
+    }
 }
