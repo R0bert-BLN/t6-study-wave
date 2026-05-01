@@ -14,6 +14,9 @@ use Spatie\LaravelData\Mappers\SnakeCaseMapper;
 #[MapName(SnakeCaseMapper::class, SnakeCaseMapper::class)]
 class CourseData extends Data
 {
+    /**
+     * @param  UserData[]|null  $participants
+     */
     public function __construct(
         #[Uuid]
         public readonly string $id,
@@ -24,5 +27,6 @@ class CourseData extends Data
         public readonly UserData $createdBy,
         public readonly Carbon $createdAt,
         public readonly Carbon $updatedAt,
+        public readonly ?array $participants = null,
     ) {}
 }

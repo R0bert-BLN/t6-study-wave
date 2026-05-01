@@ -23,6 +23,6 @@ final readonly class CourseRepository extends BaseRepository
 
     protected function allowedIncludes(): array
     {
-        return ['createdBy'];
+        return ['createdBy', 'participants'];
     }
 }

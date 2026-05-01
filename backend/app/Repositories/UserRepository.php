@@ -26,6 +26,6 @@ final readonly class UserRepository extends BaseRepository
 
     protected function allowedIncludes(): array
     {
-        return ['createdCourses', 'createdReminders'];
+        return ['createdCourses', 'createdReminders', 'courses'];
     }
 }

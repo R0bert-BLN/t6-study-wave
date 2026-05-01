@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Course extends Model
 {
@@ -34,5 +35,10 @@ class Course extends Model
     public function assignments()
     {
         return $this->hasMany(Assignment::class, 'course_id');
+    }
+
+    public function participants(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'course_user', 'course_id', 'user_id');
     }
 }

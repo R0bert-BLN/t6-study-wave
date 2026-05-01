@@ -31,9 +31,20 @@ class DatabaseSeeder extends Seeder
             'role' => UserRole::PROFESSOR->value,
         ]);
 
+        $students = User::factory()->count(4)->create([
+            'role' => UserRole::STUDENT->value,
+        ]);
+        $students = $students->push($student);
+
         $courses = Course::factory()->count(3)->create([
             'created_by' => $professor->id,
         ]);
+
+        foreach ($courses as $course) {
+            $course->participants()->attach($professor->id);
+            $randomStudents = $students->random(rand(2, 4))->pluck('id');
+            $course->participants()->attach($randomStudents);
+        }
 
         for ($i = 0; $i < 5; $i++) {
             Assignment::factory()->create([
