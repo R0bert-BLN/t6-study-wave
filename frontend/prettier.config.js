@@ -6,4 +6,5 @@ export default {
   trailingComma: "all",
   printWidth: 100,
   plugins: ["prettier-plugin-tailwindcss"],
+  endOfLine: "crlf",
 };

@@ -45,4 +45,19 @@ class Course extends Model
     {
         return $this->belongsToMany(User::class, 'course_user', 'course_id', 'user_id');
     }
+
+    public function announcements()
+    {
+        return $this->hasMany(Announcement::class, 'class_id');
+    }
+
+    public function submissions()
+    {
+        return $this->hasMany(Submission::class, 'class_id');
+    }
+
+    public function materials()
+    {
+        return $this->hasMany(Material::class, 'class_id');
+    }
 }

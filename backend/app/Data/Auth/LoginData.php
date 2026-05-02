@@ -15,7 +15,6 @@ class LoginData extends Data
     public function __construct(
         #[Email]
         public readonly string $email,
-
         public readonly string $password,
     ) {}
 }
