@@ -7,7 +7,7 @@ import { useModal } from "@/providers/modal/use-modal.ts";
 import CourseForm from "@/features/courses/create/course-form.tsx";
 import { useAuth } from "@/providers/auth/use-auth.ts";
 
-export const Route = createFileRoute("/_app/courses")({
+export const Route = createFileRoute("/_app/courses/")({
   component: CoursesPage,
 });
 
