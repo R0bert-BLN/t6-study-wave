@@ -60,7 +60,7 @@ export function AppSidebar(): JSX.Element {
               to={item.to}
               activeProps={{ className: itemActiveClass }}
               inactiveProps={{ className: "text-zinc-400" }}
-              activeOptions={{ exact: true }}
+              activeOptions={{ exact: false }}
             >
               <item.icon className="shrink-0 text-lg" aria-hidden="true" />
               <span>{item.title}</span>

@@ -9,14 +9,20 @@ import ParticipantsTab from "@/features/courses/details/participants/participant
 import GradesTab from "@/features/courses/details/grades/grades-tab.tsx";
 import SettingsTab from "@/features/courses/details/settings/settings-tab.tsx";
 import { BackButton } from "@/components/elements/back-button.tsx";
+import { useAuth } from "@/providers/auth/use-auth.ts";
 
 export const Route = createFileRoute("/_app/courses/$courseId")({
   component: CourseDetailsPage,
 });
 
 function CourseDetailsPage(): JSX.Element | null {
+  const { isProfessor } = useAuth();
   const { courseId } = Route.useParams();
   const { data: course, isLoading } = useGetCourseById(courseId);
+
+  if (isLoading || !course) {
+    return null;
+  }
 
   const courseTabs: TabItem[] = [
     {
@@ -34,25 +40,25 @@ function CourseDetailsPage(): JSX.Element | null {
       name: "Participants",
       component: <ParticipantsTab />,
     },
-    {
-      id: "grades",
-      name: "Grades",
-      component: <GradesTab />,
-    },
-    {
-      id: "settings",
-      name: "Settings",
-      component: <SettingsTab />,
-    },
+    ...(isProfessor
+      ? [
+          {
+            id: "grades",
+            name: "Grades",
+            component: <GradesTab />,
+          },
+          {
+            id: "settings",
+            name: "Settings",
+            component: <SettingsTab course={course} />,
+          },
+        ]
+      : []),
   ];
 
-  if (isLoading || !course) {
-    return null;
-  }
-
   return (
-    <div className="main-container flex h-screen flex-col">
-      <BackButton className="pb-7" />
+    <div className="main-container flex min-h-screen w-full flex-col">
+      <BackButton className="mb-7" />
       <Header title={course.name} subtitle={course.description} />
       <Tabs tabs={courseTabs} defaultTabId="flux" className="pt-10" />
     </div>

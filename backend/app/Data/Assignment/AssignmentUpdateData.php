@@ -14,8 +14,8 @@ use Spatie\LaravelData\Optional;
 class AssignmentUpdateData extends Data
 {
     public function __construct(
-        public readonly string $title,
-        public readonly string $description,
-        public readonly Optional|Carbon $dueDate,
+        public readonly Optional|string $title = new Optional,
+        public readonly Optional|string $description = new Optional,
+        public readonly Optional|Carbon $dueDate = new Optional,
     ) {}
 }
