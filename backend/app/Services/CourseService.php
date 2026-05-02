@@ -9,7 +9,9 @@ use App\Data\Course\CourseData;
 use App\Data\Course\CourseUpdateData;
 use App\Models\Course;
 use App\Repositories\CourseRepository;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Str;
 
 final readonly class CourseService
 {
@@ -20,17 +22,28 @@ final readonly class CourseService
         return $this->courseRepository->getAllPaginated($perPage);
     }
 
-    public function getCourseById(string $id): ?CourseData
+    public function getCourseById(string $id): CourseData
     {
         /** @var Course|null $course */
         $course = $this->courseRepository->getById($id);
 
-        return $course ? CourseData::from($course) : null;
+        if (! $course) {
+            throw new ModelNotFoundException('Course not found');
+        }
+
+        return CourseData::from($course);
     }
 
     public function createCourse(CourseCreateData $data): CourseData
     {
-        $course = Course::query()->create($data->toArray());
+        $course = Course::query()->create([
+            'name' => $data->name,
+            'description' => $data->description,
+            'code' => Str::random(6),
+            'created_by' => auth()->id(),
+        ]);
+
+        $course->participants()->attach(auth()->id());
 
         return CourseData::from($course);
     }

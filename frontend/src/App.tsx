@@ -1,5 +1,5 @@
 import type { JSX } from "react";
-import { useAuth } from "@/hooks/auth/use-auth.ts";
+import { useAuth } from "@/providers/auth/use-auth.ts";
 import { createRouter, RouterProvider } from "@tanstack/react-router";
 import { routeTree } from "@/routeTree.gen.ts";
 

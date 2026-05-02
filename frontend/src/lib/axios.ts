@@ -1,6 +1,7 @@
 import axios, { AxiosError, type InternalAxiosRequestConfig } from "axios";
 import snakecaseKeys from "snakecase-keys";
 import camelcaseKeys from "camelcase-keys";
+import nprogress from "nprogress";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -15,7 +16,26 @@ const apiClient = axios.create({
   withXSRFToken: true,
 });
 
+let activeRequests = 0;
+
+const startProgress = () => {
+  if (activeRequests === 0) {
+    nprogress.start();
+  }
+  activeRequests++;
+};
+
+const stopProgress = () => {
+  activeRequests = Math.max(0, activeRequests - 1);
+
+  if (activeRequests === 0) {
+    nprogress.done();
+  }
+};
+
 apiClient.interceptors.request.use((config) => {
+  startProgress();
+
   if (config.data && !(config.data instanceof FormData)) {
     config.data = snakecaseKeys(config.data, { deep: true });
   }
@@ -25,6 +45,8 @@ apiClient.interceptors.request.use((config) => {
 
 apiClient.interceptors.response.use(
   (response) => {
+    stopProgress();
+
     if (response.data && response.headers["content-type"]?.includes("application/json")) {
       response.data = camelcaseKeys(response.data, { deep: true });
     }
@@ -33,6 +55,8 @@ apiClient.interceptors.response.use(
   },
 
   async (error: AxiosError) => {
+    stopProgress();
+
     const originalRequest = error.config as InternalAxiosRequestConfig & { _retry?: boolean };
 
     if (error.response?.status === 419 && !originalRequest._retry) {

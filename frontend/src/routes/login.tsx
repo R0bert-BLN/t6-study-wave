@@ -10,7 +10,7 @@ export const Route = createFileRoute("/login")({
 
     if (context.auth.isAuthenticated) {
       throw redirect({
-        to: "/classes",
+        to: "/courses",
       });
     }
   },

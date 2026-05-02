@@ -1,24 +1,25 @@
 import { type ApiQueryParams, buildQueryParams, type FilterState } from "@/utils/query-builder.ts";
-import type { ApiLink, ApiMeta, ApiResponse } from "@/types/api/api.ts";
+import type { ApiLink, ApiMeta, ApiResponse } from "@/types/general/api.ts";
 import { useQueryPagination } from "@/hooks/general/use-query-pagination.ts";
 import { useQuerySort } from "@/hooks/general/use-query-sort.ts";
 import { useQueryFilters } from "@/hooks/general/use-query-filters.ts";
 import type { SortingState } from "@tanstack/react-table";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 
-interface QueryParams {
-  initialSize?: number;
-  initialFilters?: FilterState;
-  initialSorting?: SortingState;
+export interface QueryParams {
+  size?: number;
+  filters?: FilterState;
+  sorting?: SortingState;
+  include?: string;
 }
 
-interface BaseQueryOptions<TData> {
+export interface BaseQueryOptions<TData> {
   queryKey: string;
   queryFn: (params: ApiQueryParams) => Promise<ApiResponse<TData[]>>;
   params?: QueryParams;
 }
 
-interface BaseQueryResult<TData> {
+export interface BaseQueryResult<TData> {
   data: TData[];
   meta?: ApiMeta;
   links?: ApiLink;
@@ -32,14 +33,15 @@ export const useBaseQuery = <TData>({
   queryFn,
   params,
 }: BaseQueryOptions<TData>): BaseQueryResult<TData> => {
-  const pagination = useQueryPagination(params?.initialSize);
-  const filters = useQueryFilters(params?.initialFilters);
-  const sorting = useQuerySort(params?.initialSorting);
+  const pagination = useQueryPagination(params?.size);
+  const filters = useQueryFilters(params?.filters);
+  const sorting = useQuerySort(params?.sorting);
 
   const queryParams = buildQueryParams({
     pagination: pagination.pagination,
     filters: filters.filters,
     sorting: sorting.sorting,
+    include: params?.include,
   });
 
   const query = useQuery({

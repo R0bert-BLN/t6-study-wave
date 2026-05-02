@@ -4,9 +4,9 @@ import { toast } from "sonner";
 import type { LoginCredentials } from "@/types/auth/auth.ts";
 import type { User } from "@/types/resources/user.ts";
 import type { AxiosError } from "axios";
-import type { ApiError } from "@/types/api/api.ts";
+import type { ApiError } from "@/types/general/api.ts";
 import { authService } from "@/servicies/auth/auth.ts";
-import { useAuth } from "@/hooks/auth/use-auth.ts";
+import { useAuth } from "@/providers/auth/use-auth.ts";
 
 export const useLogin = () => {
   const navigate = useNavigate();
@@ -17,7 +17,7 @@ export const useLogin = () => {
 
     onSuccess: (data: User): void => {
       loginUser(data);
-      navigate({ to: "/classes" });
+      navigate({ to: "/courses" });
     },
 
     onError: (error: AxiosError<ApiError>): void => {
