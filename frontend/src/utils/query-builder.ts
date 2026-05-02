@@ -7,22 +7,30 @@ interface QueryParams {
   pagination: PaginationState;
   filters?: FilterState;
   sorting?: SortingState;
+  include?: string;
 }
 
 export interface ApiQueryParams {
   page: number;
   per_page: number;
-  filters?: FilterState;
+  filter?: FilterState;
   sort?: string;
+  include?: string;
 }
 
-export const buildQueryParams = ({ pagination, sorting, filters }: QueryParams): ApiQueryParams => {
+export const buildQueryParams = ({
+  pagination,
+  sorting,
+  filters,
+  include,
+}: QueryParams): ApiQueryParams => {
   const sort = sorting?.map((sort) => (sort.desc ? `-${sort.id}` : `${sort.id}`)).join(",");
 
   return {
     page: pagination.pageIndex + 1,
     per_page: pagination.pageSize,
-    filters: filters,
+    filter: filters,
+    include: include,
     sort: sort || undefined,
   };
 };

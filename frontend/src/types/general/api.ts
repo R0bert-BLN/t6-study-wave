@@ -1,17 +1,19 @@
 export interface ApiResponse<TData> {
-  data: TData;
-  meta: ApiMeta;
-  links: ApiLink;
+  success: boolean;
+  data?: TData;
+  message?: string;
+  meta?: ApiMeta;
+  links?: ApiLink;
 }
 
 export interface ApiMeta {
   currentPage: number;
-  from: number;
+  from: number | null;
   lastPage: number;
   links: ApiMetaLink[];
   path: string;
   perPage: number;
-  to: number;
+  to: number | null;
   total: number;
 }
 
@@ -31,9 +33,25 @@ export interface ApiError {
   };
 }
 
-interface ApiMetaLink {
+export interface ApiMetaLink {
   url: string | null;
   label: string;
   active: boolean;
   page: number | null;
+}
+
+export interface LaravelPaginator<TData> {
+  currentPage: number;
+  data: TData[];
+  firstPageUrl: string;
+  from: number | null;
+  lastPage: number;
+  lastPageUrl: string;
+  links: ApiMetaLink[];
+  nextPageUrl: string | null;
+  path: string;
+  perPage: number;
+  prevPageUrl: string | null;
+  to: number | null;
+  total: number;
 }

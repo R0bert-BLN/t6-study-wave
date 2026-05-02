@@ -1,10 +1,10 @@
 import type { ComponentProps, JSX } from "react";
 import { cva } from "class-variance-authority";
 import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { useFormContext } from "@/providers/form/use-form.ts";
 import { getFirstError } from "@/utils/form.ts";
+import { Textarea } from "@/components/ui/textarea.tsx";
 
 const inputVariants = cva(
   "transition-all duration-200 bg-transparent relative z-10 cursor-text shadow-none !ring-0 !ring-offset-0",
@@ -27,8 +27,8 @@ const inputVariants = cva(
   },
 );
 
-type InputFieldProps<TName extends string> = Omit<
-  ComponentProps<typeof Input>,
+type TextFieldProps<TName extends string> = Omit<
+  ComponentProps<typeof Textarea>,
   "name" | "value" | "onChange" | "onBlur"
 > & {
   name: TName;
@@ -37,13 +37,13 @@ type InputFieldProps<TName extends string> = Omit<
   className?: string;
 };
 
-export function InputField<TName extends string>({
+export function TextField<TName extends string>({
   name,
   label,
   variant = "default",
   className,
   ...props
-}: InputFieldProps<TName>): JSX.Element {
+}: TextFieldProps<TName>): JSX.Element {
   const form = useFormContext();
 
   return (
@@ -64,7 +64,7 @@ export function InputField<TName extends string>({
               {label}
             </Label>
 
-            <Input
+            <Textarea
               id={field.name}
               name={field.name}
               value={field.state.value}

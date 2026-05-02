@@ -7,6 +7,7 @@ export interface AuthContext {
   isLoading: boolean;
   loginUser: (user: User) => void;
   logoutUser: () => void;
+  isProfessor: boolean;
 }
 
 export const AuthContext = createContext<AuthContext | null>(null);

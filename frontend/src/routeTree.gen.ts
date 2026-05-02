@@ -11,7 +11,8 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as AppRouteImport } from './routes/_app'
-import { Route as AppClassesRouteImport } from './routes/_app/classes'
+import { Route as AppCoursesRouteImport } from './routes/_app/courses'
+import { Route as AppArchivedRouteImport } from './routes/_app/archived'
 
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
@@ -22,34 +23,42 @@ const AppRoute = AppRouteImport.update({
   id: '/_app',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AppClassesRoute = AppClassesRouteImport.update({
-  id: '/classes',
-  path: '/classes',
+const AppCoursesRoute = AppCoursesRouteImport.update({
+  id: '/courses',
+  path: '/courses',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppArchivedRoute = AppArchivedRouteImport.update({
+  id: '/archived',
+  path: '/archived',
   getParentRoute: () => AppRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof AppRouteWithChildren
   '/login': typeof LoginRoute
-  '/classes': typeof AppClassesRoute
+  '/archived': typeof AppArchivedRoute
+  '/courses': typeof AppCoursesRoute
 }
 export interface FileRoutesByTo {
   '/': typeof AppRouteWithChildren
   '/login': typeof LoginRoute
-  '/classes': typeof AppClassesRoute
+  '/archived': typeof AppArchivedRoute
+  '/courses': typeof AppCoursesRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_app': typeof AppRouteWithChildren
   '/login': typeof LoginRoute
-  '/_app/classes': typeof AppClassesRoute
+  '/_app/archived': typeof AppArchivedRoute
+  '/_app/courses': typeof AppCoursesRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/login' | '/classes'
+  fullPaths: '/' | '/login' | '/archived' | '/courses'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/login' | '/classes'
-  id: '__root__' | '/_app' | '/login' | '/_app/classes'
+  to: '/' | '/login' | '/archived' | '/courses'
+  id: '__root__' | '/_app' | '/login' | '/_app/archived' | '/_app/courses'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -73,22 +82,31 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_app/classes': {
-      id: '/_app/classes'
-      path: '/classes'
-      fullPath: '/classes'
-      preLoaderRoute: typeof AppClassesRouteImport
+    '/_app/courses': {
+      id: '/_app/courses'
+      path: '/courses'
+      fullPath: '/courses'
+      preLoaderRoute: typeof AppCoursesRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/archived': {
+      id: '/_app/archived'
+      path: '/archived'
+      fullPath: '/archived'
+      preLoaderRoute: typeof AppArchivedRouteImport
       parentRoute: typeof AppRoute
     }
   }
 }
 
 interface AppRouteChildren {
-  AppClassesRoute: typeof AppClassesRoute
+  AppArchivedRoute: typeof AppArchivedRoute
+  AppCoursesRoute: typeof AppCoursesRoute
 }
 
 const AppRouteChildren: AppRouteChildren = {
-  AppClassesRoute: AppClassesRoute,
+  AppArchivedRoute: AppArchivedRoute,
+  AppCoursesRoute: AppCoursesRoute,
 }
 
 const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
