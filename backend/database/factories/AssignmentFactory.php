@@ -25,8 +25,8 @@ class AssignmentFactory extends Factory
             'title' => $this->faker->sentence(3),
             'description' => $this->faker->sentence(10),
             'due_date' => $this->faker->dateTimeBetween('-1 week', '+1 week'),
-            'course_id' => Course::factory()->create()->id,
-            'created_by' => User::factory()->create()->id,
+            'course_id' => Course::factory(),
+            'created_by' => User::factory(),
         ];
     }
 }

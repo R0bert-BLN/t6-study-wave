@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('title');
             $table->text('description')->nullable();
             $table->dateTime('due_date')->nullable();
-            $table->foreignUuid('course_id')->constrained('courses');
-            $table->foreignUuid('created_by')->constrained('users');
+            $table->foreignUuid('course_id')->constrained('courses')->cascadeOnDelete();
+            $table->foreignUuid('created_by')->constrained('users')->nullOnDelete();
             $table->timestamps();
         });
     }

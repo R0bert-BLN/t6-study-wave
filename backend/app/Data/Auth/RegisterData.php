@@ -17,7 +17,6 @@ class RegisterData extends Data
 {
     public function __construct(
         public readonly string $firstName,
-
         public readonly string $lastName,
 
         #[Unique('users', 'email')]
@@ -26,7 +25,6 @@ class RegisterData extends Data
 
         #[Confirmed]
         public readonly string $password,
-
         public readonly UserRole $role,
     ) {}
 }

@@ -28,7 +28,7 @@ class CourseFactory extends Factory
             'code' => Str::random(6),
             'description' => $this->faker->sentence(),
             'is_archived' => false,
-            'created_by' => User::factory()->create()->id,
+            'created_by' => User::factory(),
         ];
     }
 
