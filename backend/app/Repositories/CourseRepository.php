@@ -18,6 +18,8 @@ final readonly class CourseRepository extends BaseRepository
     {
         return [
             AllowedFilter::partial('name'),
+            AllowedFilter::exact('is_archived'),
+            AllowedFilter::exact('enrolled_user_id', 'participants.id'),
         ];
     }
 

@@ -13,7 +13,8 @@ use Spatie\LaravelData\Optional;
 class CourseUpdateData extends Data
 {
     public function __construct(
-        public readonly Optional|string $name,
-        public readonly Optional|string $description,
+        public readonly Optional|string $name = new Optional,
+        public readonly Optional|string $description = new Optional,
+        public readonly Optional|bool $isArchived = new Optional,
     ) {}
 }

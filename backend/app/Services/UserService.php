@@ -8,6 +8,7 @@ use App\Data\User\UserData;
 use App\Data\User\UserUpdateData;
 use App\Models\User;
 use App\Repositories\UserRepository;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 final readonly class UserService
@@ -19,12 +20,16 @@ final readonly class UserService
         return $this->userRepository->getAllPaginated($perPage);
     }
 
-    public function getUserById(string $id): ?UserData
+    public function getUserById(string $id): UserData
     {
         /** @var User|null $user */
         $user = $this->userRepository->getById($id);
 
-        return $user ? UserData::from($user) : null;
+        if (! $user) {
+            throw new ModelNotFoundException('User not found');
+        }
+
+        return UserData::from($user);
     }
 
     public function updateUser(string $id, UserUpdateData $data): UserData

@@ -27,11 +27,11 @@ import type { JSX } from "react";
 type SidebarItem = {
   title: string;
   icon: LucideIcon;
-  to: "/classes" | "/schedule" | "/evaluate" | "/todo" | "/notes" | "/archived" | "/settings";
+  to: "/courses" | "/schedule" | "/evaluate" | "/todo" | "/notes" | "/archived" | "/settings";
 };
 
 const itemButtonClass =
-  "text-zinc-400 hover:bg-zinc-800 hover:text-white py-0.5+ transition-colors cursor-pointer";
+  "text-zinc-400 hover:bg-zinc-800 hover:text-white py-5 transition-colors cursor-pointer";
 const itemActiveClass =
   "bg-zinc-800/50 text-white font-semibold !text-blue-400 border-l-2 border-blue-500 rounded-l-none";
 
@@ -39,7 +39,7 @@ export function AppSidebar(): JSX.Element {
   const { mutate: logout, isPending: isLoggingOut } = useLogout();
 
   const menuItems: SidebarItem[] = [
-    { title: "Classes", icon: Book, to: "/classes" },
+    { title: "Courses", icon: Book, to: "/courses" },
     { title: "Schedule", icon: Calendar, to: "/schedule" },
     { title: "To Evaluate", icon: CheckCircle, to: "/evaluate" },
     { title: "To Do", icon: CheckCircle, to: "/todo" },

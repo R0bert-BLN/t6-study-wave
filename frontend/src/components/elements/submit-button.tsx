@@ -4,17 +4,15 @@ import { Button, buttonVariants } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
 import type { VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
-import type { FormWithSubscribe } from "@/types/general/form-types.ts";
+import { useFormContext } from "@/providers/form/use-form.ts";
 
 interface SubmitButtonProps
   extends Omit<React.ComponentProps<"button">, "form">, VariantProps<typeof buttonVariants> {
-  form: FormWithSubscribe;
   label: string;
   isLoading?: boolean;
 }
 
 export default function SubmitButton({
-  form,
   label,
   isLoading,
   variant = "default",
@@ -22,6 +20,8 @@ export default function SubmitButton({
   disabled,
   ...props
 }: SubmitButtonProps): JSX.Element {
+  const form = useFormContext();
+
   return (
     <form.Subscribe
       selector={(state) => [state.canSubmit, state.isSubmitting] as const}

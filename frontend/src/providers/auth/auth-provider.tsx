@@ -1,9 +1,13 @@
 import { useState, useEffect, type ReactNode, type JSX } from "react";
-import type { User } from "@/types/resources/user.ts";
+import { type User, UserRole } from "@/types/resources/user.ts";
 import { authService } from "@/servicies/auth/auth.ts";
 import { AuthContext } from "./auth-context";
 
-export const AuthProvider = ({ children }: { children: ReactNode }): JSX.Element => {
+interface AuthProviderProps {
+  children: ReactNode;
+}
+
+export const AuthProvider = ({ children }: AuthProviderProps): JSX.Element => {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -20,7 +24,14 @@ export const AuthProvider = ({ children }: { children: ReactNode }): JSX.Element
 
   return (
     <AuthContext.Provider
-      value={{ user, isAuthenticated: !!user, isLoading, loginUser, logoutUser }}
+      value={{
+        user,
+        isAuthenticated: !!user,
+        isLoading,
+        loginUser,
+        logoutUser,
+        isProfessor: user?.role === UserRole.PROFESSOR,
+      }}
     >
       {children}
     </AuthContext.Provider>

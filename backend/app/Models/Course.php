@@ -18,6 +18,10 @@ class Course extends Model
 
     use HasUuids;
 
+    protected $attributes = [
+        'is_archived' => false,
+    ];
+
     protected $fillable = [
         'id',
         'name',
