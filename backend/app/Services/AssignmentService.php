@@ -30,13 +30,7 @@ final readonly class AssignmentService
 
     public function createAssignment(AssignmentCreateData $data): AssignmentData
     {
-        $assignment = Assignment::query()->create([
-            'title' => $data->title,
-            'description' => $data->description,
-            'due_date' => $data->dueDate,
-            'course_id' => $data->course,
-            'created_by' => $data->createdBy,
-        ]);
+        $assignment = Assignment::query()->create($data->toArray());
 
         return AssignmentData::from($assignment);
     }

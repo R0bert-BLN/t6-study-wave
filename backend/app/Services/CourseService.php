@@ -10,7 +10,6 @@ use App\Data\Course\CourseUpdateData;
 use App\Models\Course;
 use App\Repositories\CourseRepository;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Support\Str;
 
 final readonly class CourseService
 {
@@ -31,12 +30,7 @@ final readonly class CourseService
 
     public function createCourse(CourseCreateData $data): CourseData
     {
-        $course = Course::query()->create([
-            'name' => $data->name,
-            'description' => $data->description,
-            'code' => Str::random(6),
-            'created_by' => $data->createdBy,
-        ]);
+        $course = Course::query()->create($data->toArray());
 
         return CourseData::from($course);
     }

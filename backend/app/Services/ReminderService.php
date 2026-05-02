@@ -30,12 +30,7 @@ final readonly class ReminderService
 
     public function createReminder(ReminderCreateData $data): ReminderData
     {
-        $reminder = Reminder::query()->create([
-            'title' => $data->title,
-            'description' => $data->description,
-            'scheduled_at' => $data->scheduledAt,
-            'created_by' => $data->createdBy,
-        ]);
+        $reminder = Reminder::query()->create($data->toArray());
 
         return ReminderData::from($reminder);
     }
