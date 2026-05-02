@@ -22,11 +22,10 @@ class CommentFactory extends Factory
     public function definition(): array
     {
         return [
-            //
             'commentable_id' => Assignment::factory(),
             'commentable_type' => Assignment::class,
             'body' => $this->faker->sentence(10),
-            'created_by' => User::factory()->create()->id,
+            'created_by' => User::factory(),
             'is_private' => $this->faker->boolean(),
         ];
     }

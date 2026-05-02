@@ -19,21 +19,13 @@ class Comment extends Model
     use HasUuids;
 
     protected $fillable = [
-
+        'id',
         'commentable_id',
         'commentable_type',
         'body',
         'created_by',
         'is_private',
-
     ];
-
-    public function casts(): array
-    {
-        return [
-            'is_private' => 'boolean',
-        ];
-    }
 
     public function commentable(): MorphTo
     {

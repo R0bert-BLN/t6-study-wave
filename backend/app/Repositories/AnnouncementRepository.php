@@ -15,6 +15,6 @@ final readonly class AnnouncementRepository extends BaseRepository
 
     protected function allowedIncludes(): array
     {
-        return ['createdBy', 'class'];
+        return ['createdBy', 'course', 'comments'];
     }
 }

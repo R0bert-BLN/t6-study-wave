@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class Announcement extends Model
 {
@@ -16,11 +17,10 @@ class Announcement extends Model
     use HasFactory;
     use HasUuids;
 
-    //
     protected $fillable = [
         'id',
         'body',
-        'class_id',
+        'course_id',
         'created_by',
     ];
 
@@ -29,8 +29,13 @@ class Announcement extends Model
         return $this->belongsTo(User::class, 'created_by');
     }
 
-    public function class(): BelongsTo
+    public function course(): BelongsTo
     {
-        return $this->belongsTo(Course::class, 'class_id');
+        return $this->belongsTo(Course::class, 'course_id');
+    }
+
+    public function comments(): MorphMany
+    {
+        return $this->morphMany(Comment::class, 'commentable');
     }
 }

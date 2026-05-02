@@ -7,8 +7,8 @@ namespace App\Data\Announcement;
 use App\Data\Course\CourseData;
 use App\Data\User\UserData;
 use Carbon\Carbon;
+use Spatie\LaravelData\Attributes\AutoWhenLoadedLazy;
 use Spatie\LaravelData\Attributes\MapName;
-use Spatie\LaravelData\Attributes\Validation\Uuid;
 use Spatie\LaravelData\Data;
 use Spatie\LaravelData\Mappers\SnakeCaseMapper;
 
@@ -16,11 +16,15 @@ use Spatie\LaravelData\Mappers\SnakeCaseMapper;
 class AnnouncementData extends Data
 {
     public function __construct(
-        #[Uuid]
         public readonly string $id,
         public readonly string $body,
-        public readonly CourseData $classId,
+
+        #[AutoWhenLoadedLazy]
+        public readonly CourseData $course,
+
+        #[AutoWhenLoadedLazy]
         public readonly UserData $createdBy,
+
         public readonly Carbon $createdAt,
         public readonly Carbon $updatedAt,
     ) {}

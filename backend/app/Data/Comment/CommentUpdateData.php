@@ -12,11 +12,6 @@ use Spatie\LaravelData\Mappers\SnakeCaseMapper;
 class CommentUpdateData extends Data
 {
     public function __construct(
-
-        public readonly string $commentableType,
         public readonly string $body,
-        public readonly string $createdBy,
-        public readonly bool $isPrivate,
     ) {}
-
 }

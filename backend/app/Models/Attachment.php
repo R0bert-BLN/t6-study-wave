@@ -22,17 +22,18 @@ class Attachment extends Model
         'attachable_id',
         'attachable_type',
         'name',
+        'path',
         'size',
         'extension',
         'owned_by',
     ];
 
-    public function user(): BelongsTo
+    public function ownedBy(): BelongsTo
     {
         return $this->belongsTo(User::class, 'owned_by');
     }
 
-    public function attached(): MorphTo
+    public function attachable(): MorphTo
     {
         return $this->morphTo();
     }

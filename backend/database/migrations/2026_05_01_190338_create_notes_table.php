@@ -16,7 +16,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->string('title');
             $table->text('body')->nullable();
-            $table->foreignUuid('created_by')->constrained('users');
+            $table->foreignUuid('created_by')->constrained('users')->cascadeOnDelete();
             $table->string('category')->nullable();
             $table->timestamps();
         });

@@ -22,11 +22,11 @@ class MaterialFactory extends Factory
     public function definition(): array
     {
         return [
-            //
             'title' => $this->faker->sentence(3),
-            'description' => $this->faker->nullable()->sentence(10),
-            'class_id' => Course::factory()->create(),
-            'created_by' => User::factory()->create()->id,
+            'description' => $this->faker->sentence(10),
+            'category' => $this->faker->word(),
+            'course_id' => Course::factory(),
+            'created_by' => User::factory(),
         ];
     }
 }

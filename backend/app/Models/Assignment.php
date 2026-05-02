@@ -50,6 +50,11 @@ class Assignment extends Model
         return $this->morphMany(Comment::class, 'commentable');
     }
 
+    public function attachments(): MorphMany
+    {
+        return $this->morphMany(Attachment::class, 'attachable');
+    }
+
     public function submissions(): HasMany
     {
         return $this->hasMany(Submission::class, 'assignment_id');

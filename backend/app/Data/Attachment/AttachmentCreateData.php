@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Data\Attachment;
 
+use Illuminate\Http\UploadedFile;
 use Spatie\LaravelData\Attributes\MapName;
+use Spatie\LaravelData\Attributes\Validation\Uuid;
 use Spatie\LaravelData\Data;
 use Spatie\LaravelData\Mappers\SnakeCaseMapper;
 
@@ -12,12 +14,9 @@ use Spatie\LaravelData\Mappers\SnakeCaseMapper;
 class AttachmentCreateData extends Data
 {
     public function __construct(
-
+        #[Uuid]
         public readonly string $attachableId,
         public readonly string $attachableType,
-        public readonly string $name,
-        public readonly float $size,
-        public readonly string $extension,
-        public readonly string $ownedBy,
+        public readonly UploadedFile $file,
     ) {}
 }

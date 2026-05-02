@@ -4,17 +4,18 @@ declare(strict_types=1);
 
 namespace App\Services;
 
-use App\Data\Announcement\AnnouncementCreateData;
 use App\Data\Attachment\AttachmentCreateData;
 use App\Data\Attachment\AttachmentData;
 use App\Data\Attachment\AttachmentUpdateData;
+use App\Enums\ResourceType;
 use App\Models\Attachment;
 use App\Repositories\AttachmentRepository;
 use Illuminate\Pagination\LengthAwarePaginator;
+use RuntimeException;
 
 final readonly class AttachmentService
 {
-    public function __construct(private AttachmentRepository $attachmentRepository) {}
+    public function __construct(private AttachmentRepository $attachmentRepository, private CloudStorageService $storageService) {}
 
     public function getAllAttachments(int $perPage): LengthAwarePaginator
     {
@@ -31,7 +32,21 @@ final readonly class AttachmentService
 
     public function createAttachment(AttachmentCreateData $data): AttachmentData
     {
-        $attachment = Attachment::query()->create($data->toArray());
+        $path = $this->storageService->uploadFile($data->file, $data->attachableType);
+
+        $attachment = Attachment::query()->create([
+            'attachable_id' => $data->attachableId,
+            'attachable_type' => ResourceType::modelClass($data->attachableType),
+            'name' => $data->file->getClientOriginalName(),
+            'path' => $path,
+            'size' => $data->file->getSize() ?? 0,
+            'extension' => $data->file->getClientOriginalExtension(),
+            'owned_by' => auth()->id(),
+        ]);
+
+        if (! $attachment) {
+            throw new RuntimeException('Attachment could not be created.');
+        }
 
         return AttachmentData::from($attachment);
     }

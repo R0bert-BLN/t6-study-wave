@@ -12,12 +12,6 @@ use Spatie\LaravelData\Mappers\SnakeCaseMapper;
 class AttachmentUpdateData extends Data
 {
     public function __construct(
-
-        public readonly string $attachableId,
-        public readonly string $attachableType,
         public readonly string $name,
-        public readonly float $size,
-        public readonly string $extension,
-        public readonly string $ownedBy,
     ) {}
 }

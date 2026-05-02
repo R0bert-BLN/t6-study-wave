@@ -13,13 +13,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('attachment', function (Blueprint $table) {
+        Schema::create('announcements', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->uuidMorphs('attachable');
-            $table->string('name');
-            $table->float('size');
-            $table->string('extension');
-            $table->foreignId('owned_by')->constrained('user')->cascadeOnDelete();
+            $table->text('body');
+            $table->foreignUuid('course_id')->constrained('courses')->cascadeOnDelete();
+            $table->foreignUuid('created_by')->constrained('users')->nullOnDelete();
             $table->timestamps();
         });
     }
@@ -29,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('attachment');
+        Schema::dropIfExists('announcements');
     }
 };

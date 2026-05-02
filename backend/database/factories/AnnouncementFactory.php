@@ -22,10 +22,9 @@ class AnnouncementFactory extends Factory
     public function definition(): array
     {
         return [
-            //
             'body' => $this->faker->sentence(10),
-            'class_id' => Course::factory()->create()->id,
-            'created_by' => User::factory()->create()->id,
+            'course_id' => Course::factory(),
+            'created_by' => User::factory(),
         ];
     }
 }

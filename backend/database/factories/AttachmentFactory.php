@@ -22,13 +22,13 @@ class AttachmentFactory extends Factory
     public function definition(): array
     {
         return [
-            'attachable_id' => Assignment::factory()->create()->id,
+            'attachable_id' => Assignment::factory(),
             'attachable_type' => Assignment::class,
             'name' => $this->faker->word(),
+            'path' => $this->faker->filePath(),
             'size' => $this->faker->numberBetween(100, 5000),
-            'extension' => $this->faker->word(),
-            'owned_by' => User::factory()->create()->id,
-            //
+            'extension' => $this->faker->fileExtension(),
+            'owned_by' => User::factory(),
         ];
     }
 }

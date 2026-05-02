@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Data\Announcement;
 
 use Spatie\LaravelData\Attributes\MapName;
+use Spatie\LaravelData\Attributes\Validation\Uuid;
 use Spatie\LaravelData\Data;
 use Spatie\LaravelData\Mappers\SnakeCaseMapper;
 
@@ -12,10 +13,9 @@ use Spatie\LaravelData\Mappers\SnakeCaseMapper;
 class AnnouncementCreateData extends Data
 {
     public function __construct(
-
+        #[Uuid]
+        public readonly string $courseId,
         public readonly string $body,
-        public readonly string $classId,
         public readonly string $createdBy,
-
     ) {}
 }

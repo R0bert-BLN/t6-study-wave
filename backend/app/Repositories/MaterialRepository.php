@@ -15,6 +15,6 @@ final readonly class MaterialRepository extends BaseRepository
 
     protected function allowedIncludes(): array
     {
-        return ['createdBy', 'class'];
+        return ['createdBy', 'course', 'attachments'];
     }
 }

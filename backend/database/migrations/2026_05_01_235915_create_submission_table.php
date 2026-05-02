@@ -13,10 +13,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('submission', function (Blueprint $table) {
+        Schema::create('submissions', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignId('assignment_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('submitted_by')->constrained()->cascadeOnDelete();
+            $table->foreignUuid('assignment_id')->constrained('assignments')->cascadeOnDelete();
+            $table->foreignUuid('submitted_by')->constrained('users')->nullOnDelete();
             $table->decimal('grade', 5, 2);
             $table->timestamp('submitted_at')->nullable();
             $table->timestamps();
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('submission');
+        Schema::dropIfExists('submissions');
     }
 };

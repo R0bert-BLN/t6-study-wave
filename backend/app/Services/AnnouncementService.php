@@ -35,17 +35,17 @@ final readonly class AnnouncementService
         return AnnouncementData::from($announcement);
     }
 
-    public function updateAnnouncement(string $d, AnnouncementUpdateData $data): AnnouncementData
+    public function updateAnnouncement(string $id, AnnouncementUpdateData $data): AnnouncementData
     {
-        $announcement = Announcement::query()->findOrFail($d);
+        $announcement = Announcement::query()->findOrFail($id);
         $announcement->update($data->toArray());
 
         return AnnouncementData::from($announcement);
     }
 
-    public function deleteAnnouncement(string $d): void
+    public function deleteAnnouncement(string $id): void
     {
-        $announcement = Announcement::query()->findOrFail($d);
+        $announcement = Announcement::query()->findOrFail($id);
         $announcement->delete();
     }
 }

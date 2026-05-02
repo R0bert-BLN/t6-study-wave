@@ -15,6 +15,6 @@ final readonly class AttachmentRepository extends BaseRepository
 
     protected function allowedIncludes(): array
     {
-        return ['ownedBy', 'attached'];
+        return ['ownedBy', 'attachable'];
     }
 }

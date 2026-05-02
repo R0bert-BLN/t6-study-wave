@@ -16,8 +16,8 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->uuidMorphs('commentable');
             $table->text('body');
-            $table->uuid('created_by');
-            $table->boolean('is_private')->default(false);
+            $table->foreignUuid('created_by')->constrained('users')->nullOnDelete();
+            $table->boolean('is_private');
             $table->timestamps();
         });
     }

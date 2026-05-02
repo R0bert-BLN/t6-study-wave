@@ -9,11 +9,11 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class Submission extends Model
 {
-    //
-    /**@use HasFactory<SubmissionFactory>*/
+    /**@use HasFactory<SubmissionFactory> */
     use HasFactory;
     use HasUuids;
 
@@ -21,9 +21,8 @@ class Submission extends Model
         'id',
         'assignment_id',
         'submitted_by',
-        'garde',
+        'grade',
         'submitted_at',
-
     ];
 
     protected function casts(): array
@@ -42,5 +41,15 @@ class Submission extends Model
     public function assignment(): BelongsTo
     {
         return $this->belongsTo(Assignment::class, 'assignment_id');
+    }
+
+    public function attachments(): MorphMany
+    {
+        return $this->morphMany(Attachment::class, 'attachable');
+    }
+
+    public function comments(): MorphMany
+    {
+        return $this->morphMany(Comment::class, 'commentable');
     }
 }
