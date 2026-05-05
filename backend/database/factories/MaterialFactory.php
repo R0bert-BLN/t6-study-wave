@@ -24,7 +24,7 @@ class MaterialFactory extends Factory
         return [
             'title' => $this->faker->sentence(3),
             'description' => $this->faker->sentence(10),
-            'category' => $this->faker->word(),
+            'category' => $this->faker->randomElement(['Homework', 'Project', 'Exam']),
             'course_id' => Course::factory(),
             'created_by' => User::factory(),
         ];

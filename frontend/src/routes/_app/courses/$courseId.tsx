@@ -4,7 +4,7 @@ import Header from "@/components/elements/header.tsx";
 import type { JSX } from "react";
 import Tabs, { type TabItem } from "@/components/elements/tabs.tsx";
 import FluxTab from "@/features/courses/details/flux/flux-tab";
-import MaterialsTab from "@/features/courses/details/materials/materials-tab.tsx";
+import ClassworkTab from "@/features/courses/details/classwork/list/classwork-tab.tsx";
 import ParticipantsTab from "@/features/courses/details/participants/participants-tab.tsx";
 import GradesTab from "@/features/courses/details/grades/grades-tab.tsx";
 import SettingsTab from "@/features/courses/details/settings/settings-tab.tsx";
@@ -31,14 +31,14 @@ function CourseDetailsPage(): JSX.Element | null {
       component: <FluxTab />,
     },
     {
-      id: "materials",
-      name: "Materials",
-      component: <MaterialsTab />,
+      id: "classwork",
+      name: "Classwork",
+      component: <ClassworkTab />,
     },
     {
       id: "participants",
       name: "Participants",
-      component: <ParticipantsTab />,
+      component: <ParticipantsTab participants={course.participants || []} />,
     },
     ...(isProfessor
       ? [
@@ -57,10 +57,10 @@ function CourseDetailsPage(): JSX.Element | null {
   ];
 
   return (
-    <div className="main-container flex min-h-screen w-full flex-col">
+    <div className="main-container flex h-screen w-full flex-col">
       <BackButton className="mb-7" />
       <Header title={course.name} subtitle={course.description} />
-      <Tabs tabs={courseTabs} defaultTabId="flux" className="pt-10" />
+      <Tabs tabs={courseTabs} defaultTabId="flux" className="flex-1 overflow-hidden pt-10" />
     </div>
   );
 }

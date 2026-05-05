@@ -49,9 +49,4 @@ final readonly class CloudStorageService
 
         return false;
     }
-
-    public function getFileContents(string $path): ?string
-    {
-        return Storage::disk('s3')->get($path);
-    }
 }

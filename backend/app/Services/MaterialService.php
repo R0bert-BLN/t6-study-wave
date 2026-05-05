@@ -7,6 +7,8 @@ namespace App\Services;
 use App\Data\Material\MaterialCreateData;
 use App\Data\Material\MaterialData;
 use App\Data\Material\MaterialUpdateData;
+use App\Events\ClassworkCreated;
+use App\Models\Attachment;
 use App\Models\Material;
 use App\Repositories\MaterialRepository;
 use Illuminate\Http\UploadedFile;
@@ -35,8 +37,9 @@ final readonly class MaterialService
         unset($payload['attachments']);
 
         $material = Material::query()->create($payload);
-
         $this->storeAttachments($material, $data->attachments);
+
+        event(new ClassworkCreated($material->course_id, MaterialData::from($material)->toArray()));
 
         return MaterialData::from($material);
     }
@@ -44,7 +47,15 @@ final readonly class MaterialService
     public function updateMaterial(string $id, MaterialUpdateData $data): MaterialData
     {
         $material = Material::query()->findOrFail($id);
-        $material->update($data->toArray());
+        $payload = $data->toArray();
+
+        unset($payload['attachments']);
+        unset($payload['deletedAttachments']);
+
+        $material->update($payload);
+
+        $this->storeAttachments($material, $data->attachments);
+        $this->deleteAttachments($material, $data->deletedAttachments);
 
         return MaterialData::from($material);
     }
@@ -65,10 +76,6 @@ final readonly class MaterialService
         }
 
         foreach ($files as $file) {
-            if (! $file instanceof UploadedFile) {
-                continue;
-            }
-
             $path = $this->storageService->uploadFile($file, 'materials');
 
             $material->attachments()->create([
@@ -78,6 +85,26 @@ final readonly class MaterialService
                 'extension' => $file->getClientOriginalExtension(),
                 'owned_by' => auth()->id(),
             ]);
+        }
+    }
+
+    /**
+     * @param  string[]  $attachmentIds
+     */
+    private function deleteAttachments(Material $material, array $attachmentIds): void
+    {
+        if ($attachmentIds === []) {
+            return;
+        }
+
+        $attachments = $material->attachments()->whereIn('id', $attachmentIds)->get();
+
+        foreach ($attachments as $attachment) {
+            $attachment->delete();
+
+            if (Attachment::query()->where('path', $attachment->path)->doesntExist()) {
+                $this->storageService->deleteFile($attachment->path);
+            }
         }
     }
 }

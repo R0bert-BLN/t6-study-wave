@@ -27,7 +27,7 @@ function CoursesPage(): JSX.Element {
         title="Courses"
         subtitle="Manage your ongoing courses and students"
         buttonText="Create Course"
-        onButtonClick={() => openModal(<CourseForm />)}
+        onButtonClick={() => openModal(<CourseForm />, "!max-w-xl")}
         onSearch={(value) => filters.setFilter("name", value)}
       />
 

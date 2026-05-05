@@ -10,7 +10,7 @@ import { useQuery } from "@tanstack/react-query";
 
 export const useGetAllCourses = (params: QueryParams): BaseQueryResult<Course> => {
   return useBaseQuery<Course>({
-    queryKey: ResourceType.Course,
+    queryKey: [ResourceType.Course],
     queryFn: (params) => courseService.getAll(params),
     params: params,
   });

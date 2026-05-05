@@ -13,7 +13,6 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class Attachment extends Model
 {
-    //
     /**@use HasFactory<AttachmentFactory> */
     use HasFactory;
     use HasUuids;

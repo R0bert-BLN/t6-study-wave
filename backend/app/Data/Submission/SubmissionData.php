@@ -18,15 +18,15 @@ class SubmissionData extends Data
 {
     public function __construct(
         public readonly string $id,
-
-        #[AutoWhenLoadedLazy]
-        public readonly AssignmentData|Lazy|null $assignment,
-
-        #[AutoWhenLoadedLazy]
-        public readonly UserData|Lazy|null $submittedBy,
         public readonly float $grade,
         public readonly ?Carbon $submittedAt,
         public readonly Carbon $createdAt,
         public readonly Carbon $updatedAt,
+
+        #[AutoWhenLoadedLazy]
+        public readonly AssignmentData|Lazy $assignment,
+
+        #[AutoWhenLoadedLazy]
+        public readonly UserData|Lazy|null $submittedBy,
     ) {}
 }

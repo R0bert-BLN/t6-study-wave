@@ -24,7 +24,7 @@ export default function Tabs({ tabs, defaultTabId, className }: TabsProps): JSX.
   }
 
   return (
-    <div className={cn("no-scrollbar w-full flex-1 overflow-y-auto", className)}>
+    <div className={cn("flex min-h-0 w-full flex-col", className)}>
       <div className="flex justify-center gap-10 border-y border-zinc-200/70 pt-6">
         {tabs.map((tab) => {
           const isActive = activeTab === tab.id;
@@ -46,7 +46,7 @@ export default function Tabs({ tabs, defaultTabId, className }: TabsProps): JSX.
         })}
       </div>
 
-      <div className="animate-in fade-in w-full duration-300">
+      <div className="animate-in fade-in w-full flex-1 overflow-hidden duration-300">
         {tabs.find((tab) => tab.id === activeTab)?.component}
       </div>
     </div>

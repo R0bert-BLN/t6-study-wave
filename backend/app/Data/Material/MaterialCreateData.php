@@ -22,7 +22,7 @@ class MaterialCreateData extends Data
 
         #[Uuid]
         public readonly string $courseId,
-        public readonly ?string $category,
+        public readonly string $category,
 
         #[Uuid]
         public readonly string $createdBy,

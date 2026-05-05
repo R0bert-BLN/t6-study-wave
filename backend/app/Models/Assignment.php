@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Enums\AssignmentStatus;
 use Database\Factories\AssignmentFactory;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -26,6 +27,12 @@ class Assignment extends Model
         'due_date',
         'course_id',
         'created_by',
+        'category',
+        'name',
+        'path',
+        'size',
+        'extension',
+        'owned_by',
     ];
 
     protected function casts(): array
@@ -58,5 +65,18 @@ class Assignment extends Model
     public function submissions(): HasMany
     {
         return $this->hasMany(Submission::class, 'assignment_id');
+    }
+
+    public function getStatusAttribute(): string
+    {
+        if (! $this->dueDate) {
+            return AssignmentStatus::NO_DUE_DATE->value;
+        }
+
+        if ($this->dueDate->isPast()) {
+            return AssignmentStatus::MISSING->value;
+        }
+
+        return AssignmentStatus::ACTIVE->value;
     }
 }

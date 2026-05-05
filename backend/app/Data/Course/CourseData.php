@@ -28,9 +28,9 @@ class CourseData extends Data
         public readonly Carbon $updatedAt,
 
         #[AutoWhenLoadedLazy]
-        public readonly UserData|Lazy|null $createdBy = null,
+        public readonly UserData|Lazy $createdBy,
 
         #[AutoWhenLoadedLazy]
-        public readonly array|Lazy|null $participants = null,
+        public readonly array|Lazy $participants,
     ) {}
 }

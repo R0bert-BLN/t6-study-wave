@@ -24,7 +24,7 @@ export default function SettingsTab({ course }: SettingsTabProps): JSX.Element {
 
   const handleCopyCode = () => {
     navigator.clipboard.writeText(course.code);
-    toast.success("Copied to clipboard");
+    toast.info("Copied to clipboard");
   };
 
   const form = useForm({
