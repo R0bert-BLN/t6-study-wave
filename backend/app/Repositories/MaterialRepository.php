@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace App\Repositories;
 
 use App\Models\Material;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Pagination\LengthAwarePaginator;
 
 final readonly class MaterialRepository extends BaseRepository
 {

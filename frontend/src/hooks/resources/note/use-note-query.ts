@@ -1,15 +1,15 @@
-import {
-  type BaseQueryResult,
-  type QueryParams,
-  useBaseQuery,
-} from "@/hooks/general/use-base-query.ts";
 import { ResourceType } from "@/types/resources/resource-type.ts";
 import { noteService } from "@/servicies/resources/note.ts";
-import type { Note } from "@/types/resources/note.ts";
+import type { NoteGroup } from "@/types/resources/note.ts";
 import { useQuery } from "@tanstack/react-query";
+import {
+  useBaseQuery,
+  type BaseQueryResult,
+  type QueryParams,
+} from "@/hooks/general/use-base-query.ts";
 
-export const useGetAllNotes = (params: QueryParams): BaseQueryResult<Note> => {
-  return useBaseQuery<Note>({
+export const useGetAllNotes = (params: QueryParams): BaseQueryResult<NoteGroup> => {
+  return useBaseQuery<NoteGroup>({
     queryKey: [ResourceType.Note],
     queryFn: (queryParams) => noteService.getAll(queryParams),
     params,

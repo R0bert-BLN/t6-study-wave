@@ -43,7 +43,9 @@ RUN mkdir -p /data/caddy && mkdir -p /config/caddy
 RUN chown -R $UID:$GID /app /data /config
 
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+
 RUN chmod +x /usr/local/bin/entrypoint.sh
+RUN sed -i 's/\r$//' /usr/local/bin/entrypoint.sh
 
 USER $UID:$GID
 

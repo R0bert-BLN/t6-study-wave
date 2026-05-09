@@ -19,9 +19,9 @@ class NoteData extends Data
         public readonly string $id,
         public readonly string $title,
         public readonly string $body,
-        public readonly ?string $category,
+        public readonly string $category,
         public readonly Carbon $createdAt,
-        public readonly Carbon $updateAt,
+        public readonly Carbon $updatedAt,
 
         #[AutoWhenLoadedLazy]
         public readonly UserData|Lazy $createdBy,

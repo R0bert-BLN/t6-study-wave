@@ -12,8 +12,5 @@ fi
 echo "Installing dependencies..."
 composer install --no-interaction
 
-echo "Starting Reverb server..."
-# php artisan reverb:start --host=0.0.0.0 --port=8080 --debug &
-
 echo "Starting Web server..."
 exec "$@"

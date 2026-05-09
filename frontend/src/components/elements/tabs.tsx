@@ -25,7 +25,7 @@ export default function Tabs({ tabs, defaultTabId, className }: TabsProps): JSX.
 
   return (
     <div className={cn("flex min-h-0 w-full flex-col", className)}>
-      <div className="flex justify-center gap-10 border-y border-zinc-200/70 pt-6">
+      <div className="flex justify-center gap-10 border-y border-zinc-200/70 pt-4.5">
         {tabs.map((tab) => {
           const isActive = activeTab === tab.id;
 
@@ -34,7 +34,7 @@ export default function Tabs({ tabs, defaultTabId, className }: TabsProps): JSX.
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
               className={cn(
-                "relative cursor-pointer pb-4.5 text-[14px] font-semibold transition-all outline-none",
+                "relative cursor-pointer pb-3 text-[14px] font-semibold transition-all outline-none",
                 isActive
                   ? "border-b-2 border-zinc-900 text-zinc-900"
                   : "border-b-2 border-transparent text-zinc-400 hover:text-zinc-700",

@@ -9,15 +9,26 @@ use App\Data\Note\NoteData;
 use App\Data\Note\NoteUpdateData;
 use App\Models\Note;
 use App\Repositories\NoteRepository;
-use Illuminate\Pagination\LengthAwarePaginator;
 
 final readonly class NoteService
 {
     public function __construct(private NoteRepository $noteRepository) {}
 
-    public function getAllNotes(int $perPage): LengthAwarePaginator
+    /**
+     * @return array<int, array{category: string, notes: array<int, array<string, mixed>>}>
+     */
+    public function getAllNotes(int $perPage): array
     {
-        return $this->noteRepository->getAllPaginated($perPage);
+        $paginator = $this->noteRepository->getAllPaginated($perPage);
+
+        return $paginator->getCollection()
+            ->groupBy(static fn (Note $note) => $note->category)
+            ->map(static fn ($notes, string $category) => [
+                'category' => $category,
+                'notes' => NoteData::collect($notes)->toArray(),
+            ])
+            ->values()
+            ->toArray();
     }
 
     public function getNoteById(string $id): NoteData

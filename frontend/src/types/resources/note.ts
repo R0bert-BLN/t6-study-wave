@@ -4,8 +4,20 @@ export interface Note {
   id: string;
   title: string;
   body: string;
-  createdBy?: User | null;
-  category?: string | null;
+  createdBy: User;
+  category: string;
   createdAt: string;
-  updateAt: string;
+  updatedAt: string;
+}
+
+export interface NoteGroup {
+  category: string;
+  notes: Note[];
+}
+
+export interface NotePayload {
+  title: string;
+  body: string;
+  createdBy: string;
+  category: string;
 }

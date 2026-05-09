@@ -38,7 +38,7 @@ export default function Accordion({
           </span>
         </AccordionTrigger>
 
-        <AccordionContent className="pl-8">{children}</AccordionContent>
+        <AccordionContent>{children}</AccordionContent>
       </AccordionItem>
     </RadixAccordion>
   );

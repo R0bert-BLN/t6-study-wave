@@ -18,6 +18,6 @@ class NoteCreateData extends Data
 
         #[Uuid]
         public readonly string $createdBy,
-        public readonly ?string $category,
+        public readonly string $category,
     ) {}
 }

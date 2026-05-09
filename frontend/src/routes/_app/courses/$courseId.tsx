@@ -58,9 +58,9 @@ function CourseDetailsPage(): JSX.Element | null {
 
   return (
     <div className="main-container flex h-screen w-full flex-col">
-      <BackButton className="mb-7" />
+      <BackButton className="mb-4" />
       <Header title={course.name} subtitle={course.description} />
-      <Tabs tabs={courseTabs} defaultTabId="flux" className="flex-1 overflow-hidden pt-10" />
+      <Tabs tabs={courseTabs} defaultTabId="flux" className="flex-1 overflow-hidden pt-8" />
     </div>
   );
 }
