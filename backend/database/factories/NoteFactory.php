@@ -24,7 +24,7 @@ class NoteFactory extends Factory
             'title' => $this->faker->sentence(3),
             'body' => $this->faker->sentence(10),
             'created_by' => User::factory(),
-            'category' => $this->faker->optional()->word(),
+            'category' => $this->faker->randomElement(['Personal', 'Course']),
         ];
     }
 }

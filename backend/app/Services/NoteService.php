@@ -23,6 +23,7 @@ final readonly class NoteService
 
         return $paginator->getCollection()
             ->groupBy(static fn (Note $note) => $note->category)
+            ->sortKeysUsing(static fn (string $left, string $right) => strcmp($left, $right))
             ->map(static fn ($notes, string $category) => [
                 'category' => $category,
                 'notes' => NoteData::collect($notes)->toArray(),

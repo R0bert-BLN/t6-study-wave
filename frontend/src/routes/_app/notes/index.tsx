@@ -6,14 +6,16 @@ import { useGetAllNotes } from "@/hooks/resources/note/use-note-query.ts";
 import NoteForm from "@/features/notes/create/note-form.tsx";
 import SearchBar from "@/components/elements/search-bar.tsx";
 import NotesGrid from "@/features/notes/list/note-grid.tsx";
+import {useAuth} from "@/providers/auth/use-auth.ts";
 
 export const Route = createFileRoute("/_app/notes/")({
   component: NotePage,
 });
 
 function NotePage(): JSX.Element {
+  const { user } = useAuth();
   const { openModal } = useModal();
-  const { data: notes, filters } = useGetAllNotes({});
+  const { data: notes, filters } = useGetAllNotes({ size: -1, filters: { created_by: user?.id ?? "" } });
 
   return (
     <div className="main-container flex h-screen flex-col">
