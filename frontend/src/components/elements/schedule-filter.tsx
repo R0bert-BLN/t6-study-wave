@@ -1,5 +1,6 @@
 import type { JSX } from "react";
 import { cn } from "@/lib/utils";
+import { Calendar } from "lucide-react";
 
 export interface ScheduleFilterState {
   isToday: boolean;
@@ -42,27 +43,48 @@ export function ScheduleFilter({ filters, onChange, className }: ScheduleFilterP
           Today
         </button>
 
+        {/* Start Date */}
         <div className="flex flex-col gap-1.5">
           <label className="text-[12px] font-bold tracking-widest text-zinc-400">Start Date</label>
 
-          <input
-            type="date"
-            value={filters.startDate}
-            onChange={(e) => handleDateChange("startDate", e.target.value)}
-            className="flex h-10 w-full cursor-pointer rounded-md border border-zinc-200 bg-transparent px-3 py-2 text-sm text-zinc-900 transition-colors focus-visible:border-blue-600 focus-visible:ring-0 focus-visible:outline-none"
-          />
+          <div className="relative">
+            <input
+              type="date"
+              value={filters.startDate}
+              onChange={(e) => handleDateChange("startDate", e.target.value)}
+              className={cn(
+                "flex h-10 w-full cursor-pointer rounded-xl border border-zinc-200 bg-zinc-50/30 pl-4 pr-10 text-sm text-zinc-900 transition-colors focus-visible:border-blue-600 focus-visible:ring-0 focus-visible:outline-none",
+                "[&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:left-0 [&::-webkit-calendar-picker-indicator]:top-0 [&::-webkit-calendar-picker-indicator]:h-full [&::-webkit-calendar-picker-indicator]:w-full [&::-webkit-calendar-picker-indicator]:cursor-pointer [&::-webkit-calendar-picker-indicator]:opacity-0"
+              )}
+            />
+
+            <Calendar
+              size={18}
+              className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-zinc-900"
+            />
+          </div>
         </div>
 
         <div className="flex flex-col gap-1.5">
           <label className="text-[12px] font-bold tracking-widest text-zinc-400">End Date</label>
 
-          <input
-            type="date"
-            value={filters.endDate}
-            min={filters.startDate}
-            onChange={(e) => handleDateChange("endDate", e.target.value)}
-            className="flex h-10 w-full cursor-pointer rounded-md border border-zinc-200 bg-transparent px-3 py-2 text-sm text-zinc-900 transition-colors focus-visible:border-blue-600 focus-visible:ring-0 focus-visible:outline-none"
-          />
+          <div className="relative">
+            <input
+              type="date"
+              value={filters.endDate}
+              min={filters.startDate}
+              onChange={(e) => handleDateChange("endDate", e.target.value)}
+              className={cn(
+                "flex h-10 w-full cursor-pointer rounded-xl border border-zinc-200 bg-zinc-50/30 pl-4 pr-10 text-sm text-zinc-900 transition-colors focus-visible:border-blue-600 focus-visible:ring-0 focus-visible:outline-none",
+                "[&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:left-0 [&::-webkit-calendar-picker-indicator]:top-0 [&::-webkit-calendar-picker-indicator]:h-full [&::-webkit-calendar-picker-indicator]:w-full [&::-webkit-calendar-picker-indicator]:cursor-pointer [&::-webkit-calendar-picker-indicator]:opacity-0"
+              )}
+            />
+
+            <Calendar
+              size={18}
+              className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-zinc-900"
+            />
+          </div>
         </div>
       </div>
     </div>
