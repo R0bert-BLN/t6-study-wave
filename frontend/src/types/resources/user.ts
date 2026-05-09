@@ -12,6 +12,12 @@ export interface User {
   updatedAt: string;
 }
 
+export interface UserPayload {
+  firstName: string;
+  lastName: string;
+  picture?: File;
+}
+
 export const UserRole = {
   STUDENT: 1,
   PROFESSOR: 2,

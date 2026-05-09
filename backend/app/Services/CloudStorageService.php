@@ -29,16 +29,9 @@ final readonly class CloudStorageService
         return $path;
     }
 
-    public function getSignedUrl(string $path, int $minutesValid = 60): string
+    public function exists(string $path): bool
     {
-        if (! Storage::disk('s3')->exists($path)) {
-            throw new RuntimeException('File not found');
-        }
-
-        return Storage::disk('s3')->temporaryUrl(
-            $path,
-            now()->addMinutes($minutesValid)
-        );
+        return Storage::disk('s3')->exists($path);
     }
 
     public function deleteFile(string $path): bool

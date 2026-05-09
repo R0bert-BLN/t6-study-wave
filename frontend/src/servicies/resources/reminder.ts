@@ -1,16 +1,9 @@
 import type { ApiQueryParams } from "@/utils/query-builder.ts";
 import type { ApiResponse, LaravelPaginator } from "@/types/general/api.ts";
-import type { Reminder } from "@/types/resources/reminder.ts";
+import type { Reminder, ReminderPayload } from "@/types/resources/reminder.ts";
 import apiClient from "@/lib/axios.ts";
 import { ResourceType } from "@/types/resources/resource-type.ts";
 import { mapPaginator } from "@/utils/pagination.ts";
-
-export interface ReminderCreatePayload {
-  title: string;
-  description?: string | null;
-  scheduledAt: string;
-  createdBy: string;
-}
 
 export const reminderService = {
   getAll: async (params: ApiQueryParams): Promise<ApiResponse<Reminder[]>> => {
@@ -18,6 +11,7 @@ export const reminderService = {
       `/${ResourceType.Reminder}`,
       { params },
     );
+
     return mapPaginator(response.data.data);
   },
 
@@ -26,16 +20,20 @@ export const reminderService = {
     return response.data.data as Reminder;
   },
 
-  create: async (data: ReminderCreatePayload): Promise<Reminder> => {
+  create: async (data: ReminderPayload): Promise<Reminder> => {
     const response = await apiClient.post<ApiResponse<Reminder>>(`/${ResourceType.Reminder}`, data);
     return response.data.data as Reminder;
   },
 
-  update: async (id: string, data: Partial<Reminder>): Promise<Reminder> => {
+  update: async (id: string, data: ReminderPayload): Promise<Reminder> => {
     const response = await apiClient.patch<ApiResponse<Reminder>>(
       `/${ResourceType.Reminder}/${id}`,
       data,
     );
     return response.data.data as Reminder;
+  },
+
+  delete: async (id: string): Promise<void> => {
+    await apiClient.delete(`/${ResourceType.Reminder}/${id}`);
   },
 };

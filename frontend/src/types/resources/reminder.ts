@@ -9,3 +9,10 @@ export interface Reminder {
   createdAt: string;
   updatedAt: string;
 }
+
+export interface ReminderPayload {
+  title: string;
+  description?: string;
+  scheduledAt: string;
+  createdBy: string;
+}

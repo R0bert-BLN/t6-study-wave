@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Data\User;
 
+use Illuminate\Http\UploadedFile;
 use Spatie\LaravelData\Attributes\MapName;
-use Spatie\LaravelData\Attributes\Validation\Email;
 use Spatie\LaravelData\Data;
 use Spatie\LaravelData\Mappers\SnakeCaseMapper;
 use Spatie\LaravelData\Optional;
@@ -16,9 +16,6 @@ class UserUpdateData extends Data
     public function __construct(
         public readonly Optional|string $firstName,
         public readonly Optional|string $lastName,
-
-        #[Email]
-        public readonly Optional|string $email,
-        public readonly Optional|string|null $avatarUrl,
+        public readonly Optional|UploadedFile $picture,
     ) {}
 }

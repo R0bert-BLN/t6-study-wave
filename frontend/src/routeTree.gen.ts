@@ -11,6 +11,8 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as AppRouteImport } from './routes/_app'
+import { Route as AppSettingsIndexRouteImport } from './routes/_app/settings/index'
+import { Route as AppScheduleIndexRouteImport } from './routes/_app/schedule/index'
 import { Route as AppNotesIndexRouteImport } from './routes/_app/notes/index'
 import { Route as AppCoursesIndexRouteImport } from './routes/_app/courses/index'
 import { Route as AppArchivedIndexRouteImport } from './routes/_app/archived/index'
@@ -24,6 +26,16 @@ const LoginRoute = LoginRouteImport.update({
 const AppRoute = AppRouteImport.update({
   id: '/_app',
   getParentRoute: () => rootRouteImport,
+} as any)
+const AppSettingsIndexRoute = AppSettingsIndexRouteImport.update({
+  id: '/settings/',
+  path: '/settings/',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppScheduleIndexRoute = AppScheduleIndexRouteImport.update({
+  id: '/schedule/',
+  path: '/schedule/',
+  getParentRoute: () => AppRoute,
 } as any)
 const AppNotesIndexRoute = AppNotesIndexRouteImport.update({
   id: '/notes/',
@@ -53,6 +65,8 @@ export interface FileRoutesByFullPath {
   '/archived/': typeof AppArchivedIndexRoute
   '/courses/': typeof AppCoursesIndexRoute
   '/notes/': typeof AppNotesIndexRoute
+  '/schedule/': typeof AppScheduleIndexRoute
+  '/settings/': typeof AppSettingsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof AppRouteWithChildren
@@ -61,6 +75,8 @@ export interface FileRoutesByTo {
   '/archived': typeof AppArchivedIndexRoute
   '/courses': typeof AppCoursesIndexRoute
   '/notes': typeof AppNotesIndexRoute
+  '/schedule': typeof AppScheduleIndexRoute
+  '/settings': typeof AppSettingsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -70,6 +86,8 @@ export interface FileRoutesById {
   '/_app/archived/': typeof AppArchivedIndexRoute
   '/_app/courses/': typeof AppCoursesIndexRoute
   '/_app/notes/': typeof AppNotesIndexRoute
+  '/_app/schedule/': typeof AppScheduleIndexRoute
+  '/_app/settings/': typeof AppSettingsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -80,6 +98,8 @@ export interface FileRouteTypes {
     | '/archived/'
     | '/courses/'
     | '/notes/'
+    | '/schedule/'
+    | '/settings/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -88,6 +108,8 @@ export interface FileRouteTypes {
     | '/archived'
     | '/courses'
     | '/notes'
+    | '/schedule'
+    | '/settings'
   id:
     | '__root__'
     | '/_app'
@@ -96,6 +118,8 @@ export interface FileRouteTypes {
     | '/_app/archived/'
     | '/_app/courses/'
     | '/_app/notes/'
+    | '/_app/schedule/'
+    | '/_app/settings/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -118,6 +142,20 @@ declare module '@tanstack/react-router' {
       fullPath: '/'
       preLoaderRoute: typeof AppRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/_app/settings/': {
+      id: '/_app/settings/'
+      path: '/settings'
+      fullPath: '/settings/'
+      preLoaderRoute: typeof AppSettingsIndexRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/schedule/': {
+      id: '/_app/schedule/'
+      path: '/schedule'
+      fullPath: '/schedule/'
+      preLoaderRoute: typeof AppScheduleIndexRouteImport
+      parentRoute: typeof AppRoute
     }
     '/_app/notes/': {
       id: '/_app/notes/'
@@ -155,6 +193,8 @@ interface AppRouteChildren {
   AppArchivedIndexRoute: typeof AppArchivedIndexRoute
   AppCoursesIndexRoute: typeof AppCoursesIndexRoute
   AppNotesIndexRoute: typeof AppNotesIndexRoute
+  AppScheduleIndexRoute: typeof AppScheduleIndexRoute
+  AppSettingsIndexRoute: typeof AppSettingsIndexRoute
 }
 
 const AppRouteChildren: AppRouteChildren = {
@@ -162,6 +202,8 @@ const AppRouteChildren: AppRouteChildren = {
   AppArchivedIndexRoute: AppArchivedIndexRoute,
   AppCoursesIndexRoute: AppCoursesIndexRoute,
   AppNotesIndexRoute: AppNotesIndexRoute,
+  AppScheduleIndexRoute: AppScheduleIndexRoute,
+  AppSettingsIndexRoute: AppSettingsIndexRoute,
 }
 
 const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)

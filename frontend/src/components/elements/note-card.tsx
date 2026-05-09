@@ -4,8 +4,8 @@ import { cn } from "@/lib/utils.ts";
 import { useModal } from "@/providers/modal/use-modal.ts";
 import NoteForm from "@/features/notes/create/note-form.tsx";
 import ActionMenu from "@/components/elements/action-menu.tsx";
-import {useDeleteNote} from "@/hooks/resources/note/use-note-mutation.ts";
-import {toast} from "sonner";
+import { useDeleteNote } from "@/hooks/resources/note/use-note-mutation.ts";
+import { toast } from "sonner";
 
 export interface NoteCardProps {
   note: Note;
@@ -31,7 +31,7 @@ export default function NoteCard({ note, className }: NoteCardProps): JSX.Elemen
           },
           onError: () => {
             toast.error("Failed to delete note");
-          }
+          },
         });
       },
     },
@@ -49,7 +49,10 @@ export default function NoteCard({ note, className }: NoteCardProps): JSX.Elemen
         <div className="flex items-center justify-between">
           <span className="line-clamp-1 text-base font-semibold text-amber-950">{note.title}</span>
 
-          <ActionMenu triggerClassName="text-gray-600 hover:text-gray-900 hover:bg-gray-100" items={items} />
+          <ActionMenu
+            triggerClassName="text-gray-600 hover:text-gray-900 hover:bg-gray-100"
+            items={items}
+          />
         </div>
 
         <span className="text-xs font-bold tracking-widest text-amber-600 uppercase">

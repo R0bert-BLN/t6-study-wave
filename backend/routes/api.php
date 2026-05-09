@@ -9,6 +9,7 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\ClassworkController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\FileController;
 use App\Http\Controllers\FluxController;
 use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\NoteController;
@@ -24,6 +25,7 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::middleware(['auth:sanctum'])->group(function () {
     Broadcast::routes();
 
+    Route::get('/files/{path}', [FileController::class, 'access'])->where('path', '.*');
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/me', [AuthController::class, 'me']);
 
