@@ -23,6 +23,7 @@ class AssignmentFactory extends Factory
     {
         return [
             'title' => $this->faker->sentence(3),
+            'category' => $this->faker->randomElement(['Homework', 'Project', 'Exam']),
             'description' => $this->faker->sentence(10),
             'due_date' => $this->faker->dateTimeBetween('-1 week', '+1 week'),
             'course_id' => Course::factory(),

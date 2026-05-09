@@ -44,7 +44,7 @@ export default function CourseForm(): JSX.Element {
     <FormProvider value={form}>
       <div className="flex flex-col gap-6">
         <div className="mb-2 text-left">
-          <p className="text-xl font-bold tracking-tight text-zinc-900">Create a new class</p>
+          <p className="text-xl font-bold tracking-tight text-zinc-900">Create a new course</p>
         </div>
 
         <form
@@ -58,7 +58,7 @@ export default function CourseForm(): JSX.Element {
           <InputField name="name" label="Class Name" variant="default" className="mb-2" />
           <TextField name="description" label="Description" variant="default" />
 
-          <div className="mt-2 flex justify-end gap-3 pt-4">
+          <div className="flex justify-end gap-3 pt-4">
             <Button
               type="button"
               onClick={closeModal}
@@ -68,7 +68,7 @@ export default function CourseForm(): JSX.Element {
               Cancel
             </Button>
 
-            <SubmitButton isLoading={isPending} label="Create Class" className="main-btn px-4" />
+            <SubmitButton isLoading={isPending} label="Create Course" className="main-btn px-4" />
           </div>
         </form>
       </div>

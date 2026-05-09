@@ -23,11 +23,10 @@ class AttachmentData extends Data
         public readonly string $path,
         public readonly float $size,
         public readonly string $extension,
-
-        #[AutoWhenLoadedLazy]
-        public readonly UserData|Lazy|null $ownedBy,
-
         public readonly Carbon $createdAt,
         public readonly Carbon $updatedAt,
+
+        #[AutoWhenLoadedLazy]
+        public readonly UserData|Lazy $ownedBy,
     ) {}
 }

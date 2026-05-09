@@ -5,7 +5,7 @@ import Header from "@/components/elements/header.tsx";
 import { CourseGrid } from "@/features/courses/list/course-grid.tsx";
 import SearchBar from "@/components/elements/search-bar.tsx";
 
-export const Route = createFileRoute("/_app/archived")({
+export const Route = createFileRoute("/_app/archived/")({
   component: RouteComponent,
 });
 

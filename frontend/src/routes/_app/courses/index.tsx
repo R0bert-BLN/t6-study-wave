@@ -7,7 +7,7 @@ import { useModal } from "@/providers/modal/use-modal.ts";
 import CourseForm from "@/features/courses/create/course-form.tsx";
 import { useAuth } from "@/providers/auth/use-auth.ts";
 
-export const Route = createFileRoute("/_app/courses")({
+export const Route = createFileRoute("/_app/courses/")({
   component: CoursesPage,
 });
 
@@ -27,7 +27,7 @@ function CoursesPage(): JSX.Element {
         title="Courses"
         subtitle="Manage your ongoing courses and students"
         buttonText="Create Course"
-        onButtonClick={() => openModal(<CourseForm />)}
+        onButtonClick={() => openModal(<CourseForm />, "!max-w-xl")}
         onSearch={(value) => filters.setFilter("name", value)}
       />
 

@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use Spatie\LaravelData\Attributes\AutoWhenLoadedLazy;
 use Spatie\LaravelData\Attributes\MapName;
 use Spatie\LaravelData\Data;
+use Spatie\LaravelData\Lazy;
 use Spatie\LaravelData\Mappers\SnakeCaseMapper;
 
 #[MapName(SnakeCaseMapper::class, SnakeCaseMapper::class)]
@@ -19,10 +20,10 @@ class ReminderData extends Data
         public readonly string $title,
         public readonly ?string $description,
         public readonly Carbon $scheduledAt,
-
-        #[AutoWhenLoadedLazy]
-        public readonly UserData $createdBy,
         public readonly Carbon $createdAt,
         public readonly Carbon $updatedAt,
+
+        #[AutoWhenLoadedLazy]
+        public readonly UserData|Lazy $createdBy,
     ) {}
 }

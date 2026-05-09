@@ -66,6 +66,12 @@ abstract readonly class BaseRepository
 
     public function getById(string $id, ?Builder $baseQuery = null): ?Model
     {
-        return $this->buildQuery($baseQuery)->find($id);
+        $query = $this->buildQuery($baseQuery);
+
+        if (! empty($this->allowedIncludes())) {
+            $query->with($this->allowedIncludes());
+        }
+
+        return $query->find($id);
     }
 }

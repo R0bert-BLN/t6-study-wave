@@ -25,6 +25,11 @@ class Material extends Model
         'course_id',
         'category',
         'created_by',
+        'name',
+        'path',
+        'size',
+        'extension',
+        'owned_by',
     ];
 
     public function createdBy(): BelongsTo

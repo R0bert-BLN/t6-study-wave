@@ -2,23 +2,22 @@ import { useState, type ReactNode, type JSX } from "react";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { ModalContext } from "./modal-context";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
+import { cn } from "@/lib/utils.ts";
 
-interface ModalProviderProps {
-  children: ReactNode;
-}
-
-export const ModalProvider = ({ children }: ModalProviderProps): JSX.Element => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+export const ModalProvider = ({ children }: { children: ReactNode }): JSX.Element => {
+  const [isOpen, setIsOpen] = useState(false);
   const [content, setContent] = useState<ReactNode | null>(null);
+  const [className, setClassName] = useState<string>("");
 
-  const openModal = (newContent: ReactNode) => {
+  const openModal = (newContent: ReactNode, className: string = "") => {
     setContent(newContent);
+    setClassName(className);
     setIsOpen(true);
   };
 
   const closeModal = () => {
     setIsOpen(false);
-    setTimeout(() => setContent(null), 300);
+    setTimeout(() => setContent(null), 200);
   };
 
   return (
@@ -26,12 +25,12 @@ export const ModalProvider = ({ children }: ModalProviderProps): JSX.Element => 
       {children}
 
       <Dialog open={isOpen} onOpenChange={(open) => !open && closeModal()}>
-        <DialogContent className="w-full overflow-hidden px-6 py-4">
+        <DialogContent className={cn("rounded-3xl border-none p-0 shadow-2xl", className)}>
           <VisuallyHidden>
             <DialogTitle>Modal Dialog</DialogTitle>
           </VisuallyHidden>
 
-          {content}
+          <div className="overflow-y-auto p-8">{content}</div>
         </DialogContent>
       </Dialog>
     </ModalContext.Provider>

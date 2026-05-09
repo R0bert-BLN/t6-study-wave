@@ -1,7 +1,6 @@
 import type { JSX } from "react";
 import * as React from "react";
 import { Button, buttonVariants } from "@/components/ui/button";
-import { Spinner } from "@/components/ui/spinner";
 import type { VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 import { useFormContext } from "@/providers/form/use-form.ts";
@@ -36,7 +35,7 @@ export default function SubmitButton({
             className={cn(className)}
             {...props}
           >
-            {loading ? <Spinner className="size-5 text-white" /> : <span>{label}</span>}
+            <span>{label}</span>
           </Button>
         );
       }}

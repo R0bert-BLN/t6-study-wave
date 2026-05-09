@@ -26,6 +26,6 @@ class UserData extends Data
         public readonly ?string $avatarUrl,
         public readonly Carbon $createdAt,
         public readonly Carbon $updatedAt,
-        public readonly ?array $courses = null,
+        public readonly ?array $courses,
     ) {}
 }

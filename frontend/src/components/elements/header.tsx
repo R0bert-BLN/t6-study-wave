@@ -5,11 +5,12 @@ import { cn } from "@/lib/utils.ts";
 
 interface HeaderProps {
   title: string;
-  subtitle: string;
+  subtitle?: string;
   className?: string;
   onSearch?: (value: string) => void;
   buttonText?: string;
   onButtonClick?: () => void;
+  titleClassName?: string;
 }
 
 export default function Header({
@@ -19,11 +20,14 @@ export default function Header({
   onButtonClick,
   onSearch,
   className,
+  titleClassName,
 }: HeaderProps): JSX.Element {
   return (
     <div className={cn("flex w-full items-center justify-between", className)}>
       <div className="w-full">
-        <p className="text-3xl font-bold tracking-tight text-zinc-900">{title}</p>
+        <p className={cn("text-3xl font-bold tracking-tight text-zinc-900", titleClassName)}>
+          {title}
+        </p>
         <p className="mt-2 text-zinc-500">{subtitle}</p>
       </div>
 

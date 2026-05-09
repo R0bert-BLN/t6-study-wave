@@ -16,7 +16,7 @@ final readonly class NoteRepository extends BaseRepository
 
     protected function allowedFilters(): array
     {
-        return [AllowedFilter::partial('title')];
+        return [AllowedFilter::partial('title'), AllowedFilter::exact('created_by')];
     }
 
     protected function allowedIncludes(): array

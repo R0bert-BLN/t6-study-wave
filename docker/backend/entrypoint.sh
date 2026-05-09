@@ -12,5 +12,5 @@ fi
 echo "Installing dependencies..."
 composer install --no-interaction
 
-echo "Starting server..."
+echo "Starting Web server..."
 exec "$@"
