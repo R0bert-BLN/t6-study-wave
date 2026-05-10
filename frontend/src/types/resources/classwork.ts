@@ -10,4 +10,5 @@ export enum ClassworkType {
 export type ClassworkItem =
   | (Assignment & { type: ClassworkType.Assignment })
   | (Material & { type: ClassworkType.Material });
+
 export type Classwork = Record<string, ClassworkItem[]>;

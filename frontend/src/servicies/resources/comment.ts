@@ -1,17 +1,9 @@
 import type { ApiQueryParams } from "@/utils/query-builder.ts";
 import type { ApiResponse, LaravelPaginator } from "@/types/general/api.ts";
-import type { Comment } from "@/types/resources/comment.ts";
+import type { Comment, CommentPayload } from "@/types/resources/comment.ts";
 import apiClient from "@/lib/axios.ts";
 import { ResourceType } from "@/types/resources/resource-type.ts";
 import { mapPaginator } from "@/utils/pagination.ts";
-
-export interface CommentCreatePayload {
-  commentableId: string;
-  commentableType: string;
-  body: string;
-  createdBy: string;
-  isPrivate: boolean;
-}
 
 export const commentService = {
   getAll: async (params: ApiQueryParams): Promise<ApiResponse<Comment[]>> => {
@@ -27,7 +19,7 @@ export const commentService = {
     return response.data.data as Comment;
   },
 
-  create: async (data: CommentCreatePayload): Promise<Comment> => {
+  create: async (data: CommentPayload): Promise<Comment> => {
     const response = await apiClient.post<ApiResponse<Comment>>(`/${ResourceType.Comment}`, data);
     return response.data.data as Comment;
   },

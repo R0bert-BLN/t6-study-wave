@@ -15,7 +15,7 @@ export function BackButton({ label = "Back", className }: BackButtonProps): JSX.
     <button
       onClick={() => router.history.back()}
       className={cn(
-        "inline-flex cursor-pointer items-center gap-2 rounded-md px-1 text-[14px] font-medium text-zinc-400 transition-colors hover:text-zinc-900 focus-visible:ring-2 focus-visible:ring-zinc-900 focus-visible:outline-none",
+        "inline-flex cursor-pointer items-center gap-2 rounded-md text-[14px] font-medium text-zinc-400 transition-colors hover:text-zinc-900 focus-visible:ring-2 focus-visible:ring-zinc-900 focus-visible:outline-none",
         className,
       )}
     >

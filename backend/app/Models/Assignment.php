@@ -69,14 +69,20 @@ class Assignment extends Model
 
     public function getStatusAttribute(): string
     {
-        if (! $this->dueDate) {
-            return AssignmentStatus::NO_DUE_DATE->value;
+        $submission = $this->submissions()->where('submitted_by', auth()->id())->first();
+
+        if ($submission) {
+            if ($submission->grade !== null) {
+                return AssignmentStatus::GRADED->value;
+            }
+
+            return AssignmentStatus::SUBMITTED->value;
         }
 
-        if ($this->dueDate->isPast()) {
+        if ($this->due_date && $this->due_date->isPast()) {
             return AssignmentStatus::MISSING->value;
         }
 
-        return AssignmentStatus::ACTIVE->value;
+        return AssignmentStatus::ASSIGNED->value;
     }
 }

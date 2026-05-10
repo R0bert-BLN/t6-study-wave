@@ -14,6 +14,17 @@ export const useCreateCourse = () => {
   });
 };
 
+export const useJoinCourse = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (code: string): Promise<Course> => courseService.join(code),
+    onSuccess: (): void => {
+      queryClient.invalidateQueries({ queryKey: [ResourceType.Course] });
+    },
+  });
+};
+
 export const useUpdateCourse = (id: string) => {
   const queryClient = useQueryClient();
 

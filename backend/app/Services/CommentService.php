@@ -7,6 +7,7 @@ namespace App\Services;
 use App\Data\Comment\CommentCreateData;
 use App\Data\Comment\CommentData;
 use App\Data\Comment\CommentUpdateData;
+use App\Enums\ResourceType;
 use App\Models\Comment;
 use App\Repositories\CommentRepository;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -31,7 +32,13 @@ final readonly class CommentService
 
     public function createComment(CommentCreateData $data): CommentData
     {
-        $comment = Comment::query()->create($data->toArray());
+        $payload = $data->toArray();
+        unset($payload['commentable_type']);
+
+        $comment = Comment::query()->create([
+            ...$payload,
+            'commentable_type' => ResourceType::modelClass($data->commentableType),
+        ]);
 
         return CommentData::from($comment);
     }

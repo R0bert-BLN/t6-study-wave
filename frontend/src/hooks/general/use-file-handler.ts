@@ -1,23 +1,17 @@
-import { authService } from "@/servicies/auth/auth.ts";
-
 export const useFileHandler = () => {
-  const previewFile = async (path: string) => {
-    const url = await authService.getSignedUrl(path);
-    window.open(url, "_blank");
+  const API_URL = import.meta.env.VITE_API_URL;
+
+  const previewFile = (path: string) => {
+    window.open(`${API_URL}/files/${path}`, "_blank");
   };
 
-  const downloadFile = async (path: string, fileName: string) => {
-    const url = await authService.getSignedUrl(path);
-    const link = document.createElement("a");
-
-    link.href = url;
-    link.setAttribute("download", fileName);
-
-    document.body.appendChild(link);
-
-    link.click();
-    link.remove();
+  const downloadFile = (path: string, fileName: string) => {
+    window.location.href = `${API_URL}/files/${path}?download=1&name=${encodeURIComponent(fileName)}`;
   };
 
-  return { previewFile, downloadFile };
+  const getInlineFileUrl = (path: string) => {
+    return `${API_URL}/files/${path}`;
+  };
+
+  return { previewFile, downloadFile, getInlineFileUrl };
 };

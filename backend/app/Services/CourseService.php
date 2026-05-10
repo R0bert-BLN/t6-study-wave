@@ -6,6 +6,7 @@ namespace App\Services;
 
 use App\Data\Course\CourseCreateData;
 use App\Data\Course\CourseData;
+use App\Data\Course\CourseJoinData;
 use App\Data\Course\CourseUpdateData;
 use App\Models\Course;
 use App\Repositories\CourseRepository;
@@ -44,6 +45,20 @@ final readonly class CourseService
         ]);
 
         $course->participants()->attach(auth()->id());
+
+        return CourseData::from($course);
+    }
+
+    public function joinCourse(CourseJoinData $data): CourseData
+    {
+        /** @var Course|null $course */
+        $course = Course::query()->where('code', $data->code)->first();
+
+        if (! $course) {
+            throw new ModelNotFoundException('Course not found');
+        }
+
+        $course->participants()->syncWithoutDetaching([auth()->id()]);
 
         return CourseData::from($course);
     }

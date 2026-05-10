@@ -26,7 +26,13 @@ final readonly class AssignmentService
     public function getAssignmentById(string $id): AssignmentData
     {
         /** @var Assignment|null $assignment */
-        $assignment = $this->assignmentsRepository->getById($id);
+        $assignment = $this->assignmentsRepository->getById(
+            $id,
+            Assignment::query()->with([
+                'comments' => fn ($query) => $query->orderByDesc('created_at'),
+                'comments.createdBy',
+            ]),
+        );
 
         return AssignmentData::from($assignment);
     }
@@ -39,7 +45,7 @@ final readonly class AssignmentService
         $assignment = Assignment::query()->create($payload);
         $this->storeAttachments($assignment, $data->attachments);
 
-        event(new ClassworkCreated($assignment->course_id, AssignmentData::from($assignment)->toArray()));
+        // event(new ClassworkCreated($assignment->course_id, AssignmentData::from($assignment)->toArray()));
 
         return AssignmentData::from($assignment);
     }

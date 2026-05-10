@@ -32,8 +32,8 @@ export default function CommentItem({
     <div
       className={cn(
         "group flex w-full gap-4",
-        className,
         isAnnouncement ? "cursor-pointer hover:opacity-70" : "",
+        className,
       )}
     >
       <div className="shrink-0">

@@ -6,6 +6,7 @@ import { CourseGrid } from "@/features/courses/list/course-grid.tsx";
 import { useModal } from "@/providers/modal/use-modal.ts";
 import CourseForm from "@/features/courses/create/course-form.tsx";
 import { useAuth } from "@/providers/auth/use-auth.ts";
+import JoinForm from "@/features/courses/create/join-form.tsx";
 
 export const Route = createFileRoute("/_app/courses/")({
   component: CoursesPage,
@@ -13,7 +14,7 @@ export const Route = createFileRoute("/_app/courses/")({
 
 function CoursesPage(): JSX.Element {
   const { openModal } = useModal();
-  const { user } = useAuth();
+  const { user, isProfessor } = useAuth();
 
   const { data: courses, filters } = useGetAllCourses({
     include: "createdBy",
@@ -26,8 +27,8 @@ function CoursesPage(): JSX.Element {
         className="pb-10"
         title="Courses"
         subtitle="Manage your ongoing courses and students"
-        buttonText="Create Course"
-        onButtonClick={() => openModal(<CourseForm />, "!max-w-xl")}
+        buttonText={isProfessor ? "Create Course" : "Join Course"}
+        onButtonClick={() => openModal(isProfessor ? <CourseForm /> : <JoinForm />, "!max-w-xl")}
         onSearch={(value) => filters.setFilter("name", value)}
       />
 

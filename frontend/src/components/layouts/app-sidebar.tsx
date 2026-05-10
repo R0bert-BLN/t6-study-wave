@@ -23,11 +23,12 @@ import {
 } from "@/components/ui/sidebar";
 import { useLogout } from "@/hooks/auth/use-auth-mutation.ts";
 import type { JSX } from "react";
+import { useAuth } from "@/providers/auth/use-auth.ts";
 
 type SidebarItem = {
   title: string;
   icon: LucideIcon;
-  to: "/courses" | "/schedule" | "/evaluate" | "/todo" | "/notes" | "/archived" | "/settings";
+  to: "/courses" | "/schedule" | "/to-evaluate" | "/to-do" | "/notes" | "/archived" | "/settings";
 };
 
 const itemButtonClass =
@@ -36,13 +37,14 @@ const itemActiveClass =
   "bg-zinc-800/50 text-white font-semibold !text-blue-400 border-l-2 border-blue-500 rounded-l-none";
 
 export function AppSidebar(): JSX.Element {
+  const { isProfessor } = useAuth();
   const { mutate: logout, isPending: isLoggingOut } = useLogout();
 
   const menuItems: SidebarItem[] = [
     { title: "Courses", icon: Book, to: "/courses" },
     { title: "Schedule", icon: Calendar, to: "/schedule" },
-    { title: "To Evaluate", icon: CheckCircle, to: "/evaluate" },
-    { title: "To Do", icon: CheckCircle, to: "/todo" },
+    // ...(isProfessor ? [{ title: "To Evaluate", icon: CheckCircle, to: "/to-evaluate" }] : []),
+    ...(!isProfessor ? [{ title: "To Do", icon: CheckCircle, to: "/to-do" }] : []),
     { title: "Notes", icon: Notebook, to: "/notes" },
   ];
 

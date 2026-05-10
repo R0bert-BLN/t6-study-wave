@@ -32,6 +32,7 @@ class AssignmentData extends Data
         public readonly ?string $description,
         public readonly ?Carbon $dueDate,
         public readonly string $category,
+        public readonly string $status,
 
         #[AutoWhenLoadedLazy]
         public readonly CourseData|Lazy $course,

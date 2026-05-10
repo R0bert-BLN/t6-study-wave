@@ -1,21 +1,19 @@
 import type { ApiQueryParams } from "@/utils/query-builder.ts";
 import type { ApiResponse, LaravelPaginator } from "@/types/general/api.ts";
-import type { Submission } from "@/types/resources/submission.ts";
+import type { Submission, SubmissionPayload } from "@/types/resources/submission.ts";
 import apiClient from "@/lib/axios.ts";
 import { ResourceType } from "@/types/resources/resource-type.ts";
 import { mapPaginator } from "@/utils/pagination.ts";
 
-export interface SubmissionCreatePayload {
-  assignmentId: string;
-  attachments?: File[];
-}
-
-const buildSubmissionFormData = (data: SubmissionCreatePayload): FormData => {
+const buildSubmissionFormData = (data: SubmissionPayload): FormData => {
   const formData = new FormData();
+
   formData.append("assignment_id", data.assignmentId);
+
   data.attachments?.forEach((file) => {
     formData.append("attachments[]", file);
   });
+
   return formData;
 };
 
@@ -35,10 +33,15 @@ export const submissionService = {
     return response.data.data as Submission;
   },
 
-  create: async (data: SubmissionCreatePayload): Promise<Submission> => {
+  create: async (data: SubmissionPayload): Promise<Submission> => {
     const response = await apiClient.post<ApiResponse<Submission>>(
       `/${ResourceType.Submission}`,
       buildSubmissionFormData(data),
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      },
     );
     return response.data.data as Submission;
   },

@@ -26,7 +26,13 @@ final readonly class MaterialService
     public function getMaterialById(string $id): MaterialData
     {
         /** @var Material|null $material */
-        $material = $this->materialRepository->getById($id);
+        $material = $this->materialRepository->getById(
+            $id,
+            Material::query()->with([
+                'comments' => fn ($query) => $query->orderByDesc('created_at'),
+                'comments.createdBy',
+            ])
+        );
 
         return MaterialData::from($material);
     }
@@ -39,7 +45,7 @@ final readonly class MaterialService
         $material = Material::query()->create($payload);
         $this->storeAttachments($material, $data->attachments);
 
-        event(new ClassworkCreated($material->course_id, MaterialData::from($material)->toArray()));
+        // event(new ClassworkCreated($material->course_id, MaterialData::from($material)->toArray()));
 
         return MaterialData::from($material);
     }

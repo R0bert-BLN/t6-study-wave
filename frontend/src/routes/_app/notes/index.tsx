@@ -6,7 +6,7 @@ import { useGetAllNotes } from "@/hooks/resources/note/use-note-query.ts";
 import NoteForm from "@/features/notes/create/note-form.tsx";
 import SearchBar from "@/components/elements/search-bar.tsx";
 import NotesGrid from "@/features/notes/list/note-grid.tsx";
-import {useAuth} from "@/providers/auth/use-auth.ts";
+import { useAuth } from "@/providers/auth/use-auth.ts";
 
 export const Route = createFileRoute("/_app/notes/")({
   component: NotePage,
@@ -15,7 +15,10 @@ export const Route = createFileRoute("/_app/notes/")({
 function NotePage(): JSX.Element {
   const { user } = useAuth();
   const { openModal } = useModal();
-  const { data: notes, filters } = useGetAllNotes({ size: -1, filters: { created_by: user?.id ?? "" } });
+  const { data: notes, filters } = useGetAllNotes({
+    size: -1,
+    filters: { created_by: user?.id ?? "" },
+  });
 
   return (
     <div className="main-container flex h-screen flex-col">
@@ -31,7 +34,7 @@ function NotePage(): JSX.Element {
         <SearchBar className="w-full" onSearch={(value) => filters.setFilter("title", value)} />
       </div>
 
-      <div className={"no-scrollbar flex-1 overflow-y-auto"}>
+      <div className="no-scrollbar flex-1 overflow-y-auto">
         <NotesGrid notes={notes ?? {}} />
       </div>
     </div>

@@ -69,7 +69,16 @@ abstract readonly class BaseRepository
         $query = $this->buildQuery($baseQuery);
 
         if (! empty($this->allowedIncludes())) {
-            $query->with($this->allowedIncludes());
+            $existingIncludes = $query->getEagerLoads();
+
+            $missingIncludes = array_values(array_filter(
+                $this->allowedIncludes(),
+                static fn (string $include): bool => ! array_key_exists($include, $existingIncludes)
+            ));
+
+            if ($missingIncludes !== []) {
+                $query->with($missingIncludes);
+            }
         }
 
         return $query->find($id);

@@ -9,11 +9,12 @@ use App\Data\User\UserUpdateData;
 use App\Models\User;
 use App\Repositories\UserRepository;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 final readonly class UserService
 {
-    public function __construct(private UserRepository $userRepository) {}
+    public function __construct(private UserRepository $userRepository, private CloudStorageService $storageService) {}
 
     public function getAllUsers(int $perPage): LengthAwarePaginator
     {
@@ -35,7 +36,17 @@ final readonly class UserService
     public function updateUser(string $id, UserUpdateData $data): UserData
     {
         $user = User::query()->findOrFail($id);
-        $user->update($data->toArray());
+        $payload = $data->toArray();
+
+        $picture = $data->picture;
+        unset($payload['picture']);
+
+        if ($picture instanceof UploadedFile) {
+            $path = $this->storageService->uploadFile($picture, 'users');
+            $payload['avatar_url'] = $path;
+        }
+
+        $user->update($payload);
 
         return UserData::from($user);
     }

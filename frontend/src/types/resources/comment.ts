@@ -10,3 +10,11 @@ export interface Comment {
   createdAt: string;
   updatedAt: string;
 }
+
+export interface CommentPayload {
+  commentableId: string;
+  commentableType: string;
+  body: string;
+  createdBy: string;
+  isPrivate: boolean;
+}
