@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as AppRouteImport } from './routes/_app'
+import { Route as AppToDoIndexRouteImport } from './routes/_app/to-do/index'
 import { Route as AppSettingsIndexRouteImport } from './routes/_app/settings/index'
 import { Route as AppScheduleIndexRouteImport } from './routes/_app/schedule/index'
 import { Route as AppNotesIndexRouteImport } from './routes/_app/notes/index'
@@ -28,6 +29,11 @@ const LoginRoute = LoginRouteImport.update({
 const AppRoute = AppRouteImport.update({
   id: '/_app',
   getParentRoute: () => rootRouteImport,
+} as any)
+const AppToDoIndexRoute = AppToDoIndexRouteImport.update({
+  id: '/to-do/',
+  path: '/to-do/',
+  getParentRoute: () => AppRoute,
 } as any)
 const AppSettingsIndexRoute = AppSettingsIndexRouteImport.update({
   id: '/settings/',
@@ -80,6 +86,7 @@ export interface FileRoutesByFullPath {
   '/notes/': typeof AppNotesIndexRoute
   '/schedule/': typeof AppScheduleIndexRoute
   '/settings/': typeof AppSettingsIndexRoute
+  '/to-do/': typeof AppToDoIndexRoute
   '/courses/$courseId/': typeof AppCoursesCourseIdIndexRoute
   '/courses/$courseId/assignments/$assignmentId': typeof AppCoursesCourseIdAssignmentsAssignmentIdRoute
   '/courses/$courseId/materials/$materialId': typeof AppCoursesCourseIdMaterialsMaterialIdRoute
@@ -92,6 +99,7 @@ export interface FileRoutesByTo {
   '/notes': typeof AppNotesIndexRoute
   '/schedule': typeof AppScheduleIndexRoute
   '/settings': typeof AppSettingsIndexRoute
+  '/to-do': typeof AppToDoIndexRoute
   '/courses/$courseId': typeof AppCoursesCourseIdIndexRoute
   '/courses/$courseId/assignments/$assignmentId': typeof AppCoursesCourseIdAssignmentsAssignmentIdRoute
   '/courses/$courseId/materials/$materialId': typeof AppCoursesCourseIdMaterialsMaterialIdRoute
@@ -105,6 +113,7 @@ export interface FileRoutesById {
   '/_app/notes/': typeof AppNotesIndexRoute
   '/_app/schedule/': typeof AppScheduleIndexRoute
   '/_app/settings/': typeof AppSettingsIndexRoute
+  '/_app/to-do/': typeof AppToDoIndexRoute
   '/_app/courses/$courseId/': typeof AppCoursesCourseIdIndexRoute
   '/_app/courses/$courseId/assignments/$assignmentId': typeof AppCoursesCourseIdAssignmentsAssignmentIdRoute
   '/_app/courses/$courseId/materials/$materialId': typeof AppCoursesCourseIdMaterialsMaterialIdRoute
@@ -119,6 +128,7 @@ export interface FileRouteTypes {
     | '/notes/'
     | '/schedule/'
     | '/settings/'
+    | '/to-do/'
     | '/courses/$courseId/'
     | '/courses/$courseId/assignments/$assignmentId'
     | '/courses/$courseId/materials/$materialId'
@@ -131,6 +141,7 @@ export interface FileRouteTypes {
     | '/notes'
     | '/schedule'
     | '/settings'
+    | '/to-do'
     | '/courses/$courseId'
     | '/courses/$courseId/assignments/$assignmentId'
     | '/courses/$courseId/materials/$materialId'
@@ -143,6 +154,7 @@ export interface FileRouteTypes {
     | '/_app/notes/'
     | '/_app/schedule/'
     | '/_app/settings/'
+    | '/_app/to-do/'
     | '/_app/courses/$courseId/'
     | '/_app/courses/$courseId/assignments/$assignmentId'
     | '/_app/courses/$courseId/materials/$materialId'
@@ -168,6 +180,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/'
       preLoaderRoute: typeof AppRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/_app/to-do/': {
+      id: '/_app/to-do/'
+      path: '/to-do'
+      fullPath: '/to-do/'
+      preLoaderRoute: typeof AppToDoIndexRouteImport
+      parentRoute: typeof AppRoute
     }
     '/_app/settings/': {
       id: '/_app/settings/'
@@ -234,6 +253,7 @@ interface AppRouteChildren {
   AppNotesIndexRoute: typeof AppNotesIndexRoute
   AppScheduleIndexRoute: typeof AppScheduleIndexRoute
   AppSettingsIndexRoute: typeof AppSettingsIndexRoute
+  AppToDoIndexRoute: typeof AppToDoIndexRoute
   AppCoursesCourseIdIndexRoute: typeof AppCoursesCourseIdIndexRoute
   AppCoursesCourseIdAssignmentsAssignmentIdRoute: typeof AppCoursesCourseIdAssignmentsAssignmentIdRoute
   AppCoursesCourseIdMaterialsMaterialIdRoute: typeof AppCoursesCourseIdMaterialsMaterialIdRoute
@@ -245,6 +265,7 @@ const AppRouteChildren: AppRouteChildren = {
   AppNotesIndexRoute: AppNotesIndexRoute,
   AppScheduleIndexRoute: AppScheduleIndexRoute,
   AppSettingsIndexRoute: AppSettingsIndexRoute,
+  AppToDoIndexRoute: AppToDoIndexRoute,
   AppCoursesCourseIdIndexRoute: AppCoursesCourseIdIndexRoute,
   AppCoursesCourseIdAssignmentsAssignmentIdRoute:
     AppCoursesCourseIdAssignmentsAssignmentIdRoute,

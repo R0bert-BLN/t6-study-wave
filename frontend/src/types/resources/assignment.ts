@@ -2,7 +2,9 @@ import type { Course } from "@/types/resources/course.ts";
 import type { User } from "@/types/resources/user.ts";
 import type { Attachment } from "@/types/resources/attachment.ts";
 import type { Comment } from "@/types/resources/comment.ts";
+import type { Submission } from "@/types/resources/submission.ts";
 
+// @ts-ignore
 export enum AssignmentStatus {
   ASSIGNED = "assigned",
   SUBMITTED = "submitted",
@@ -22,6 +24,7 @@ export interface Assignment {
   createdAt: string;
   updatedAt: string;
   attachments: Attachment[];
+  submissions?: Submission[];
   comments?: Comment[];
 }
 

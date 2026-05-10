@@ -28,7 +28,7 @@ import { useAuth } from "@/providers/auth/use-auth.ts";
 type SidebarItem = {
   title: string;
   icon: LucideIcon;
-  to: "/courses" | "/schedule" | "/evaluate" | "/todo" | "/notes" | "/archived" | "/settings";
+  to: "/courses" | "/schedule" | "/to-evaluate" | "/to-do" | "/notes" | "/archived" | "/settings";
 };
 
 const itemButtonClass =
@@ -43,8 +43,8 @@ export function AppSidebar(): JSX.Element {
   const menuItems: SidebarItem[] = [
     { title: "Courses", icon: Book, to: "/courses" },
     { title: "Schedule", icon: Calendar, to: "/schedule" },
-    ...(isProfessor ? [{ title: "To Evaluate", icon: CheckCircle, to: "/evaluate" }] : []),
-    ...(!isProfessor ? [{ title: "To Do", icon: CheckCircle, to: "/todo" }] : []),
+    // ...(isProfessor ? [{ title: "To Evaluate", icon: CheckCircle, to: "/to-evaluate" }] : []),
+    ...(!isProfessor ? [{ title: "To Do", icon: CheckCircle, to: "/to-do" }] : []),
     { title: "Notes", icon: Notebook, to: "/notes" },
   ];
 
