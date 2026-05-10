@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Data\Course\CourseCreateData;
+use App\Data\Course\CourseJoinData;
 use App\Data\Course\CourseUpdateData;
 use App\Services\CourseService;
 use Illuminate\Http\JsonResponse;
@@ -33,6 +34,13 @@ final readonly class CourseController extends BaseController
         $course = $this->courseService->createCourse($data);
 
         return $this->success(data: $course, statusCode: Response::HTTP_CREATED);
+    }
+
+    public function join(CourseJoinData $data): JsonResponse
+    {
+        $course = $this->courseService->joinCourse($data);
+
+        return $this->success($course);
     }
 
     public function update(CourseUpdateData $course, string $id): JsonResponse

@@ -31,6 +31,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::get('/courses/{courseId}/classwork', [ClassworkController::class, 'getClasswork']);
     Route::get('/courses/{courseId}/flux', [FluxController::class, 'getFlux']);
+    Route::post('/courses/join', [CourseController::class, 'join']);
 
     Route::resource('/users', UserController::class)->only(['index', 'show', 'update', 'destroy']);
     Route::resource('/courses', CourseController::class);

@@ -27,7 +27,7 @@ export default function ProfileForm({ user }: ProfileFormProps): JSX.Element {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [picture, setPicture] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
-  const { getInlineImageUrl } = useFileHandler();
+  const { getInlineFileUrl } = useFileHandler();
 
   const form = useForm({
     defaultValues: {
@@ -91,7 +91,7 @@ export default function ProfileForm({ user }: ProfileFormProps): JSX.Element {
               >
                 <UserAvatar
                   label={getUserInitials(user)}
-                  src={previewUrl ?? getInlineImageUrl(user.avatarUrl ?? "")}
+                  src={previewUrl ?? getInlineFileUrl(user.avatarUrl ?? "")}
                   className="h-20 w-20"
                   fallbackClassName="text-3xl"
                 />
@@ -146,7 +146,7 @@ export default function ProfileForm({ user }: ProfileFormProps): JSX.Element {
               rightElement={
                 <button
                   type="button"
-                  onClick={() => alert("Update password flow to be implemented")}
+                  onClick={() => alert("Update password functionality not implemented yet.")}
                   className="cursor-pointer text-sm font-semibold text-blue-600 transition-colors hover:text-blue-400"
                 >
                   Update Password

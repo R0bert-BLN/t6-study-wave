@@ -21,6 +21,6 @@ final readonly class AssignmentRepository extends BaseRepository
 
     protected function allowedIncludes(): array
     {
-        return ['createdBy', 'course', 'comments', 'submissions', 'attachments'];
+        return ['createdBy', 'course', 'comments', 'submissions', 'attachments', 'comments.createdBy', 'submissions.submittedBy', 'submissions.attachments'];
     }
 }

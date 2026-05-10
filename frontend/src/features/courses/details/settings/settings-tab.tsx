@@ -58,8 +58,18 @@ export default function SettingsTab({ course }: SettingsTabProps): JSX.Element {
             form.handleSubmit();
           }}
         >
-          <InputField name="name" label="Class Name" variant="underline" />
-          <TextField name="description" label="Description" variant="underline" />
+          <InputField
+            name="name"
+            label="Class Name"
+            variant="underline"
+            disabled={course.isArchived}
+          />
+          <TextField
+            name="description"
+            label="Description"
+            variant="underline"
+            disabled={course.isArchived}
+          />
 
           <div className="flex flex-col gap-2">
             <p className="text-[14px] font-bold text-zinc-400">Invite Code</p>
@@ -80,7 +90,12 @@ export default function SettingsTab({ course }: SettingsTabProps): JSX.Element {
           </div>
 
           <div className="flex justify-end pt-4">
-            <SubmitButton isLoading={isPending} label="Save Changes" className="main-btn" />
+            <SubmitButton
+              isLoading={isPending}
+              label="Save Changes"
+              className="main-btn"
+              disabled={course.isArchived}
+            />
           </div>
         </form>
       </div>

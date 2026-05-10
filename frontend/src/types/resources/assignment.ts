@@ -3,10 +3,18 @@ import type { User } from "@/types/resources/user.ts";
 import type { Attachment } from "@/types/resources/attachment.ts";
 import type { Comment } from "@/types/resources/comment.ts";
 
+export enum AssignmentStatus {
+  ASSIGNED = "assigned",
+  SUBMITTED = "submitted",
+  GRADED = "graded",
+  MISSING = "missing",
+}
+
 export interface Assignment {
   id: string;
   title: string;
   category: string;
+  status: string;
   description?: string | null;
   dueDate?: string | null;
   course?: Course | null;

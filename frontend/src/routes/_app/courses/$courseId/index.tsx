@@ -3,7 +3,7 @@ import { useGetCourseById } from "@/hooks/resources/course/use-course-query.ts";
 import Header from "@/components/elements/header.tsx";
 import type { JSX } from "react";
 import Tabs, { type TabItem } from "@/components/elements/tabs.tsx";
-import FluxTab from "@/features/courses/details/flux/flux-tab";
+import FluxTab from "@/features/courses/details/flux/flux-tab.tsx";
 import ClassworkTab from "@/features/courses/details/classwork/list/classwork-tab.tsx";
 import ParticipantsTab from "@/features/courses/details/participants/participants-tab.tsx";
 import GradesTab from "@/features/courses/details/grades/grades-tab.tsx";
@@ -11,7 +11,7 @@ import SettingsTab from "@/features/courses/details/settings/settings-tab.tsx";
 import { BackButton } from "@/components/elements/back-button.tsx";
 import { useAuth } from "@/providers/auth/use-auth.ts";
 
-export const Route = createFileRoute("/_app/courses/$courseId")({
+export const Route = createFileRoute("/_app/courses/$courseId/")({
   component: CourseDetailsPage,
 });
 
@@ -28,17 +28,19 @@ function CourseDetailsPage(): JSX.Element | null {
     {
       id: "flux",
       name: "Flux",
-      component: <FluxTab />,
+      component: <FluxTab isArchived={course.isArchived} />,
     },
     {
       id: "classwork",
       name: "Classwork",
-      component: <ClassworkTab />,
+      component: <ClassworkTab isArchived={course.isArchived} />,
     },
     {
       id: "participants",
       name: "Participants",
-      component: <ParticipantsTab participants={course.participants || []} />,
+      component: (
+        <ParticipantsTab isArchived={course.isArchived} participants={course.participants || []} />
+      ),
     },
     ...(isProfessor
       ? [

@@ -16,7 +16,9 @@ import { Route as AppScheduleIndexRouteImport } from './routes/_app/schedule/ind
 import { Route as AppNotesIndexRouteImport } from './routes/_app/notes/index'
 import { Route as AppCoursesIndexRouteImport } from './routes/_app/courses/index'
 import { Route as AppArchivedIndexRouteImport } from './routes/_app/archived/index'
-import { Route as AppCoursesCourseIdRouteImport } from './routes/_app/courses/$courseId'
+import { Route as AppCoursesCourseIdIndexRouteImport } from './routes/_app/courses/$courseId/index'
+import { Route as AppCoursesCourseIdMaterialsMaterialIdRouteImport } from './routes/_app/courses/$courseId/materials/$materialId'
+import { Route as AppCoursesCourseIdAssignmentsAssignmentIdRouteImport } from './routes/_app/courses/$courseId/assignments/$assignmentId'
 
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
@@ -52,74 +54,98 @@ const AppArchivedIndexRoute = AppArchivedIndexRouteImport.update({
   path: '/archived/',
   getParentRoute: () => AppRoute,
 } as any)
-const AppCoursesCourseIdRoute = AppCoursesCourseIdRouteImport.update({
-  id: '/courses/$courseId',
-  path: '/courses/$courseId',
+const AppCoursesCourseIdIndexRoute = AppCoursesCourseIdIndexRouteImport.update({
+  id: '/courses/$courseId/',
+  path: '/courses/$courseId/',
   getParentRoute: () => AppRoute,
 } as any)
+const AppCoursesCourseIdMaterialsMaterialIdRoute =
+  AppCoursesCourseIdMaterialsMaterialIdRouteImport.update({
+    id: '/courses/$courseId/materials/$materialId',
+    path: '/courses/$courseId/materials/$materialId',
+    getParentRoute: () => AppRoute,
+  } as any)
+const AppCoursesCourseIdAssignmentsAssignmentIdRoute =
+  AppCoursesCourseIdAssignmentsAssignmentIdRouteImport.update({
+    id: '/courses/$courseId/assignments/$assignmentId',
+    path: '/courses/$courseId/assignments/$assignmentId',
+    getParentRoute: () => AppRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof AppRouteWithChildren
   '/login': typeof LoginRoute
-  '/courses/$courseId': typeof AppCoursesCourseIdRoute
   '/archived/': typeof AppArchivedIndexRoute
   '/courses/': typeof AppCoursesIndexRoute
   '/notes/': typeof AppNotesIndexRoute
   '/schedule/': typeof AppScheduleIndexRoute
   '/settings/': typeof AppSettingsIndexRoute
+  '/courses/$courseId/': typeof AppCoursesCourseIdIndexRoute
+  '/courses/$courseId/assignments/$assignmentId': typeof AppCoursesCourseIdAssignmentsAssignmentIdRoute
+  '/courses/$courseId/materials/$materialId': typeof AppCoursesCourseIdMaterialsMaterialIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof AppRouteWithChildren
   '/login': typeof LoginRoute
-  '/courses/$courseId': typeof AppCoursesCourseIdRoute
   '/archived': typeof AppArchivedIndexRoute
   '/courses': typeof AppCoursesIndexRoute
   '/notes': typeof AppNotesIndexRoute
   '/schedule': typeof AppScheduleIndexRoute
   '/settings': typeof AppSettingsIndexRoute
+  '/courses/$courseId': typeof AppCoursesCourseIdIndexRoute
+  '/courses/$courseId/assignments/$assignmentId': typeof AppCoursesCourseIdAssignmentsAssignmentIdRoute
+  '/courses/$courseId/materials/$materialId': typeof AppCoursesCourseIdMaterialsMaterialIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_app': typeof AppRouteWithChildren
   '/login': typeof LoginRoute
-  '/_app/courses/$courseId': typeof AppCoursesCourseIdRoute
   '/_app/archived/': typeof AppArchivedIndexRoute
   '/_app/courses/': typeof AppCoursesIndexRoute
   '/_app/notes/': typeof AppNotesIndexRoute
   '/_app/schedule/': typeof AppScheduleIndexRoute
   '/_app/settings/': typeof AppSettingsIndexRoute
+  '/_app/courses/$courseId/': typeof AppCoursesCourseIdIndexRoute
+  '/_app/courses/$courseId/assignments/$assignmentId': typeof AppCoursesCourseIdAssignmentsAssignmentIdRoute
+  '/_app/courses/$courseId/materials/$materialId': typeof AppCoursesCourseIdMaterialsMaterialIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | '/login'
-    | '/courses/$courseId'
     | '/archived/'
     | '/courses/'
     | '/notes/'
     | '/schedule/'
     | '/settings/'
+    | '/courses/$courseId/'
+    | '/courses/$courseId/assignments/$assignmentId'
+    | '/courses/$courseId/materials/$materialId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/login'
-    | '/courses/$courseId'
     | '/archived'
     | '/courses'
     | '/notes'
     | '/schedule'
     | '/settings'
+    | '/courses/$courseId'
+    | '/courses/$courseId/assignments/$assignmentId'
+    | '/courses/$courseId/materials/$materialId'
   id:
     | '__root__'
     | '/_app'
     | '/login'
-    | '/_app/courses/$courseId'
     | '/_app/archived/'
     | '/_app/courses/'
     | '/_app/notes/'
     | '/_app/schedule/'
     | '/_app/settings/'
+    | '/_app/courses/$courseId/'
+    | '/_app/courses/$courseId/assignments/$assignmentId'
+    | '/_app/courses/$courseId/materials/$materialId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -178,32 +204,52 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppArchivedIndexRouteImport
       parentRoute: typeof AppRoute
     }
-    '/_app/courses/$courseId': {
-      id: '/_app/courses/$courseId'
+    '/_app/courses/$courseId/': {
+      id: '/_app/courses/$courseId/'
       path: '/courses/$courseId'
-      fullPath: '/courses/$courseId'
-      preLoaderRoute: typeof AppCoursesCourseIdRouteImport
+      fullPath: '/courses/$courseId/'
+      preLoaderRoute: typeof AppCoursesCourseIdIndexRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/courses/$courseId/materials/$materialId': {
+      id: '/_app/courses/$courseId/materials/$materialId'
+      path: '/courses/$courseId/materials/$materialId'
+      fullPath: '/courses/$courseId/materials/$materialId'
+      preLoaderRoute: typeof AppCoursesCourseIdMaterialsMaterialIdRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/courses/$courseId/assignments/$assignmentId': {
+      id: '/_app/courses/$courseId/assignments/$assignmentId'
+      path: '/courses/$courseId/assignments/$assignmentId'
+      fullPath: '/courses/$courseId/assignments/$assignmentId'
+      preLoaderRoute: typeof AppCoursesCourseIdAssignmentsAssignmentIdRouteImport
       parentRoute: typeof AppRoute
     }
   }
 }
 
 interface AppRouteChildren {
-  AppCoursesCourseIdRoute: typeof AppCoursesCourseIdRoute
   AppArchivedIndexRoute: typeof AppArchivedIndexRoute
   AppCoursesIndexRoute: typeof AppCoursesIndexRoute
   AppNotesIndexRoute: typeof AppNotesIndexRoute
   AppScheduleIndexRoute: typeof AppScheduleIndexRoute
   AppSettingsIndexRoute: typeof AppSettingsIndexRoute
+  AppCoursesCourseIdIndexRoute: typeof AppCoursesCourseIdIndexRoute
+  AppCoursesCourseIdAssignmentsAssignmentIdRoute: typeof AppCoursesCourseIdAssignmentsAssignmentIdRoute
+  AppCoursesCourseIdMaterialsMaterialIdRoute: typeof AppCoursesCourseIdMaterialsMaterialIdRoute
 }
 
 const AppRouteChildren: AppRouteChildren = {
-  AppCoursesCourseIdRoute: AppCoursesCourseIdRoute,
   AppArchivedIndexRoute: AppArchivedIndexRoute,
   AppCoursesIndexRoute: AppCoursesIndexRoute,
   AppNotesIndexRoute: AppNotesIndexRoute,
   AppScheduleIndexRoute: AppScheduleIndexRoute,
   AppSettingsIndexRoute: AppSettingsIndexRoute,
+  AppCoursesCourseIdIndexRoute: AppCoursesCourseIdIndexRoute,
+  AppCoursesCourseIdAssignmentsAssignmentIdRoute:
+    AppCoursesCourseIdAssignmentsAssignmentIdRoute,
+  AppCoursesCourseIdMaterialsMaterialIdRoute:
+    AppCoursesCourseIdMaterialsMaterialIdRoute,
 }
 
 const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)

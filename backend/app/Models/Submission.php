@@ -23,6 +23,11 @@ class Submission extends Model
         'submitted_by',
         'grade',
         'submitted_at',
+        'name',
+        'path',
+        'size',
+        'extension',
+        'owned_by',
     ];
 
     protected function casts(): array

@@ -26,13 +26,11 @@ export default function ReminderGrid({ reminders, setFilter }: ReminderGridProps
     setFilter("today", filters.isToday);
   }, [filters]);
 
-  if (reminders.length === 0) {
-    return <NotFound message={"No reminders found"} />;
-  }
-
   return (
     <div className="flex min-h-0 flex-1 justify-between gap-20">
       <div className="no-scrollbar flex flex-1 flex-col overflow-y-auto">
+        {reminders.length === 0 && <NotFound message="No reminders found" />}
+
         {reminders.map((reminder) => (
           <ReminderCard key={reminder.id} reminder={reminder} />
         ))}

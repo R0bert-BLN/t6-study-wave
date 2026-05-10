@@ -34,7 +34,11 @@ final readonly class SubmissionService
         $payload = $data->toArray();
         unset($payload['attachments']);
 
-        $submission = Submission::query()->create($payload);
+        $submission = Submission::query()->create([
+            ...$payload,
+            'submitted_by' => auth()->id(),
+            'submitted_at' => now(),
+        ]);
 
         $this->storeAttachments($submission, $data->attachments);
 

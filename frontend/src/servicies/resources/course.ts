@@ -26,6 +26,14 @@ export const courseService = {
     return response.data.data as Course;
   },
 
+  join: async (code: string): Promise<Course> => {
+    const response = await apiClient.post<ApiResponse<Course>>(`/${ResourceType.Course}/join`, {
+      code,
+    });
+
+    return response.data.data as Course;
+  },
+
   update: async (id: string, data: Partial<Course>): Promise<Course> => {
     const response = await apiClient.patch<ApiResponse<Course>>(
       `/${ResourceType.Course}/${id}`,

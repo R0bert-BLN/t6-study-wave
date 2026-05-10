@@ -9,9 +9,9 @@ export const useFileHandler = () => {
     window.location.href = `${API_URL}/files/${path}?download=1&name=${encodeURIComponent(fileName)}`;
   };
 
-  const getInlineImageUrl = (path: string) => {
+  const getInlineFileUrl = (path: string) => {
     return `${API_URL}/files/${path}`;
   };
 
-  return { previewFile, downloadFile, getInlineImageUrl };
+  return { previewFile, downloadFile, getInlineFileUrl };
 };

@@ -1,13 +1,13 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import type { Comment } from "@/types/resources/comment.ts";
-import { commentService, type CommentCreatePayload } from "@/servicies/resources/comment.ts";
+import type { Comment, CommentPayload } from "@/types/resources/comment.ts";
+import { commentService } from "@/servicies/resources/comment.ts";
 import { ResourceType } from "@/types/resources/resource-type.ts";
 
 export const useCreateComment = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (data: CommentCreatePayload): Promise<Comment> => commentService.create(data),
+    mutationFn: (data: CommentPayload): Promise<Comment> => commentService.create(data),
     onSuccess: (): void => {
       queryClient.invalidateQueries({ queryKey: [ResourceType.Comment] });
     },

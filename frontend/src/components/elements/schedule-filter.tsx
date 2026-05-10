@@ -53,14 +53,14 @@ export function ScheduleFilter({ filters, onChange, className }: ScheduleFilterP
               value={filters.startDate}
               onChange={(e) => handleDateChange("startDate", e.target.value)}
               className={cn(
-                "flex h-10 w-full cursor-pointer rounded-xl border border-zinc-200 bg-zinc-50/30 pl-4 pr-10 text-sm text-zinc-900 transition-colors focus-visible:border-blue-600 focus-visible:ring-0 focus-visible:outline-none",
-                "[&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:left-0 [&::-webkit-calendar-picker-indicator]:top-0 [&::-webkit-calendar-picker-indicator]:h-full [&::-webkit-calendar-picker-indicator]:w-full [&::-webkit-calendar-picker-indicator]:cursor-pointer [&::-webkit-calendar-picker-indicator]:opacity-0"
+                "flex h-10 w-full cursor-pointer rounded-xl border border-zinc-200 bg-zinc-50/30 pr-10 pl-4 text-sm text-zinc-900 transition-colors focus-visible:border-blue-600 focus-visible:ring-0 focus-visible:outline-none",
+                "[&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:top-0 [&::-webkit-calendar-picker-indicator]:left-0 [&::-webkit-calendar-picker-indicator]:h-full [&::-webkit-calendar-picker-indicator]:w-full [&::-webkit-calendar-picker-indicator]:cursor-pointer [&::-webkit-calendar-picker-indicator]:opacity-0",
               )}
             />
 
             <Calendar
               size={18}
-              className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-zinc-900"
+              className="pointer-events-none absolute top-1/2 right-3 -translate-y-1/2 text-zinc-900"
             />
           </div>
         </div>
@@ -75,14 +75,14 @@ export function ScheduleFilter({ filters, onChange, className }: ScheduleFilterP
               min={filters.startDate}
               onChange={(e) => handleDateChange("endDate", e.target.value)}
               className={cn(
-                "flex h-10 w-full cursor-pointer rounded-xl border border-zinc-200 bg-zinc-50/30 pl-4 pr-10 text-sm text-zinc-900 transition-colors focus-visible:border-blue-600 focus-visible:ring-0 focus-visible:outline-none",
-                "[&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:left-0 [&::-webkit-calendar-picker-indicator]:top-0 [&::-webkit-calendar-picker-indicator]:h-full [&::-webkit-calendar-picker-indicator]:w-full [&::-webkit-calendar-picker-indicator]:cursor-pointer [&::-webkit-calendar-picker-indicator]:opacity-0"
+                "flex h-10 w-full cursor-pointer rounded-xl border border-zinc-200 bg-zinc-50/30 pr-10 pl-4 text-sm text-zinc-900 transition-colors focus-visible:border-blue-600 focus-visible:ring-0 focus-visible:outline-none",
+                "[&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:top-0 [&::-webkit-calendar-picker-indicator]:left-0 [&::-webkit-calendar-picker-indicator]:h-full [&::-webkit-calendar-picker-indicator]:w-full [&::-webkit-calendar-picker-indicator]:cursor-pointer [&::-webkit-calendar-picker-indicator]:opacity-0",
               )}
             />
 
             <Calendar
               size={18}
-              className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-zinc-900"
+              className="pointer-events-none absolute top-1/2 right-3 -translate-y-1/2 text-zinc-900"
             />
           </div>
         </div>

@@ -16,7 +16,7 @@ export function UserAvatar({
   fallbackClassName,
 }: UserAvatarProps): JSX.Element {
   return (
-    <Avatar className={cn("h-10 w-10 border border-zinc-200 shadow-sm", className)}>
+    <Avatar className={cn("h-10 w-10 border border-zinc-200", className)}>
       {src && <AvatarImage src={src} alt={label} className="object-cover" />}
 
       <AvatarFallback

@@ -1,17 +1,13 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import type { Submission } from "@/types/resources/submission.ts";
-import {
-  submissionService,
-  type SubmissionCreatePayload,
-} from "@/servicies/resources/submission.ts";
+import type { Submission, SubmissionPayload } from "@/types/resources/submission.ts";
+import { submissionService } from "@/servicies/resources/submission.ts";
 import { ResourceType } from "@/types/resources/resource-type.ts";
 
 export const useCreateSubmission = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (data: SubmissionCreatePayload): Promise<Submission> =>
-      submissionService.create(data),
+    mutationFn: (data: SubmissionPayload): Promise<Submission> => submissionService.create(data),
     onSuccess: (): void => {
       queryClient.invalidateQueries({ queryKey: [ResourceType.Submission] });
     },

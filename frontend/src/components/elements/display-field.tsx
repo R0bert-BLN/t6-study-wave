@@ -20,7 +20,10 @@ const displayVariants = cva(
   },
 );
 
-type DisplayFieldProps = Omit<ComponentProps<typeof Input>, "name" | "onChange" | "onBlur" | "value"> & {
+type DisplayFieldProps = Omit<
+  ComponentProps<typeof Input>,
+  "name" | "onChange" | "onBlur" | "value"
+> & {
   label: string;
   value: string | number;
   variant?: "default" | "underline";

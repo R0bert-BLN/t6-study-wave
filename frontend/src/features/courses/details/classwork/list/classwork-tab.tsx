@@ -2,7 +2,7 @@ import type { JSX } from "react";
 import Header from "@/components/elements/header.tsx";
 import { useModal } from "@/providers/modal/use-modal.ts";
 import { ClassworkForm } from "@/features/courses/details/classwork/create/form.tsx";
-import { Route } from "@/routes/_app/courses/$courseId.tsx";
+import { Route } from "@/routes/_app/courses/$courseId";
 import { useGetClasswork } from "@/hooks/resources/classwork/use-classwork-query.ts";
 import Accordion from "@/components/elements/accordion.tsx";
 import { ClassworkItem } from "@/components/elements/classwork-item.tsx";
@@ -10,7 +10,11 @@ import { ClassworkType } from "@/types/resources/classwork.ts";
 import { ResourceType } from "@/types/resources/resource-type.ts";
 import { useAuth } from "@/providers/auth/use-auth.ts";
 
-export default function ClassworkTab(): JSX.Element | null {
+interface ClassworkTabProps {
+  isArchived: boolean;
+}
+
+export default function ClassworkTab({ isArchived }: ClassworkTabProps): JSX.Element | null {
   const { openModal } = useModal();
   const { isProfessor } = useAuth();
   const { courseId } = Route.useParams();
@@ -22,7 +26,7 @@ export default function ClassworkTab(): JSX.Element | null {
 
   return (
     <div className="animate-in fade-in mx-auto flex h-[calc(100vh-250px)] max-w-3xl flex-col py-8 duration-500">
-      {isProfessor && (
+      {isProfessor && !isArchived && (
         <Header
           className="mb-6 border-b border-zinc-200/70 pb-2"
           titleClassName="text-[20px]"

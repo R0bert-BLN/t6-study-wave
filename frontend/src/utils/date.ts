@@ -37,3 +37,21 @@ export const formatScheduleTime = (isoString: string): { time: string; ampm: str
 
   return { time: `${formattedHours}:${minutes}`, ampm };
 };
+
+export const formatReadableDate = (isoString?: string | null): string => {
+  if (!isoString) {
+    return "";
+  }
+
+  const date = new Date(isoString);
+
+  if (isNaN(date.getTime())) {
+    return "";
+  }
+
+  return new Intl.DateTimeFormat("en-US", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  }).format(date);
+};

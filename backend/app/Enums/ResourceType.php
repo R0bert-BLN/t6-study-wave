@@ -22,7 +22,7 @@ enum ResourceType: string
     case Assignment = 'assignments';
     case Announcement = 'announcements';
     case Submission = 'submissions';
-    case Material = 'classwork';
+    case Material = 'materials';
     case Comment = 'comments';
     case Attachment = 'attachments';
     case Note = 'notes';

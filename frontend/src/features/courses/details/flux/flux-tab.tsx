@@ -5,7 +5,7 @@ import { CommentInput } from "@/components/elements/comment-input.tsx";
 import { getUserFullName, getUserInitials } from "@/utils/user.ts";
 import { useQueryClient } from "@tanstack/react-query";
 import { echo } from "@/lib/echo.ts";
-import { Route } from "@/routes/_app/courses/$courseId.tsx";
+import { Route } from "@/routes/_app/courses/$courseId";
 import { ResourceType } from "@/types/resources/resource-type.ts";
 import type { FluxItem } from "@/types/resources/flux.ts";
 import { FluxType } from "@/types/resources/flux.ts";
@@ -14,8 +14,13 @@ import CommentItem from "@/components/elements/comment-item.tsx";
 import { ClassworkItem } from "@/components/elements/classwork-item.tsx";
 import { useCreateAnnouncement } from "@/hooks/resources/announcement/use-announcement-mutation.ts";
 import { toast } from "sonner";
+import { cn } from "@/lib/utils.ts";
 
-export default function FluxTab(): JSX.Element {
+interface FluxTabProps {
+  isArchived: boolean;
+}
+
+export default function FluxTab({ isArchived }: FluxTabProps): JSX.Element {
   const { user } = useAuth();
   const queryClient = useQueryClient();
   const { courseId } = Route.useParams();
@@ -35,7 +40,7 @@ export default function FluxTab(): JSX.Element {
             authorInitials={getUserInitials(item.createdBy)}
             content={item.body}
             createdAt={item.createdAt}
-            href={`/${ResourceType.Course}/${courseId}/${ResourceType.Announcement}/${item.id}`}
+            className="cursor-default"
           />
         );
 
@@ -75,9 +80,6 @@ export default function FluxTab(): JSX.Element {
     };
 
     createAnnouncement(payload, {
-      onSuccess: () => {
-        toast.success("Announcement posted successfully");
-      },
       onError: () => {
         toast.error("Failed to post announcement");
       },
@@ -99,16 +101,23 @@ export default function FluxTab(): JSX.Element {
 
   return (
     <div className="animate-in fade-in flex h-full min-h-0 w-full flex-col pt-8 duration-500">
-      <CommentInput
-        variant="default"
-        onSubmit={(value) => onSubmitAnnouncement(value)}
-        placeholder="Post an announcement..."
-        userLabel={getUserInitials(user)}
-        userSrc={user?.avatarUrl}
-        className="mx-auto max-w-190"
-      />
+      {!isArchived && (
+        <CommentInput
+          variant="default"
+          onSubmit={(value) => onSubmitAnnouncement(value)}
+          placeholder="Post an announcement..."
+          userLabel={getUserInitials(user)}
+          userSrc={user?.avatarUrl}
+          className="mx-auto max-w-190"
+        />
+      )}
 
-      <div className="no-scrollbar mx-auto mt-10 w-full max-w-160 flex-1 space-y-8 overflow-y-auto">
+      <div
+        className={cn(
+          "no-scrollbar mx-auto mt-10 w-full max-w-160 flex-1 space-y-8 overflow-y-auto",
+          { "mt-2": isArchived },
+        )}
+      >
         {flux?.map((item) => renderItem(item))}
       </div>
     </div>
