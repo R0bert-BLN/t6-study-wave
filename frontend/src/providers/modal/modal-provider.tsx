@@ -25,12 +25,16 @@ export const ModalProvider = ({ children }: { children: ReactNode }): JSX.Elemen
       {children}
 
       <Dialog open={isOpen} onOpenChange={(open) => !open && closeModal()}>
-        <DialogContent className={cn("rounded-3xl border-none p-0 shadow-2xl", className)}>
+        <DialogContent
+          className={cn("overflow-hidden rounded-3xl border-none p-6 shadow-2xl", className)}
+        >
           <VisuallyHidden>
             <DialogTitle>Modal Dialog</DialogTitle>
           </VisuallyHidden>
 
-          <div className="overflow-y-auto p-8">{content}</div>
+          <div className="no-scrollbar max-h-[90vh] w-full overflow-x-hidden overflow-y-auto">
+            {content}
+          </div>
         </DialogContent>
       </Dialog>
     </ModalContext.Provider>

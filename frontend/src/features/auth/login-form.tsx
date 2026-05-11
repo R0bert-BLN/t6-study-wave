@@ -50,6 +50,13 @@ export function LoginForm(): JSX.Element {
           <InputField name="password" label="Password" variant="underline" type="password" />
 
           <SubmitButton isLoading={isPending} label="Login" className="main-btn" />
+
+          <span className="text-center text-sm text-zinc-500">
+            Don't have an account?{" "}
+            <a href="/register" className="font-medium text-blue-600 hover:underline">
+              Sign up
+            </a>
+          </span>
         </form>
       </div>
     </FormProvider>

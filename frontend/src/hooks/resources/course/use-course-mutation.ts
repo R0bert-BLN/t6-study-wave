@@ -25,6 +25,17 @@ export const useJoinCourse = () => {
   });
 };
 
+export const useLeaveCourse = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (id: string): Promise<void> => courseService.leave(id),
+    onSuccess: (): void => {
+      queryClient.invalidateQueries({ queryKey: [ResourceType.Course] });
+    },
+  });
+};
+
 export const useUpdateCourse = (id: string) => {
   const queryClient = useQueryClient();
 

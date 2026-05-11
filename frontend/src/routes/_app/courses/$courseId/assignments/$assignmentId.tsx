@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { JSX } from "react";
+import type { JSX } from "react";
 import { useGetAssignmentById } from "@/hooks/resources/assignment/use-assignment-query.ts";
 import { BackButton } from "@/components/elements/back-button.tsx";
 import Header from "@/components/elements/header.tsx";

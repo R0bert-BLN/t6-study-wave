@@ -5,17 +5,28 @@ import type { Submission } from "@/types/resources/submission.ts";
 import { UserAvatar } from "@/components/elements/user-avatar.tsx";
 import { getUserFullName, getUserInitials } from "@/utils/user.ts";
 import { useFileHandler } from "@/hooks/general/use-file-handler.ts";
+import { useModal } from "@/providers/modal/use-modal.ts";
+import { SubmissionModal } from "@/features/courses/details/grades/submission-modal.tsx";
 
 interface SubmissionsGridProps {
   assignment: Assignment;
   submissions: Submission[];
 }
 
-export default function SubmissionsGrid({ submissions }: SubmissionsGridProps): JSX.Element {
+export default function SubmissionsGrid({
+  submissions,
+  assignment,
+}: SubmissionsGridProps): JSX.Element {
+  const { openModal } = useModal();
   const { getInlineFileUrl } = useFileHandler();
 
-  const handleRowClick = () => {
-    alert("Grading functionality not implemented yet");
+  const handleRowClick = (submission: Submission) => {
+    if (!assignment.course?.isArchived) {
+      openModal(
+        <SubmissionModal submission={submission} assignment={assignment} />,
+        "!max-w-[800px]",
+      );
+    }
   };
 
   return (
@@ -36,7 +47,7 @@ export default function SubmissionsGrid({ submissions }: SubmissionsGridProps): 
         {submissions.map((submission) => (
           <div
             key={submission.id}
-            onClick={() => handleRowClick()}
+            onClick={() => handleRowClick(submission)}
             className="group grid cursor-pointer grid-cols-[2fr_1fr_1fr] items-center gap-4 rounded-xl px-4 py-3 transition-colors hover:opacity-70"
           >
             <div className="flex items-center gap-4">
@@ -64,13 +75,10 @@ export default function SubmissionsGrid({ submissions }: SubmissionsGridProps): 
             </div>
 
             <div className="flex items-center gap-2">
-              <input
-                type="number"
-                defaultValue={submission.grade ?? ""}
-                placeholder="--"
-                onClick={(e) => e.stopPropagation()}
-                className="h-8 w-16 rounded-md border border-zinc-100 pl-3.5 text-center text-sm font-bold text-zinc-900 shadow-sm transition-colors group-hover:border-zinc-200 focus-visible:border-blue-600 focus-visible:ring-0 focus-visible:outline-none"
-              />
+              <span className="text-sm font-bold text-zinc-900">
+                {submission.grade !== null ? submission.grade : "--"}
+              </span>
+
               <span className="text-sm font-medium text-zinc-400">/ 100</span>
             </div>
           </div>

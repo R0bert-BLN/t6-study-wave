@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as RegisterRouteImport } from './routes/register'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as AppRouteImport } from './routes/_app'
 import { Route as AppToDoIndexRouteImport } from './routes/_app/to-do/index'
@@ -21,6 +22,11 @@ import { Route as AppCoursesCourseIdIndexRouteImport } from './routes/_app/cours
 import { Route as AppCoursesCourseIdMaterialsMaterialIdRouteImport } from './routes/_app/courses/$courseId/materials/$materialId'
 import { Route as AppCoursesCourseIdAssignmentsAssignmentIdRouteImport } from './routes/_app/courses/$courseId/assignments/$assignmentId'
 
+const RegisterRoute = RegisterRouteImport.update({
+  id: '/register',
+  path: '/register',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
   path: '/login',
@@ -81,6 +87,7 @@ const AppCoursesCourseIdAssignmentsAssignmentIdRoute =
 export interface FileRoutesByFullPath {
   '/': typeof AppRouteWithChildren
   '/login': typeof LoginRoute
+  '/register': typeof RegisterRoute
   '/archived/': typeof AppArchivedIndexRoute
   '/courses/': typeof AppCoursesIndexRoute
   '/notes/': typeof AppNotesIndexRoute
@@ -94,6 +101,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof AppRouteWithChildren
   '/login': typeof LoginRoute
+  '/register': typeof RegisterRoute
   '/archived': typeof AppArchivedIndexRoute
   '/courses': typeof AppCoursesIndexRoute
   '/notes': typeof AppNotesIndexRoute
@@ -108,6 +116,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_app': typeof AppRouteWithChildren
   '/login': typeof LoginRoute
+  '/register': typeof RegisterRoute
   '/_app/archived/': typeof AppArchivedIndexRoute
   '/_app/courses/': typeof AppCoursesIndexRoute
   '/_app/notes/': typeof AppNotesIndexRoute
@@ -123,6 +132,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/login'
+    | '/register'
     | '/archived/'
     | '/courses/'
     | '/notes/'
@@ -136,6 +146,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/login'
+    | '/register'
     | '/archived'
     | '/courses'
     | '/notes'
@@ -149,6 +160,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/_app'
     | '/login'
+    | '/register'
     | '/_app/archived/'
     | '/_app/courses/'
     | '/_app/notes/'
@@ -163,10 +175,18 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   AppRoute: typeof AppRouteWithChildren
   LoginRoute: typeof LoginRoute
+  RegisterRoute: typeof RegisterRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/register': {
+      id: '/register'
+      path: '/register'
+      fullPath: '/register'
+      preLoaderRoute: typeof RegisterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/login': {
       id: '/login'
       path: '/login'
@@ -278,6 +298,7 @@ const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
 const rootRouteChildren: RootRouteChildren = {
   AppRoute: AppRouteWithChildren,
   LoginRoute: LoginRoute,
+  RegisterRoute: RegisterRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

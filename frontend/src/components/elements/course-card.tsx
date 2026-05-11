@@ -3,7 +3,7 @@ import type { JSX } from "react";
 import { getUserFullName } from "@/utils/user.ts";
 import { Link } from "@tanstack/react-router";
 import { useAuth } from "@/providers/auth/use-auth.ts";
-import { useUpdateCourse } from "@/hooks/resources/course/use-course-mutation.ts";
+import { useLeaveCourse, useUpdateCourse } from "@/hooks/resources/course/use-course-mutation.ts";
 import { toast } from "sonner";
 import ActionMenu from "@/components/elements/action-menu.tsx";
 
@@ -14,6 +14,7 @@ interface CourseCardProps {
 export default function CourseCard({ course }: CourseCardProps): JSX.Element {
   const { isProfessor, user } = useAuth();
   const { mutate: updateCourse } = useUpdateCourse(course.id);
+  const { mutate: leaveCourse } = useLeaveCourse();
 
   const archiveCourse = () => {
     updateCourse(
@@ -68,11 +69,18 @@ export default function CourseCard({ course }: CourseCardProps): JSX.Element {
                   },
                 ]
               : []),
-
             {
               label: "Leave",
               destructive: true,
-              onClick: () => alert("Leave course functionality not implemented yet"),
+              onClick: () =>
+                leaveCourse(course.id, {
+                  onSuccess: () => {
+                    toast.success("Left course successfully");
+                  },
+                  onError: () => {
+                    toast.error("Failed to leave course");
+                  },
+                }),
             },
           ]}
         />

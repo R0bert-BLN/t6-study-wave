@@ -63,6 +63,12 @@ final readonly class CourseService
         return CourseData::from($course);
     }
 
+    public function leaveCourse(string $id): void
+    {
+        $course = Course::query()->findOrFail($id);
+        $course->participants()->detach(auth()->id());
+    }
+
     public function updateCourse(string $id, CourseUpdateData $data): CourseData
     {
         $course = Course::query()->findOrFail($id);

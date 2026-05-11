@@ -24,7 +24,7 @@ class SubmissionFactory extends Factory
         return [
             'assignment_id' => Assignment::factory(),
             'submitted_by' => User::factory(),
-            'grade' => $this->faker->randomFloat(2, 1, 10),
+            'grade' => $this->faker->numberBetween(1, 100),
             'submitted_at' => $this->faker->dateTime(),
         ];
     }
