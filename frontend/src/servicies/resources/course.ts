@@ -34,6 +34,10 @@ export const courseService = {
     return response.data.data as Course;
   },
 
+  leave: async (id: string): Promise<void> => {
+    await apiClient.post(`/${ResourceType.Course}/${id}/leave`);
+  },
+
   update: async (id: string, data: Partial<Course>): Promise<Course> => {
     const response = await apiClient.patch<ApiResponse<Course>>(
       `/${ResourceType.Course}/${id}`,

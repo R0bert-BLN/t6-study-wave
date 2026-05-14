@@ -2,6 +2,9 @@ import SearchBar from "@/components/elements/search-bar.tsx";
 import { Button } from "@/components/ui/button.tsx";
 import type { JSX } from "react";
 import { cn } from "@/lib/utils.ts";
+import JoinForm from "@/features/courses/create/join-form.tsx";
+import { useAuth } from "@/providers/auth/use-auth.ts";
+import { useModal } from "@/providers/modal/use-modal.ts";
 
 interface HeaderProps {
   title: string;
@@ -22,6 +25,9 @@ export default function Header({
   className,
   titleClassName,
 }: HeaderProps): JSX.Element {
+  const { isProfessor } = useAuth();
+  const { openModal } = useModal();
+
   return (
     <div className={cn("flex w-full items-center justify-between", className)}>
       <div className="w-full">
@@ -34,9 +40,17 @@ export default function Header({
       <div className="flex w-full items-center justify-end gap-4">
         {onSearch && <SearchBar className="w-60" onSearch={onSearch} />}
         {buttonText && onButtonClick && (
-          <Button className="main-btn px-5" onClick={onButtonClick}>
-            {buttonText}
-          </Button>
+          <div className={"flex items-center gap-2"}>
+            <Button className="main-btn px-5" onClick={onButtonClick}>
+              {buttonText}
+            </Button>
+
+            {isProfessor && (
+              <Button className="main-btn" onClick={() => openModal(<JoinForm />, "!max-w-xl")}>
+                Join Course
+              </Button>
+            )}
+          </div>
         )}
       </div>
     </div>

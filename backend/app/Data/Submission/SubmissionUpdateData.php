@@ -13,6 +13,6 @@ use Spatie\LaravelData\Optional;
 class SubmissionUpdateData extends Data
 {
     public function __construct(
-        public readonly Optional|float $grade = new Optional,
+        public readonly Optional|int $grade = new Optional,
     ) {}
 }

@@ -18,7 +18,7 @@ class SubmissionData extends Data
 {
     public function __construct(
         public readonly string $id,
-        public readonly ?float $grade,
+        public readonly ?int $grade,
         public readonly ?Carbon $submittedAt,
         public readonly Carbon $createdAt,
         public readonly Carbon $updatedAt,

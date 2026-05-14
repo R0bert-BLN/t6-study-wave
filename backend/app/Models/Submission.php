@@ -33,7 +33,7 @@ class Submission extends Model
     protected function casts(): array
     {
         return [
-            'grade' => 'decimal:2',
+            'grade' => 'integer',
             'submitted_at' => 'datetime',
         ];
     }

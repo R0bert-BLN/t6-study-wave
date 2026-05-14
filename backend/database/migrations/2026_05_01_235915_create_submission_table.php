@@ -17,7 +17,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->foreignUuid('assignment_id')->constrained('assignments')->cascadeOnDelete();
             $table->foreignUuid('submitted_by')->constrained('users')->nullOnDelete();
-            $table->decimal('grade', 5, 2)->nullable();
+            $table->smallInteger('grade')->nullable();
             $table->timestamp('submitted_at')->nullable();
             $table->timestamps();
         });

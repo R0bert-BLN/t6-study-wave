@@ -1,4 +1,4 @@
-import { JSX } from "react";
+import type { JSX } from "react";
 import { MessageSquareText } from "lucide-react";
 import { getUserFullName, getUserInitials } from "@/utils/user.ts";
 import { CommentInput } from "@/components/elements/comment-input.tsx";
@@ -50,7 +50,7 @@ export default function AssignmentDetails({ assignment }: AssignmentDetailsProps
         <div className="mb-8 flex items-center gap-4">
           <UserAvatar
             label={getUserInitials(assignment.createdBy)}
-            src={getInlineFileUrl(assignment.createdBy?.avatarUrl)}
+            src={getInlineFileUrl(assignment.createdBy?.avatarUrl || "")}
             className="h-13 w-13"
             fallbackClassName="text-lg"
           />
@@ -110,7 +110,7 @@ export default function AssignmentDetails({ assignment }: AssignmentDetailsProps
               onSubmit={(value) => handleCommentSubmit(value)}
               placeholder="Add a comment..."
               userLabel={getUserInitials(user)}
-              userSrc={getInlineFileUrl(user?.avatarUrl)}
+              userSrc={getInlineFileUrl(user?.avatarUrl || "")}
             />
           </div>
         </div>
@@ -122,7 +122,7 @@ export default function AssignmentDetails({ assignment }: AssignmentDetailsProps
                 variant="announcement"
                 key={comment.id}
                 authorName={getUserFullName(comment.createdBy)}
-                authorAvatar={getInlineFileUrl(comment.createdBy?.avatarUrl)}
+                authorAvatar={getInlineFileUrl(comment.createdBy?.avatarUrl || "")}
                 authorInitials={getUserInitials(comment.createdBy)}
                 content={comment.body}
                 createdAt={comment.createdAt}

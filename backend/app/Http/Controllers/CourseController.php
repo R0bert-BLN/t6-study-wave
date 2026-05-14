@@ -43,6 +43,13 @@ final readonly class CourseController extends BaseController
         return $this->success($course);
     }
 
+    public function leave(string $courseId): JsonResponse
+    {
+        $this->courseService->leaveCourse($courseId);
+
+        return $this->success();
+    }
+
     public function update(CourseUpdateData $course, string $id): JsonResponse
     {
         $course = $this->courseService->updateCourse($id, $course);

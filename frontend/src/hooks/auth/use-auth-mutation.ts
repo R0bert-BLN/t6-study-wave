@@ -1,7 +1,7 @@
 import { useNavigate } from "@tanstack/react-router";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
-import type { LoginCredentials } from "@/types/auth/auth.ts";
+import type { LoginCredentials, RegisterCredentials } from "@/types/auth/auth.ts";
 import type { User } from "@/types/resources/user.ts";
 import type { AxiosError } from "axios";
 import type { ApiError } from "@/types/general/api.ts";
@@ -14,6 +14,24 @@ export const useLogin = () => {
 
   return useMutation({
     mutationFn: (data: LoginCredentials): Promise<User> => authService.login(data),
+
+    onSuccess: (data: User): void => {
+      loginUser(data);
+      navigate({ to: "/courses" });
+    },
+
+    onError: (error: AxiosError<ApiError>): void => {
+      toast.error(error.response?.data?.error.message || "Something went wrong");
+    },
+  });
+};
+
+export const useRegister = () => {
+  const navigate = useNavigate();
+  const { loginUser } = useAuth();
+
+  return useMutation({
+    mutationFn: (data: RegisterCredentials): Promise<User> => authService.register(data),
 
     onSuccess: (data: User): void => {
       loginUser(data);

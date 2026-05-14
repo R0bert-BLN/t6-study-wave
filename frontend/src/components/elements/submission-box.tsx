@@ -1,5 +1,5 @@
 import { type Assignment, AssignmentStatus } from "@/types/resources/assignment.ts";
-import { JSX, useState } from "react";
+import { type JSX, useState } from "react";
 import FileUpload from "@/components/elements/file-upload.tsx";
 import { Button } from "@/components/ui/button.tsx";
 import { capitalizeWords } from "@/utils/string.ts";
@@ -52,7 +52,9 @@ export default function SubmissionBox({ assignment, submission }: SubmissionBoxP
             "text-red-500": assignment.status === AssignmentStatus.MISSING,
           })}
         >
-          {capitalizeWords(assignment.status)}
+          {submission?.grade
+            ? `Graded: ${submission.grade} / 100`
+            : capitalizeWords(assignment.status)}
         </span>
       </div>
 

@@ -8,7 +8,7 @@ export default function GradesTab(): JSX.Element {
   const { courseId } = Route.useParams();
   const { data: assignments } = useGetAllAssignments({
     filters: { course_id: courseId },
-    include: "submissions,submissions.submittedBy",
+    include: "submissions,submissions.submittedBy,course",
   });
 
   const [activeAssignmentId, setActiveAssignmentId] = useState<string | undefined>(
@@ -38,7 +38,7 @@ export default function GradesTab(): JSX.Element {
         {currentSubmissions.length > 0 ? (
           <SubmissionsGrid assignment={activeAssignment} submissions={currentSubmissions} />
         ) : (
-          <div className="flex flex-col items-center justify-center py-20 text-zinc-500">
+          <div className="flex flex-col items-center justify-center pt-4 text-zinc-500">
             <p className="text-sm">No submissions available for this assignment.</p>
           </div>
         )}
