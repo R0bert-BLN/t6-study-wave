@@ -147,48 +147,50 @@ export function ClassworkForm({ courseId, classwork = undefined }: ResourceFormP
 
   return (
     <FormProvider value={form}>
-      <div className="flex h-full flex-col gap-6">
+      <div className="flex h-full max-h-[85vh] flex-col gap-6 overflow-hidden">
         <p className="text-xl font-bold text-zinc-900">
           {classwork ? "Edit Classwork" : "Add Classwork"}
         </p>
 
         <form
-          className="flex flex-col gap-1"
+          className="flex flex-1 flex-col overflow-hidden"
           onSubmit={(e) => {
             e.preventDefault();
             e.stopPropagation();
             form.handleSubmit();
           }}
         >
-          <SelectField
-            name="type"
-            label="Resource Type"
-            options={[
-              { label: "Assignment", value: "assignment" },
-              { label: "Material", value: "material" },
-            ]}
-          />
+          <div className="flex flex-1 flex-col gap-1 overflow-y-auto pr-2 no-scrollbar">
+            <SelectField
+              name="type"
+              label="Resource Type"
+              options={[
+                { label: "Assignment", value: "assignment" },
+                { label: "Material", value: "material" },
+              ]}
+            />
 
-          <InputField name="title" label="Title" />
-          <InputField name="category" label="Category" />
+            <InputField name="title" label="Title" />
+            <InputField name="category" label="Category" />
 
-          <form.Subscribe
-            selector={(state) => state.values.type}
-            children={(type) =>
-              type === ClassworkType.Assignment ? (
-                <DateTimeField name="dueDate" label="Due Date" />
-              ) : null
-            }
-          />
+            <form.Subscribe
+              selector={(state) => state.values.type}
+              children={(type) =>
+                type === ClassworkType.Assignment ? (
+                  <DateTimeField name="dueDate" label="Due Date" />
+                ) : null
+              }
+            />
 
-          <TextField name="description" label="Description" />
+            <TextField name="description" label="Description" />
 
-          <FileUpload
-            selectedFiles={selectedFiles}
-            onFilesSelected={setSelectedFiles}
-            existingAttachments={currentExistingAttachments}
-            onRemoveExisting={(id) => setDeletedIds((prev) => [...prev, id])}
-          />
+            <FileUpload
+              selectedFiles={selectedFiles}
+              onFilesSelected={setSelectedFiles}
+              existingAttachments={currentExistingAttachments}
+              onRemoveExisting={(id) => setDeletedIds((prev) => [...prev, id])}
+            />
+          </div>
 
           <div className="mt-2 flex justify-end gap-3 pt-6">
             <Button
