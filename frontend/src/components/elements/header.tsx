@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils.ts";
 import JoinForm from "@/features/courses/create/join-form.tsx";
 import { useAuth } from "@/providers/auth/use-auth.ts";
 import { useModal } from "@/providers/modal/use-modal.ts";
+import { useLocation } from "@tanstack/react-router";
 
 interface HeaderProps {
   title: string;
@@ -27,6 +28,8 @@ export default function Header({
 }: HeaderProps): JSX.Element {
   const { isProfessor } = useAuth();
   const { openModal } = useModal();
+  const location = useLocation();
+  const isCoursesTab = location.pathname === "/courses";
 
   return (
     <div className={cn("flex w-full items-center justify-between", className)}>
@@ -45,7 +48,7 @@ export default function Header({
               {buttonText}
             </Button>
 
-            {isProfessor && (
+            {isProfessor && isCoursesTab && (
               <Button className="main-btn" onClick={() => openModal(<JoinForm />, "!max-w-xl")}>
                 Join Course
               </Button>
